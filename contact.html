@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact | FluryKit</title>
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- THEME VARIABLES --- */
+    :root {
+      --bg-dark: #302918;
+      --bg-warm: #4E3420;
+      --accent-cream: #CCB693;
+      --accent-olive: #787350;
+      --text-brown: #352E1F;
+      --text-soft: #5E3D20;
+      --card-bg: rgba(248, 244, 238, 0.96);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark), var(--bg-warm)); 
+      color: var(--accent-cream);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 16px;
+      background: rgba(48, 41, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(204,182,147,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cream);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav a.active { opacity: 1; }
+
+    /* --- BANNER --- */
+    .banner {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(48,41,24,0.5), rgba(48,41,24,0.5)),
+                  url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 35px;
+    }
+
+    .banner h1 {
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      font-size: 2.6rem;
+      color: #fff;
+    }
+
+    .banner p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #f0f0f0;
+    }
+
+    /* --- MAIN CONTAINER --- */
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid rgba(94,61,32,0.06);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      padding: 35px;
+      color: var(--text-soft);
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      color: var(--text-brown);
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    /* --- INSTANT EMAIL LAUNCHER BOX --- */
+    .action-box {
+      background: #F1E9DF;
+      border: 1px dashed rgba(120, 115, 80, 0.4);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .action-box h3 {
+      font-family: 'Fredoka', cursive;
+      color: var(--text-brown);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .action-box p {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .button {
+      text-decoration: none;
+      text-align: center;
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.2s ease;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-main { background: var(--accent-cream); color: var(--text-brown); }
+    .button:hover { transform: translateY(-2px); filter: brightness(1.03); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+    /* --- SIDE NOTES / EXPECTATIONS --- */
+    .notice-list {
+      list-style-type: '🌱 ';
+      padding-left: 20px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .notice-list li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="commissions.html">Commissions</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="active">Contact</a>
+</nav>
+
+<header class="banner">
+  <h1>Contact Me</h1>
+  <p>Let's stay connected! 💌</p>
+</header>
+
+<div class="container">
+
+  <!-- MAIN CONTACT CARD -->
+  <div class="card">
+    <h2 class="section-title">✦ Get In Touch ✦</h2>
+    
+    <p>
+      Hey there! If you have any questions regarding my art commissions, need help with an order from my shop, or just want to say a quick hello, feel free to send me a message! ♡
+    </p>
+
+    <!-- AUTOMATIC EMAIL OPENER BUTTON CONTAINER -->
+    <div class="action-box">
+      <h3>Send an Email Template ⚡</h3>
+      <p>Tap the button below! It will automatically open your preferred mail app with a structured layout ready for you to fill out.</p>
+      
+      <!-- 
+        NOTE: Simply change "your_public_email@gmail.com" below to your actual public email address! 
+        %20 creates spaces, %0A creates tidy paragraph breaks.
+      -->
+      <a href="mailto:your_public_email@gmail.com?subject=Inquiry%20for%20FluryKit&body=Hello%20Kit!%0A%0AI%20have%20a%20question%20regarding%20your%20[Commissions%20/%20Shop%20Goods%20/%20Other]:%0A%0A[Type%20your%20message%20or%20questions%20here]%0A%0AThank%20you,%20[Your%20Name]" 
+         class="button btn-main">
+        Tap to Email Me ✨
+      </a>
+    </div>
+
+    <p style="margin-top: 25px; font-weight: 500; color: var(--text-brown);">
+      📌 Some tiny things to keep in mind:
+    </p>
+    
+    <ul class="notice-list">
+      <li>
+        <b>Response Times:</b> I’m currently a college student, so my schedule can get a little busy! Please give me about <b>2 to 3 business days</b> to read and get back to your email. Thank you so much for your patience!
+      </li>
+      <li>
+        <b>Casual Chats:</b> If you just want to hang out or ask a quick, casual question, the absolute fastest way to reach me is to slide into my <b>Instagram DMs</b>! I love talking with my followers there.
+      </li>
+      <li>
+        <b>Kindness First:</b> Please keep all messages polite and respectful. Unsolicited advertisement spam or requests for free work will be deleted.
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+
+<footer>
+  © <span id="year"></span> FluryKit ✨
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

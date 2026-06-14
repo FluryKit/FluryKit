@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About | FluryKit</title>
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- THEME VARIABLES --- */
+    :root {
+      --bg-dark: #302918;
+      --bg-warm: #4E3420;
+      --accent-cream: #CCB693;
+      --accent-olive: #787350;
+      --text-brown: #352E1F;
+      --text-soft: #5E3D20;
+      --card-bg: rgba(248, 244, 238, 0.96);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark), var(--bg-warm)); 
+      color: var(--accent-cream);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 16px;
+      background: rgba(48, 41, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(204,182,147,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cream);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav a.active { opacity: 1; }
+
+    /* --- BANNER --- */
+    .banner {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(48,41,24,0.5), rgba(48,41,24,0.5)),
+                  url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 35px;
+    }
+
+    .banner h1 {
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      font-size: 2.6rem;
+      color: #fff;
+    }
+
+    .banner p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #f0f0f0;
+    }
+
+    /* --- MAIN CONTAINER --- */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid rgba(94,61,32,0.06);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      padding: 35px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      color: var(--text-brown);
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+    }
+
+    /* --- ARTIST PROFILE STYLES --- */
+    .profile-intro {
+      text-align: center;
+      color: var(--text-brown);
+      font-family: 'Fredoka', cursive;
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+
+    .bio-text {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .languages-tag-box {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 20px 0 10px;
+    }
+
+    .lang-pill {
+      background: #F1E9DF;
+      color: var(--text-soft);
+      border: 1px solid rgba(120, 115, 80, 0.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* --- MASCOT ROWS / GRID --- */
+    .mascot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .mascot-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(94,61,32,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .mascot-img-holder {
+      width: 100%;
+      height: 180px;
+      background: #FAF8F5;
+      border-radius: 14px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      border: 1px dashed rgba(94,61,32,0.1);
+    }
+
+    .mascot-img-holder img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .mascot-card h3 {
+      font-family: 'Fredoka', cursive;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .mascot-role {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .mascot-card p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    /* --- SUPPORT FOOTER PILL --- */
+    .support-zone {
+      background: rgba(204, 182, 147, 0.05);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(204,182,147,0.1);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    .support-zone p {
+      font-size: 0.9rem;
+      color: var(--accent-cream);
+      max-width: 600px;
+      margin: 0 auto 15px;
+    }
+
+    .button {
+      text-decoration: none;
+      text-align: center;
+      padding: 8px 25px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-main { background: var(--accent-cream); color: var(--text-brown); }
+    .button:hover { transform: translateY(-2px); filter: brightness(1.03); }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+
+    /* --- RESPONSIVE MOBILE FIX --- */
+    @media (max-width: 800px) {
+      .mascot-grid { grid-template-columns: 1fr; gap: 20px; }
+      .mascot-img-holder { height: 220px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="commissions.html">Commissions</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html" class="active">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<header class="banner">
+  <h1>About Me</h1>
+  <p>Get to know the artist behind the foxes! 🌿</p>
+</header>
+
+<div class="container">
+
+  <!-- PRIMARY BIO CARD -->
+  <div class="card">
+    <h2 class="profile-intro">Hey there, thank you so much for visiting!! ♡</h2>
+    
+    <p class="bio-text" style="text-align: center; font-weight: 500;">
+      You can call me <b>Kit</b> or <b>Kovy</b> and I go by any pronouns :D
+    </p>
+    
+    <p class="bio-text">
+      I’m an Indonesian digital artist who loves drawing cute and expressive characters, especially cartoony animals! 
+    </p>
+
+    <p class="bio-text">
+      I’m currently a college student and my dream is to make art my full-time job one day. Commissions and store support truly mean so much to me!! They directly help me support my academic studies and my family! I’m incredibly grateful for everyone who chooses to join and support my work.
+    </p>
+
+    <p class="bio-text">
+      I’m always happy and excited to interact with my followers, especially over on Instagram. Thank you for being here and supporting my art journey! ♡
+    </p>
+
+    <!-- LANGUAGE SKILLS PILLS -->
+    <div class="languages-tag-box">
+      <span class="lang-pill">🌐 English</span>
+      <span class="lang-pill">🌐 Bahasa Indonesia</span>
+      <span class="lang-pill">🌐 Hokkien</span>
+      <span class="lang-pill">🌱 German (Learning!)</span>
+    </div>
+    <p style="font-size: 0.7rem; text-align: center; color: #947155; font-style: italic;">(Still learning and definitely not completely perfect at all of them yet ;w;)</p>
+  </div>
+
+  <!-- MEET THE MASCOTS SECTION -->
+  <div>
+    <div class="card" style="padding: 15px; border-radius: 20px; margin-bottom: 20px; text-align: center;">
+      <h2 class="section-title" style="margin-bottom: 0;">✦ Meet my Fursona & Mascots ✦</h2>
+    </div>
+
+    <div class="mascot-grid">
+      
+      <!-- KOVY -->
+      <div class="mascot-card" style="border-top: 4px solid var(--accent-cream);">
+        <div class="mascot-img-holder">
+          <!-- Replace this with your character image url later! -->
+          <img src="https://via.placeholder.com/200?text=Kovy+Artwork" alt="Kovy">
+        </div>
+        <h3 style="color: var(--text-brown);">Kovy</h3>
+        <div class="mascot-role" style="color: var(--accent-cream);">Fursona</div>
+        <p>She’s a soft and slightly silly fox who loves making art. She can be sensitive and a little shy, but she’s very friendly and always hopes to make new friends along the way! ✨</p>
+      </div>
+
+      <!-- KIT -->
+      <div class="mascot-card" style="border-top: 4px solid #8A4F4F;">
+        <div class="mascot-img-holder">
+          <!-- Replace this with your character image url later! -->
+          <img src="https://via.placeholder.com/200?text=Kit+Artwork" alt="Kit">
+        </div>
+        <h3 style="color: var(--text-brown);">Kit</h3>
+        <div class="mascot-role" style="color: #8A4F4F;">Brand Mascot</div>
+        <p>He’s a fox with little flame elements on his chest and tail. He might look cold or grumpy at first glance, but he’s actually really kind and friendly! He’s basically the fiery little face of my brand! ♡</p>
+      </div>
+
+      <!-- NEO -->
+      <div class="mascot-card" style="border-top: 4px solid var(--accent-olive);">
+        <div class="mascot-img-holder">
+          <!-- Replace this with your character image url later! -->
+          <img src="https://via.placeholder.com/200?text=Neo+Artwork" alt="Neo">
+        </div>
+        <h3 style="color: var(--text-brown);">Neo</h3>
+        <div class="mascot-role" style="color: var(--accent-olive);">Shop Mascot</div>
+        <p>A tiny robot cat with a little green plant growing on their body. Very small, very playful, and always full of curious energy to check out new things!!</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIP SUPPORT FOOTER CALLOUT -->
+  <div class="support-zone">
+    <p>If you enjoy my work and would like to support my college studies further, you can always leave a small tip on my Ko-fi page! It's never required but always deeply appreciated! 🥰</p>
+    <a href="https://ko-fi.com" target="_blank" class="button btn-main">Leave a Tip on Ko-fi ☕</a>
+  </div>
+
+</div>
+
+<footer>
+  © <span id="year"></span> FluryKit ✨
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

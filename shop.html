@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop | FluryKit</title>
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- THEME VARIABLES --- */
+    :root {
+      --bg-dark: #302918;
+      --bg-warm: #4E3420;
+      --accent-cream: #CCB693;
+      --accent-olive: #787350;
+      --text-brown: #352E1F;
+      --text-soft: #5E3D20;
+      --card-bg: rgba(248, 244, 238, 0.96);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark), var(--bg-warm)); 
+      color: var(--accent-cream);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 16px;
+      background: rgba(48, 41, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(204,182,147,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cream);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav a.active { opacity: 1; }
+
+    /* --- BANNER --- */
+    .banner {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(48,41,24,0.45), rgba(48,41,24,0.45)),
+                  url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* --- SHOP LOGO AREA --- */
+    .logo-container {
+      text-align: center;
+      margin-top: -110px; 
+      margin-bottom: 25px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .logo-container img {
+      width: 240px; 
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* --- MAIN CONTAINER --- */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid rgba(94,61,32,0.06);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      padding: 30px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      color: var(--text-brown);
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+    }
+
+    .intro-text {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 10px;
+    }
+
+    /* --- PLATFORMS INFO GRID --- */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .platform-box {
+      background: rgba(48, 41, 24, 0.03);
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(94,61,32,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .platform-box h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-olive);
+      margin-bottom: 8px;
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+    }
+
+    .platform-box p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-bottom: 15px;
+    }
+
+    .indonesian-translation {
+      border-top: 1px dashed rgba(94,61,32,0.15);
+      padding-top: 10px;
+      margin-top: 10px;
+      font-style: italic;
+      color: #7A5C43;
+    }
+
+    /* --- STICKY FILTER BAR --- */
+    .filter-wrapper {
+      position: sticky;
+      top: 60px;
+      z-index: 900;
+      background: rgba(48, 41, 24, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(204,182,147,0.15);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--accent-cream);
+      color: var(--accent-cream);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-cream);
+      color: var(--bg-dark);
+    }
+
+    /* --- SHOP GALLERY GRID --- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .item-card {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .item-card.hidden {
+      display: none;
+    }
+
+    .img-wrapper {
+      width: 100%;
+      height: 240px;
+      background: #FAF8F5;
+      border-bottom: 1px solid rgba(94,61,32,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .img-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .item-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .item-info h2 {
+      font-size: 1.1rem;
+      color: var(--text-brown);
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+    }
+
+    .price-tag {
+      background: var(--accent-olive);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .item-info p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    /* --- COMMON BUTTON STYLING --- */
+    .button {
+      text-decoration: none;
+      text-align: center;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-main { background: var(--accent-cream); color: var(--text-brown); }
+    .btn-sub { background: #E8E2D9; color: var(--text-soft); }
+    .button:hover { transform: translateY(-2px); filter: brightness(1.03); }
+
+    /* --- SELECTION MODAL POPUP --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 25, 15, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      width: 90%;
+      max-width: 400px;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(94,61,32,0.1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-card h3 {
+      font-family: 'Fredoka', cursive;
+      color: var(--text-brown);
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .modal-card p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-bottom: 20px;
+    }
+
+    .modal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-links .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+    }
+
+    .close-modal {
+      background: transparent;
+      border: none;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 15px;
+      display: inline-block;
+    }
+
+    /* --- REVIEWS & FEEDBACK ZONE --- */
+    .review-zone {
+      background: rgba(204, 182, 147, 0.05);
+      border-radius: 24px;
+      padding: 35px 20px;
+      border: 1px solid rgba(204,182,147,0.1);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    .review-zone h2 {
+      font-family: 'Fredoka', cursive;
+      font-size: 1.5rem;
+      color: var(--accent-cream);
+      margin-bottom: 10px;
+    }
+
+    .empty-reviews-box {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 25px;
+      max-width: 600px;
+      margin: 15px auto 25px;
+      border: 1px dashed rgba(120, 115, 80, 0.4);
+    }
+
+    .empty-reviews-box p {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+    }
+
+    .feedback-prompt {
+      font-size: 0.85rem;
+      color: var(--accent-cream);
+      max-width: 500px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    .feedback-prompt a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+
+    /* --- RESPONSIVE MOBILE FIX --- */
+    @media (max-width: 850px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .platforms-grid { grid-template-columns: 1fr; gap: 15px; }
+      .logo-container { margin-top: -80px; }
+      .logo-container img { width: 180px; }
+    }
+
+    @media (max-width: 550px) {
+      .gallery { grid-template-columns: 1fr; }
+      .filter-wrapper { top: 50px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="commissions.html">Commissions</a>
+  <a href="shop.html" class="active">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<!-- 🌿 HEADER BANNER BACKGROUND -->
+<header class="banner">
+</header>
+
+<!-- 🦊 FLOATING CENTERED STORE LOGO -->
+<div class="logo-container">
+  <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionFiles/NeoKitLogo.png" alt="NeoKit Shop Official Logo">
+</div>
+
+<div class="container">
+
+  <!-- SHOP MAIN INTRODUCTION CARD -->
+  <div class="card">
+    <h2 class="section-title">✦ Welcome to My Shop! ✦</h2>
+    <p class="intro-text">
+      Here you can find my original art assets and physical merchandise! From stickers to custom accessories, everything is lovingly made or custom-designed by me. 🌿
+    </p>
+
+    <!-- PLACES TO PURCHASE PILLARS -->
+    <div class="platforms-grid">
+      
+      <!-- PILLAR 1: KO-FI -->
+      <div class="platform-box">
+        <div>
+          <h3>Ko-fi Shop ☕</h3>
+          <p>Some items are handcrafted right from my desk! For specialized items requiring heavy production gear (like acrylic keychains), I partner up with a external manufacturer. Orders packed by me include a hand-written thank you token!</p>
+        </div>
+        <a href="https://ko-fi.com" target="_blank" class="button btn-sub">Visit Ko-fi Store</a>
+      </div>
+
+      <!-- PILLAR 2: ACGGOODS -->
+      <div class="platform-box">
+        <div>
+          <h3>ACGGoods Portal 🛍️</h3>
+          <p>For my main merchandise print lines, ACGGoods elements handle all your core checkout details directly! They manage automated manufacturing runs, product parcel assembly, and direct fulfillment straight to your door hassle-free.</p>
+        </div>
+        <a href="#" target="_blank" class="button btn-sub">Browse ACGGoods</a>
+      </div>
+
+      <!-- PILLAR 3: LOCAL IDR ORDERS -->
+      <div class="platform-box">
+        <div>
+          <h3>Local Orders (ID) 💌</h3>
+          <p>For custom orders within Indonesia, I host processing queues using simple Google Forms. I'll drop you a direct notification later to clear shipping totals!</p>
+          <p class="indonesian-translation">Untuk pelanggan di Indonesia, pemesanan dilakukan melalui Google Form agar lebih mudah terorganisir. Nanti aku hubungi via chat untuk konfirmasi total harga & ongkir yaa :D</p>
+        </div>
+        <a href="#" target="_blank" class="button btn-main">Order Google Form</a>
+      </div>
+
+    </div>
+
+    <!-- MANUFACTURER WARNING NOTICE -->
+    <p style="font-size: 0.75rem; color: #947155; text-align: center; margin-top: 20px; font-style: italic;">
+      ⚠️ Please note: Items fulfilled by Ko-fi/Local vs ACGGoods are handled by different print manufacturers, so final color values or finishes may vary slightly. Some items remain strictly platform-exclusive!
+    </p>
+  </div>
+
+  <!-- INTERACTIVE CATEGORY FILTER BAR -->
+  <div class="filter-wrapper">
+    <button class="filter-btn active" data-target="all">All Goods</button>
+    <button class="filter-btn" data-target="sticker">Stickers</button>
+    <button class="filter-btn" data-target="print">Art Prints</button>
+    <button class="filter-btn" data-target="digital">Digital Assets</button>
+  </div>
+
+  <!-- MERCHANDISE ITEMS GALLERY GRID -->
+  <div class="gallery" id="shopGallery">
+
+    <!-- STICKER PACK ITEM -->
+    <div class="card item-card sticker" 
+         onclick="openShopPopup('Sticker Pack 🌸', 'https://kofi-link.com/sticker', 'https://acg-link.com/sticker', 'https://forms.google.com')">
+      <div class="img-wrapper">
+        <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Sticker+Pack+Preview" alt="Sticker Pack">
+      </div>
+      <div class="item-info">
+        <div class="header-row">
+          <h2>Sticker Pack 🌸</h2>
+          <span class="price-tag">$8 / 120k IDR</span>
+        </div>
+        <p>Cute original art stickers for your laptop, notebook, or journals!</p>
+      </div>
+    </div>
+
+    <!-- ART PRINT ITEM -->
+    <div class="card item-card print" 
+         onclick="openShopPopup('Art Print ☕', 'https://kofi-link.com/print', 'https://acg-link.com/print', 'https://forms.google.com')">
+      <div class="img-wrapper">
+        <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Art+Print+Preview" alt="Art Print">
+      </div>
+      <div class="item-info">
+        <div class="header-row">
+          <h2>Art Print ☕</h2>
+          <span class="price-tag">$15 / 225k IDR</span>
+        </div>
+        <p>Premium heavy-matte physical desktop prints of my digital illustrations.</p>
+      </div>
+    </div>
+
+    <!-- DIGITAL ITEM -->
+    <div class="card item-card digital" 
+         onclick="openShopPopup('Custom Icons ✨', 'https://kofi-link.com/icons', 'https://acg-link.com/icons', 'https://forms.google.com')">
+      <div class="img-wrapper">
+        <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Digital+Icons+Preview" alt="Custom Icons">
+      </div>
+      <div class="item-info">
+        <div class="header-row">
+          <h2>Custom Icons ✨</h2>
+          <span class="price-tag">$3 / 45k IDR</span>
+        </div>
+        <p>Small, soft-tinted graphical icon profiles ideal for any social app use.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- REVIEWS & COMMUNITY FEEDBACK TAB -->
+  <div class="review-zone">
+    <h2>Kind Words 💌</h2>
+    
+    <div class="empty-reviews-box">
+      <p><b>No reviews logged just yet!</b></p>
+      <p style="margin-top: 5px; opacity: 0.85;">But I absolutely cannot wait to hear what you think of your items! Every single piece of feedback helps me improve my shop processes and genuinely makes my day brighter! 🥰</p>
+    </div>
+
+    <div class="feedback-prompt">
+      <p>📦 Bought from Ko-fi or via Local forms? Share a picture or leave a review anytime! Have ideas or suggestions for items you'd want to see? <a href="#" target="_blank">Share your product feedback ideas here!</a></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- === PLATFORM ROUTING MODAL POPUP === -->
+<div id="shopPopup" class="modal-overlay">
+  <div class="modal-card">
+    <h3 id="popupItemTitle">Product Name</h3>
+    <p>Select which storefront ecosystem you would like to purchase this merchandise asset through:</p>
+    
+    <div class="modal-links">
+      <a id="modalKofiLink" href="#" target="_blank" class="button btn-main">Order via Ko-fi Store ☕</a>
+      <a id="modalAcgLink" href="#" target="_blank" class="button btn-main">Order via ACGGoods 🛍️</a>
+      <a id="modalLocalLink" href="#" target="_blank" class="button btn-sub">Order via Local Form (ID) 💌</a>
+    </div>
+
+    <button class="close-modal" onclick="closeShopPopup()">Go Back to Shop</button>
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> FluryKit ✨
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- STORE ITEM DETAILS POPUP ACTION ---
+  const shopPopup = document.getElementById('shopPopup');
+  const popupItemTitle = document.getElementById('popupItemTitle');
+  const modalKofiLink = document.getElementById('modalKofiLink');
+  const modalAcgLink = document.getElementById('modalAcgLink');
+  const modalLocalLink = document.getElementById('modalLocalLink');
+
+  function openShopPopup(name, kofiUrl, acgUrl, localUrl) {
+    popupItemTitle.textContent = name;
+    modalKofiLink.href = kofiUrl;
+    modalAcgLink.href = acgUrl;
+    modalLocalLink.href = localUrl;
+
+    shopPopup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeShopPopup() {
+    shopPopup.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Auto-dismiss modal if clicking backdrop tint overlay area directly
+  shopPopup.addEventListener('click', (e) => {
+    if (e.target === shopPopup) {
+      closeShopPopup();
+    }
+  });
+
+  // --- LIVE GALLERY CONTENT FILTER INTERACTION ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const shopItems = document.querySelectorAll('.item-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const targetCategory = button.getAttribute('data-target');
+
+      shopItems.forEach(item => {
+        if (targetCategory === 'all' || item.classList.contains(targetCategory)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

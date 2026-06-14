@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Commissions | FluryKit</title>
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- THEME VARIABLES --- */
+    :root {
+      --bg-dark: #302918;
+      --bg-warm: #4E3420;
+      --accent-cream: #CCB693;
+      --accent-olive: #787350;
+      --text-brown: #352E1F;
+      --text-soft: #5E3D20;
+      --card-bg: rgba(248, 244, 238, 0.96);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--bg-dark), var(--bg-warm)); 
+      color: var(--accent-cream);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 16px;
+      background: rgba(48, 41, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(204,182,147,0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cream);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav a.active { opacity: 1; }
+
+    /* --- BANNER --- */
+    .banner {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(48,41,24,0.5), rgba(48,41,24,0.5)),
+                  url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 35px;
+    }
+
+    .banner h1 {
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      font-size: 2.6rem;
+      color: #fff;
+    }
+
+    .banner p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #f0f0f0;
+    }
+
+    /* --- MAIN CONTAINER --- */
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid rgba(94,61,32,0.06);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      padding: 30px;
+    }
+
+    .status-container { text-align: center; margin-bottom: 5px; }
+    .status-pill {
+      background: var(--accent-olive);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    /* --- ORDERING GUIDE --- */
+    .section-title {
+      text-align: center;
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+      color: var(--text-brown);
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .rule-box {
+      background: rgba(48, 41, 24, 0.03);
+      padding: 15px;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid rgba(94,61,32,0.04);
+    }
+
+    .rule-box h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-olive);
+      margin-bottom: 6px;
+    }
+
+    .rule-box p { font-size: 0.8rem; color: var(--text-soft); }
+
+    .rush-box {
+      background: #F1E9DF;
+      padding: 15px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 25px;
+      border: 1px dashed rgba(120, 115, 80, 0.4);
+    }
+
+    .rush-box div { text-align: center; }
+    .rush-box b { color: var(--text-brown); display: block; font-size: 0.95rem; }
+    .rush-box small { color: var(--text-soft); font-size: 0.75rem; }
+
+    .horizontal-rules {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(94,61,32,0.08);
+      flex-wrap: wrap;
+    }
+
+    .horizontal-rules span { font-size: 0.8rem; color: var(--text-soft); }
+
+    .note-text {
+      font-size: 0.75rem;
+      color: #947155;
+      text-align: center;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    /* --- STICKY CATEGORY FILTER BAR --- */
+    .filter-wrapper {
+      position: sticky;
+      top: 60px;
+      z-index: 900;
+      background: rgba(48, 41, 24, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(204,182,147,0.15);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--accent-cream);
+      color: var(--accent-cream);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-cream);
+      color: var(--bg-dark);
+    }
+
+    /* --- GALLERY LISTING ROWS --- */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .listing-card {
+      padding: 0;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 280px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .listing-card.hidden {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .slider-area {
+      position: relative;
+      height: 100%;
+      width: 280px;
+      background: #FAF8F5;
+      border-right: 1px solid rgba(94,61,32,0.06);
+    }
+
+    .image-slider {
+      width: 100%;
+      height: 100%;
+    }
+
+    .image-slider img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+      padding: 15px;
+    }
+
+    .image-slider img.active { display: block; }
+
+    .dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      background: rgba(255,255,255,0.85);
+      padding: 4px 8px;
+      border-radius: 20px;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      background: rgba(0,0,0,0.15);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active { background: var(--text-soft); }
+
+    .listing-info {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .listing-info h2 {
+      font-size: 1.25rem;
+      color: var(--text-brown);
+      font-family: 'Fredoka', cursive;
+      font-weight: 500;
+    }
+
+    .price-tag {
+      background: var(--accent-olive);
+      color: white;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .listing-info p {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    /* --- ADDONS / SPECIFICATIONS PANEL --- */
+    .specs-list {
+      background: rgba(48, 41, 24, 0.03);
+      padding: 12px 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border-left: 3px solid var(--accent-cream);
+    }
+
+    .specs-list ul {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .specs-list li {
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button {
+      text-decoration: none;
+      text-align: center;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-main { background: var(--accent-cream); color: var(--text-brown); }
+    .btn-sub { background: #E8E2D9; color: var(--text-soft); }
+    .button:hover { transform: translateY(-2px); filter: brightness(1.03); }
+
+    /* --- FORM TEMPLATE --- */
+    .form-template-box {
+      background: rgba(48, 41, 24, 0.03);
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(94,61,32,0.08);
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    /* --- OPEN/CLOSE TOS MODAL (POP-UP) --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 25, 15, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--card-bg);
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      overflow-y: auto;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(94,61,32,0.1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(94,61,32,0.1);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      font-family: 'Fredoka', cursive;
+      color: var(--text-brown);
+      font-size: 1.6rem;
+    }
+
+    .close-modal {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-soft);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tos-section {
+      margin-bottom: 22px;
+    }
+
+    .tos-section h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent-olive);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tos-section ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .tos-section li {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .tos-section li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--accent-cream);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+
+    /* --- RESPONSIVE MOBILE FIX --- */
+    @media (max-width: 650px) {
+      .listing-card { grid-template-columns: 1fr; }
+      .slider-area { width: 100%; height: 280px; border-right: none; border-bottom: 1px solid rgba(94,61,32,0.06); }
+      .rules-grid { grid-template-columns: 1fr; }
+      .rush-box { flex-direction: column; gap: 10px; }
+      .horizontal-rules { flex-direction: column; gap: 8px; align-items: center; }
+      .filter-wrapper { top: 50px; }
+      .modal-card { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="commissions.html" class="active">Commissions</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<header class="banner">
+  <h1>Commissions</h1>
+  <p>Hellow! Welcome to my commission page! :D 🌿</p>
+</header>
+
+<div class="container">
+
+  <!-- STATUS & TOS LINKS -->
+  <div style="text-align: center;">
+    <div class="status-container">
+      <div class="status-pill">🌿 Commissions Open</div>
+    </div>
+    <div class="card" style="padding: 15px; border-radius: 18px; margin-top: 10px;">
+       <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 8px;">Please read my Terms of Service before sending a request!</p>
+       <button id="openTosBtn" class="button btn-main">View Full TOS</button>
+    </div>
+  </div>
+
+  <!-- ORDERING STYLES / COMPATIBILITIES -->
+  <div class="card">
+    <h2 class="section-title">✦ Info & Preferences ✦</h2>
+    
+    <div class="rules-grid">
+      <div class="rule-box" style="border-top: 3px solid #787350;">
+        <h3>Comfortable 🌿</h3>
+        <p>Feral, Hybrids, Simple Designs</p>
+      </div>
+      <div class="rule-box" style="border-top: 3px solid #CCB693;">
+        <h3>Can Try 🌻</h3>
+        <p>Anthro, Reptiles/Dragons, Light Outfits</p>
+      </div>
+      <div class="rule-box" style="border-top: 3px solid #8A4F4F;">
+        <h3>Won't Draw 🥀</h3>
+        <p>Humanoids, Full Mecha, Complex Work</p>
+      </div>
+    </div>
+
+    <div class="rush-box">
+      <div><small>Priority (any deadline)</small><b>+50%</b></div>
+      <div><small>Same Month</small><b>+75%</b></div>
+      <div><small>Same Week</small><b>+100%</b></div>
+    </div>
+    <p class="note-text">↳ Please respond to updates promptly! Delays caused by late responses are outside my responsibility.</p>
+
+    <div class="horizontal-rules">
+      <span>✦ Sketch sent before finishing</span>
+      <span>✦ Clarity allows direct completion</span>
+      <span>✦ Minor markings/color fixes are free</span>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px;">
+      <a href="https://trello.com/b/pFY8GxsZ/to-do-list" class="button btn-sub">View Trello Queue</a>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE SECTION SWITCHER -->
+  <div class="filter-wrapper">
+    <button class="filter-btn active" data-target="all">All Tiers</button>
+    <button class="filter-btn" data-target="illustration">Illustrations</button>
+    <button class="filter-btn" data-target="general">General & Pixels</button>
+    <button class="filter-btn" data-target="pngtuber">PNGTubers</button>
+    <button class="filter-btn" data-target="custom">Custom Design</button>
+  </div>
+
+  <!-- GALLERY LISTINGS CONTAINER -->
+  <div class="gallery">
+
+    <!-- === CATEGORY 1: ILLUSTRATIONS === -->
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Icon+Example" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Icon 🌸</h2>
+          <span class="price-tag">$15</span>
+        </div>
+        <p>Clean profile icon art styled beautifully for your pages.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>✨ Minimal Shading</span><span>+25%</span></li>
+            <li><span>🎨 Full Shading</span><span>+50%</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+          <a href="#" class="button btn-sub">Ko-fi</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Bust+Example" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Headshot / Bust ☕</h2>
+          <span class="price-tag">$20</span>
+        </div>
+        <p>Detailed design focusing cleanly from your character's shoulders up.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>✨ Shading Addons Available</span><span>+25% / +50%</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Halfbody+Example" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Halfbody 🌿</h2>
+          <span class="price-tag">$30</span>
+        </div>
+        <p>Mid-range illustration cut from your character's waist up.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>🏞️ Scene Backgrounds</span><span>+$10 – $50</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Fullbody+Example" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Fullbody 🌲</h2>
+          <span class="price-tag">$40</span>
+        </div>
+        <p>Full-view character depiction showing off the entire design anatomy.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>🚫 Note</span><span>No complex modern cities</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- === CATEGORY 2: GENERAL & PIXELS === -->
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/113143568_PuUc6lCwrpGHDLG.png" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Chibi Fullbody 🌸</h2>
+          <span class="price-tag">$20</span>
+        </div>
+        <p>Canvas sizes sit safely around 500–800px. Optional white asset outline can be added freely upon your request!</p>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Wiggle+Animation" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Wiggle Icon 🌻</h2>
+          <span class="price-tag">$35</span>
+        </div>
+        <p>A fun looping asset rendered cleanly over an crisp 1000×1000px layout (3 custom keyframes total).</p>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">Ko-fi</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Goober" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Goober Art 🍭</h2>
+          <span class="price-tag">$15</span>
+        </div>
+        <p>Cute, quick, simple little character art format. Default resolution uses a 500×500px profile window.</p>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=50x50+Pixel" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>50x50 Pixel 👾</h2>
+          <span class="price-tag">$25 / $30</span>
+        </div>
+        <p>Crisp 50×50 native canvas output scaled cleanly. Complex structures may look streamlined.</p>
+        <div class="specs-list" style="border-left-color: #8A4F4F;">
+          <ul>
+            <li><span>⚠️ Process Note</span><span><b>No sketch approval step</b></span></li>
+            <li><span>✨ Animation Toggle</span><span>+$5 ($30 Total)</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=25x25+Pixel" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>25x25 Pixel 💎</h2>
+          <span class="price-tag">$12</span>
+        </div>
+        <p>Super miniature retro canvas format. High-contrast designs look best!</p>
+        <div class="specs-list" style="border-left-color: #8A4F4F;">
+          <ul>
+            <li><span>⚠️ Process Note</span><span><b>No sketch approval step</b></span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- === CATEGORY 3: PNGTUBERS === -->
+    <div class="card listing-card" data-category="pngtuber">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=PNGTuber" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>PNGTuber Remix Models 🎙️</h2>
+          <span class="price-tag">$28 – $80</span>
+        </div>
+        <p>High-resolution models (~3500-4500px). Includes symmetrical builds by default, structured PSD data layers, and clean transparent format files.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>🐾 Mascot / Goober</span><span>Fullbody: $28</span></li>
+            <li><span>🧸 Chibi Look</span><span>Half: $40 / Full: $50</span></li>
+            <li><span>✨ Standard Non-Chibi</span><span>Bust: $45 / Half: $60 / Full: $80</span></li>
+            <li><span>⚙️ Rigging (Ready to run)</span><span>+50% of model cost</span></li>
+            <li><span>🎭 Extra Expressions / Items</span><span>+$5 each / +$5-20 items</span></li>
+          </ul>
+        </div>
+        <p style="font-size:0.75rem; color:var(--text-soft); font-style:italic;">*Rigging only for pre-made PSDs: $15 - $50+</p>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- === CATEGORY 4: CUSTOM DESIGNS === -->
+    <div class="card listing-card" data-category="custom">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Custom+Design" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Custom Character Design 🛠️</h2>
+          <span class="price-tag">$45 – $85</span>
+        </div>
+        <p>Bringing your text sheets or visual prompts into structured character formats. Up to 5 layout revisions available during the preliminary rough sketch window.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>🌱 Mascot / Goober tier</span><span>$45</span></li>
+            <li><span>🍄 Chibi Tier</span><span>$55</span></li>
+            <li><span>💫 Full Regular Non-Chibi</span><span>$85</span></li>
+            <li><span>📋 Mini Reference Add-on</span><span>+$50 (Adds Chibi front + back)</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">VGen</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="custom">
+      <div class="slider-area">
+        <div class="image-slider">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Mystery" class="active">
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2>Mystery Surprise Design 📦</h2>
+          <span class="price-tag">$30 – $65</span>
+        </div>
+        <p>The final aesthetic outcome is left fully up to me! You provide 1–2 key words/themes and the target species.</p>
+        <div class="specs-list" style="border-left-color: #8A4F4F;">
+          <ul>
+            <li><span>🐾 Mascot / Goober</span><span>$30</span></li>
+            <li><span>🧸 Chibi Look</span><span>$35</span></li>
+            <li><span>✨ Full Regular Non-Chibi</span><span>$65</span></li>
+            <li><span>❌ Structural Rule</span><span><b>No revisions & no refunds</b></span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" class="button btn-main">Google Form</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HOW TO ORDER WORKFLOW -->
+  <div class="card" style="text-align: center;">
+    <h2 class="section-title" style="margin-bottom: 8px;">✦ How to Place an Order ✦</h2>
+    <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 20px; text-align: left;">
+      Once paid, your project goes straight onto my active Trello queue. All IDR pricing balances follow the live transaction market rates smoothly. Pick your layout portal option below:
+    </p>
+    
+    <div class="rules-grid" style="margin-bottom: 25px;">
+      <div class="rule-box">
+        <h3>VGen or Ko-fi</h3>
+        <p style="font-size:0.75rem;">Great if you already have accounts setup on standard art hub platforms!</p>
+      </div>
+      <div class="rule-box">
+        <h3>Google Form</h3>
+        <p style="font-size:0.75rem;">Best choice for custom PayPal invoices or direct Indonesian local bank transactions.</p>
+      </div>
+    </div>
+
+    <div class="form-template-box">
+      • Commission Type: 
+      • Character Reference Link(s): 
+      • Expression / Personality Notes: 
+      • Add-on Preferences (Shading/Background/Rigging): 
+    </div>
+    <a href="#" class="button btn-main" style="margin-top: 20px; padding: 10px 40px;">Open Order Google Form</a>
+  </div>
+
+</div>
+
+<!-- === TERMS OF SERVICE POP-UP MODAL === -->
+<div id="tosModal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>Terms of Service 📜</h2>
+      <button id="closeTosBtn" class="close-modal">&times;</button>
+    </div>
+    
+    <div class="tos-section">
+      <h3>🌿 Credit & Usage 🌿</h3>
+      <ul>
+        <li>Credit is required when using my art where possible.</li>
+        <li>Do not claim my designs as your own. Always credit me as the original designer.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3>🌿 Turnaround Time 🌿</h3>
+      <ul>
+        <li>Once I start working on your commission, it usually takes 1–2 weeks or less to complete.</li>
+        <li>During high demand, it may take up to 1 month.</li>
+        <li>In case of personal or emergency situations, it may take longer, depending on complexity and my queue.</li>
+        <li>I will keep you updated, and you’re always welcome to ask for updates!! :D</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3>🌿 Communication 🌿</h3>
+      <ul>
+        <li>Please check your notifications regularly for updates.</li>
+        <li>I will not continue the commission without confirmation at required stages. This may affect the final completion time.</li>
+        <li>If there is no response for 3 months after multiple contact attempts and the commission has already been paid or started, it will be canceled with no refund.</li>
+        <li>If payment has not been made yet and there is no response for 2 weeks, the request will be canceled.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3>🌿 Refunds & Cancellations 🌿</h3>
+      <ul>
+        <li>If payment has not been made yet, you may cancel your request at any time!</li>
+        <li>If I need to cancel due to personal reasons or emergencies, a partial refund may be given depending on the progress.</li>
+        <li>Refund amounts depend on the current stage (sketch, lineart, coloring, etc).</li>
+        <li>Clients are responsible for their own financial decisions. Refunds will not be issued for personal financial issues.</li>
+        <li>No refunds will be given after the sketch has been approved.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3>🌿 Changes & Revisions 🌿</h3>
+      <ul>
+        <li>Some commissions may not allow major changes, so please read the description carefully.</li>
+        <li>Minor fixes after completion are allowed (for example: small marking or color mistakes).</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3>🌿 Design Rules 🌿</h3>
+      <ul>
+        <li>Please do not heavily modify the design. Minor edits are fine as long as the original design is still recognizable and credited.</li>
+        <li>Do not create characters that look very similar to my designs.</li>
+        <li>Breedables are not allowed, unless the offspring has major differences from the original.</li>
+        <li>Please do not increase the design’s worth unless additional artwork has been added.</li>
+      </ul>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="closeTosBtnBottom" class="button btn-main" style="padding: 8px 30px;">I Understand!</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> FluryKit ✨
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- TOS POP-UP CONTROLLER ---
+  const tosModal = document.getElementById('tosModal');
+  const openTosBtn = document.getElementById('openTosBtn');
+  const closeTosBtn = document.getElementById('closeTosBtn');
+  const closeTosBtnBottom = document.getElementById('closeTosBtnBottom');
+
+  // Open Pop-up
+  openTosBtn.addEventListener('click', () => {
+    tosModal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevents page from scrolling behind the pop-up
+  });
+
+  // Close Pop-up functions
+  const closePopup = () => {
+    tosModal.classList.remove('active');
+    document.body.style.overflow = ''; // Restores page scrolling
+  };
+
+  closeTosBtn.addEventListener('click', closePopup);
+  closeTosBtnBottom.addEventListener('click', closePopup);
+
+  // Close pop-up automatically if user clicks the dark background outside the card
+  tosModal.addEventListener('click', (e) => {
+    if (e.target === tosModal) {
+      closePopup();
+    }
+  });
+
+
+  // --- IMAGE GALLERY SLIDER ---
+  document.querySelectorAll('.listing-card').forEach(card => {
+    const images = card.querySelectorAll('.image-slider img');
+    const dots = card.querySelectorAll('.dot');
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        images.forEach(img => img.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        images[index].classList.add('active');
+        dot.classList.add('active');
+      });
+    });
+  });
+
+  // --- FILTER BAR CATEGORIES ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.listing-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const target = button.getAttribute('data-target');
+
+      items.forEach(item => {
+        const category = item.getAttribute('data-category');
+        
+        if (target === 'all' || category === target) {
+          item.classList.remove('hidden');
+          setTimeout(() => { item.style.opacity = '1'; }, 50);
+        } else {
+          item.style.opacity = '0';
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
