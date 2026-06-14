@@ -3,253 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Home | FluryKit</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* --- BANNER HEADER --- */
-    .banner {
-      min-height: 260px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: linear-gradient(rgba(48,41,24,0.45), rgba(48,41,24,0.45)),
-                  url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
-      background-size: cover;
-      background-position: center;
-    }
-
-    /* --- LOGO AREA --- */
-    .logo-container {
-      text-align: center;
-      margin-top: -110px; 
-      margin-bottom: 25px;
-      position: relative;
-      z-index: 5;
-    }
-
-    .logo-container img {
-      width: 240px; 
-      height: auto;
-      object-fit: contain;
-    }
-
-    /* --- ANNOUNCEMENT STATUS BAR --- */
-    .status-bar {
-      max-width: 850px;
-      margin: 0 auto 35px auto;
-      background: var(--accent-olive);
-      color: white;
-      border-radius: 999px;
-      padding: 8px 25px;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: 500;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    /* --- UPPER SPLIT LAYOUT --- */
-    .grid-layout {
-      max-width: 850px;
-      margin: auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr; 
-      gap: 30px;
-      align-items: stretch;
-    }
-
-    /* --- COZY CARDS --- */
-    .card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      border: 1px solid rgba(94,61,32,0.06);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      padding: 35px;
-      color: var(--text-soft);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card h2 {
-      font-family: 'Fredoka', cursive;
-      font-weight: 500;
-      font-size: 1.5rem;
-      color: var(--text-brown);
-      margin-bottom: 15px;
-      text-transform: lowercase;
-    }
-
-    .card p {
-      font-size: 0.92rem;
-      margin-bottom: 15px;
-    }
-
-    /* --- NEAT SOCIALS STYLING --- */
-    .sweet-callout {
-      font-size: 0.82rem;
-      font-style: italic;
-      color: var(--text-soft);
-      text-align: center;
-      margin-bottom: 4px;
-      margin-top: 10px;
-    }
-
-    .main-social-btn {
-      text-decoration: none;
-      text-align: center;
-      padding: 12px;
-      border-radius: 14px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      text-transform: lowercase;
-      display: block;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-
-    .btn-insta {
-      background: #E8DCC4; 
-      color: var(--text-brown);
-      border: 1px solid rgba(53,46,31,0.15);
-    }
-    .btn-insta:hover { background: #dfd1b5; }
-
-    .btn-kofi {
-      background: var(--accent-olive);
-      color: white;
-    }
-    .btn-kofi:hover { background: #5f5b3e; }
-
-    /* Compact 3-column grid for remaining socials */
-    .mini-social-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 25px;
-    }
-
-    .mini-btn {
-      text-decoration: none;
-      text-align: center;
-      padding: 8px 2px;
-      border-radius: 10px;
-      font-size: 0.76rem;
-      font-weight: 500;
-      text-transform: lowercase;
-      background: rgba(120, 115, 80, 0.12);
-      color: var(--text-brown);
-    }
-    .mini-btn:hover {
-      background: rgba(120, 115, 80, 0.25);
-    }
-
-    /* --- MINI JOURNEY TIMELINE --- */
-    .timeline {
-      margin-top: 15px;
-      border-left: 2px dashed var(--accent-cream);
-      padding-left: 15px;
-      margin-left: 5px;
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 15px;
-    }
-    .timeline-item:last-child { margin-bottom: 0; }
-
-    .timeline-item::before {
-      content: '🌱';
-      position: absolute;
-      left: -25px;
-      top: -2px;
-      background: var(--card-bg);
-      font-size: 0.75rem;
-    }
-
-    .timeline-date {
-      font-weight: 600;
-      font-size: 0.8rem;
-      color: var(--accent-olive);
-      text-transform: uppercase;
-    }
-
-    .timeline-text {
-      font-size: 0.85rem;
-      color: var(--text-brown);
-    }
-
-    /* --- FLOATING ART SHOWCASE --- */
-    .showcase-section {
-      max-width: 850px;
-      margin: 40px auto 0 auto;
-      padding: 0 20px;
-    }
-
-    .showcase-section h2 {
-      font-family: 'Fredoka', cursive;
-      font-weight: 500;
-      font-size: 1.6rem;
-      color: var(--accent-cream);
-      margin-bottom: 20px;
-      text-align: center;
-      text-transform: lowercase;
-    }
-
-    .art-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .art-piece {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
-      border: 3px solid rgba(248, 244, 238, 0.15);
-    }
-
-    /* --- BUTTON SYSTEM --- */
-    .link-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-      margin-top: auto; 
-    }
-
-    .button {
-      text-decoration: none;
-      text-align: center;
-      padding: 11px 20px;
-      border-radius: 14px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: lowercase;
-      border: none;
-      display: block;
-    }
-
-    .btn-cream {
-      background: var(--accent-cream);
-      color: var(--text-brown);
-    }
-    .btn-cream:hover { background: #bd9f73; }
-
-    footer {
-      text-align: center;
-      margin-top: 80px;
-      font-size: 0.8rem;
-      opacity: 0.5;
-    }
-  </style>
 </head>
 
 <body>
@@ -273,7 +34,7 @@
 
 <!-- 📢 ANNOUNCEMENT STATUS BAR -->
 <div class="status-bar">
-  ✨ <b>Notice:</b> My custom art commissions are officially [OPEN]! 🌿
+  ✨ <b>Notice:</b> Commissions are temporarly closed! 🌿
 </div>
 
 <!-- 🍱 TOP TEXT CONTENT -->
@@ -281,30 +42,50 @@
 
   <!-- COLUMN 1: WELCOME CARD -->
   <main class="card">
-    <h2>welcome 💌</h2>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/119560273_6CMoe0mzyw3TOx3.png"  
+           style="max-width: 50%; border-radius: 16px; display: block; margin: 0 auto;">
+    </div>
+
+    <h2><i class="fa-solid fa-feather-pointed"></i> Welcome</h2>
     <p>
-      hi there, welcome to my little dream space! drawing has been my favorite thing in the world since I was tiny, and I am so incredibly happy to share my work with you here. 
+      Hi there, welcome to my little dream space! 
+      drawing has been my favorite thing in the world ever since I was tiny
+       and I'm so happy to share my creations with you here!! :D
     </p>
     <p>
-      I love creating soft, happy illustrations filled with cozy vibes—especially sweet chibis, custom character designs, and fluffy animals. This website is a small home for my art journey, and it's also where you can look through my brand new commission options! 
+      I love drawing all sorts of things, especially fluffy creatures, feral characters, 
+      hybrids, cozy little scenes and cute chibis! This website is a small home for my artwork,
+      where you can look through my creations, learn a little about me and browse my commission 
+      options if you'd like a drawing of your own!!
     </p>
     <p>
-      Thank you so much for stopping by and supporting my dreams. It truly means everything to me! ♡
+      Thank you so much for stopping by and supporting my dreams. 
+      It truly means the world to me and I'm grateful for every visit, 
+      kind word and bit of support along the way ♡
     </p>
     
-    <div class="link-stack" style="margin-top: 20px;">
-      <a href="commissions.html" class="button btn-cream">view commission menu</a>
-      <a href="shop.html" class="button btn-cream">shop information (coming soon!)</a>
+    <div class="feature-grid">
+      <a href="commissions.html" class="feature-card">
+        <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+        <span>commissions</span>
+      </a>
+
+      <a href="shop.html" class="feature-card">
+        <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+        <span>shop</span>
+      </a>
     </div>
   </main>
 
   <!-- COLUMN 2: TAILORED SOCIALS & JOURNEY TIMELINE -->
   <section class="card">
-    <h2>find me online 🐾</h2>
+    <h2><i class="fa-solid fa-star"></i> find me online</h2>
     
     <!-- 📸 Main Platform Highlight -->
     <div class="sweet-callout">come see my daily art updates here! 👇</div>
-    <a href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" class="main-social-btn btn-insta">📸 instagram (main)</a>
+    <a href="https://www.instagram.com/flurykits/" target="_blank" rel="noopener noreferrer" class="main-social-btn btn-insta">📸 instagram (main)</a>
 
     <!-- ☕ Support & Treats Highlight -->
     <div class="sweet-callout">buy me a treat & support my dream space! 🍰</div>
@@ -322,7 +103,7 @@
       <a href="YOUR_DISCORD_INVITE_LINK" target="_blank" rel="noopener noreferrer" class="mini-btn" style="grid-column: span 3; text-align: center;">💬 join my discord server!</a>
     </div>
 
-    <h2>creative timeline 🌱</h2>
+    <h2><i class="fa-solid fa-leaf"></i> creative timeline</h2>
     <div class="timeline">
       <div class="timeline-item">
         <div class="timeline-date">childhood days</div>
