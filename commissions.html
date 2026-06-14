@@ -14,12 +14,23 @@
 <body class="commissions-page">
 
 <nav>
-  <a href="index.html">Home</a>
-  <a href="commissions.html" class="active">Commissions</a>
-  <a href="shop.html">Shop</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact</a>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="commissions.html" class="active">Commissions</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
 </nav>
 
 <header class="banner">
@@ -32,7 +43,7 @@
   <!-- STATUS & TOS LINKS -->
   <div style="text-align: center;">
     <div class="status-container">
-      <div class="status-pill">🌿 Commissions Open</div>
+      <div class="status-pill closed">Commissions Closed</div>
     </div>
     <div class="card" style="padding: 15px; border-radius: 18px; margin-top: 10px;">
        <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 8px;">Please read my Terms of Service before sending a request!</p>
@@ -47,7 +58,7 @@
     <div class="rules-grid">
       <div class="rule-box" style="border-top: 3px solid #787350;">
         <h3>Comfortable 🌿</h3>
-        <p>Feral, Hybrids, Simple Designs</p>
+        <p>Feral, Hybrids, Accessories</p>
       </div>
       <div class="rule-box" style="border-top: 3px solid #CCB693;">
         <h3>Can Try 🌻</h3>
@@ -55,7 +66,7 @@
       </div>
       <div class="rule-box" style="border-top: 3px solid #8A4F4F;">
         <h3>Won't Draw 🥀</h3>
-        <p>Humanoids, Full Mecha, Complex Work</p>
+        <p>Non-chibi Humanoids, Full Mecha, Really Complex Outfits</p>
       </div>
     </div>
 
@@ -93,21 +104,22 @@
     <div class="card listing-card" data-category="illustration">
       <div class="slider-area">
         <div class="image-slider">
-          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Icon+Example" class="active">
-          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Example+2" alt="Example 2">
+          <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Headshot_angelic_hymn_watermark.png" class="active">
         </div>
         <div class="dots"></div>
       </div>
       <div class="listing-info">
         <div class="header-row">
-          <h2>Icon 🌸</h2>
-          <span class="price-tag">$15</span>
+          <h2>Icon/Headshot</h2>
+          <span class="price-tag">$17</span>
         </div>
         <p>Clean profile icon art styled beautifully for your pages.</p>
         <div class="specs-list">
           <ul>
-            <li><span>✨ Minimal Shading</span><span>+25%</span></li>
-            <li><span>🎨 Full Shading</span><span>+50%</span></li>
+            <li><span>✦ Shaded</span><span>+50% / $25.5</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Background</span><span>$5 - $30</span></li>
+            <li><span>✦ Complex Background</span><span>quote only</span></li>
           </ul>
         </div>
         <div class="btn-group">
@@ -120,19 +132,22 @@
     <div class="card listing-card" data-category="illustration">
       <div class="slider-area">
         <div class="image-slider">
-          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Bust+Example" class="active">
+          <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Bust_Sloan.png" class="active">
         </div>
         <div class="dots"><span class="dot active"></span></div>
       </div>
       <div class="listing-info">
         <div class="header-row">
-          <h2>Headshot / Bust ☕</h2>
-          <span class="price-tag">$20</span>
+          <h2>Headshot / Bust</h2>
+          <span class="price-tag">$22</span>
         </div>
         <p>Detailed design focusing cleanly from your character's shoulders up.</p>
         <div class="specs-list">
           <ul>
-            <li><span>✨ Shading Addons Available</span><span>+25% / +50%</span></li>
+            <li><span>✦ Shaded</span><span>+50% / $33</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Background</span><span>$5 - $30</span></li>
+            <li><span>✦ Complex Background</span><span>quote only</span></li>
           </ul>
         </div>
         <div class="btn-group">
@@ -144,19 +159,24 @@
     <div class="card listing-card" data-category="illustration">
       <div class="slider-area">
         <div class="image-slider">
-          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Halfbody+Example" class="active">
+          <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/GiftArtYAY.png" class="active">
+          <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/2Haldbody_Kiwi.png">
+          <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/FlatHalfbody_GrimmothyGBiggles.png">
         </div>
         <div class="dots"><span class="dot active"></span></div>
       </div>
       <div class="listing-info">
         <div class="header-row">
-          <h2>Halfbody 🌿</h2>
-          <span class="price-tag">$30</span>
+          <h2>Halfbody</h2>
+          <span class="price-tag">$37</span>
         </div>
         <p>Mid-range illustration cut from your character's waist up.</p>
         <div class="specs-list">
           <ul>
-            <li><span>🏞️ Scene Backgrounds</span><span>+$10 – $50</span></li>
+            <li><span>✦ Shaded</span><span>+50% / $55.5</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Background</span><span>$5 - $30</span></li>
+            <li><span>✦ Complex Background</span><span>quote only</span></li>
           </ul>
         </div>
         <div class="btn-group">
@@ -415,22 +435,22 @@
 
   <div class="card payment-section">
     <h3>Accepted Payments</h3>
-    <div class="payment-grid">
-      <div class="payment-card">
-        <h4>PayPal</h4>
-        <p>Invoice or direct send available for international buyers.</p>
+    <div class="payment-grid logo-payment-grid">
+      <div class="payment-card payment-logo paypal" aria-label="PayPal">
+        <span class="payment-logo-mark">PP</span>
+        <span class="visually-hidden">PayPal</span>
       </div>
-      <div class="payment-card">
-        <h4>Ko-fi</h4>
-        <p>Fast supporter checkout, perfect for small commissions.</p>
+      <div class="payment-card payment-logo bca" aria-label="BCA Mobile">
+        <span class="payment-logo-mark">BCA</span>
+        <span class="visually-hidden">BCA Mobile</span>
       </div>
-      <div class="payment-card">
-        <h4>VGen</h4>
-        <p>Use VGen for Indonesian-friendly payments and easy account linking.</p>
+      <div class="payment-card payment-logo gopay" aria-label="GoPay">
+        <span class="payment-logo-mark">GP</span>
+        <span class="visually-hidden">GoPay</span>
       </div>
-      <div class="payment-card">
-        <h4>Bank Transfer</h4>
-        <p>Local IDR bank transfers accepted through Google Form request.</p>
+      <div class="payment-card payment-logo shopeepay" aria-label="ShopeePay">
+        <span class="payment-logo-mark">SP</span>
+        <span class="visually-hidden">ShopeePay</span>
       </div>
     </div>
   </div>
