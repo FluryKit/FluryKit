@@ -9,454 +9,15 @@
   <!-- FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* --- BANNER --- */
-    .banner {
-      height: 200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: linear-gradient(rgba(48,41,24,0.5), rgba(48,41,24,0.5)),
-                  url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
-      background-size: cover;
-      background-position: center;
-      margin-bottom: 35px;
-    }
-
-    .banner h1 {
-      font-family: 'Fredoka', cursive;
-      font-weight: 500;
-      font-size: 2.6rem;
-      color: #fff;
-    }
-
-    .banner p {
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: #f0f0f0;
-    }
-
-    /* --- MAIN CONTAINER --- */
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 0 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      border: 1px solid rgba(94,61,32,0.06);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
-      padding: 30px;
-    }
-
-    .status-container { text-align: center; margin-bottom: 5px; }
-    .status-pill {
-      background: var(--accent-olive);
-      color: white;
-      padding: 6px 18px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-block;
-    }
-
-    /* --- ORDERING GUIDE --- */
-    .section-title {
-      text-align: center;
-      font-family: 'Fredoka', cursive;
-      font-weight: 500;
-      color: var(--text-brown);
-      font-size: 1.5rem;
-      margin-bottom: 25px;
-    }
-
-    .rules-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .rule-box {
-      background: rgba(48, 41, 24, 0.03);
-      padding: 15px;
-      border-radius: 16px;
-      text-align: center;
-      border: 1px solid rgba(94,61,32,0.04);
-    }
-
-    .rule-box h3 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent-olive);
-      margin-bottom: 6px;
-    }
-
-    .rule-box p { font-size: 0.8rem; color: var(--text-soft); }
-
-    .rush-box {
-      background: #F1E9DF;
-      padding: 15px;
-      border-radius: 16px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin-bottom: 25px;
-      border: 1px dashed rgba(120, 115, 80, 0.4);
-    }
-
-    .rush-box div { text-align: center; }
-    .rush-box b { color: var(--text-brown); display: block; font-size: 0.95rem; }
-    .rush-box small { color: var(--text-soft); font-size: 0.75rem; }
-
-    .horizontal-rules {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(94,61,32,0.08);
-      flex-wrap: wrap;
-    }
-
-    .horizontal-rules span { font-size: 0.8rem; color: var(--text-soft); }
-
-    .note-text {
-      font-size: 0.75rem;
-      color: #947155;
-      text-align: center;
-      margin-top: -15px;
-      margin-bottom: 15px;
-      font-style: italic;
-    }
-
-    /* --- STICKY CATEGORY FILTER BAR --- */
-    .filter-wrapper {
-      position: sticky;
-      top: 60px;
-      z-index: 900;
-      background: rgba(48, 41, 24, 0.9);
-      backdrop-filter: blur(8px);
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(204,182,147,0.15);
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .filter-btn {
-      background: transparent;
-      border: 1px solid var(--accent-cream);
-      color: var(--accent-cream);
-      padding: 6px 16px;
-      border-radius: 999px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--accent-cream);
-      color: var(--bg-dark);
-    }
-
-    /* --- GALLERY LISTING ROWS --- */
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-
-    .listing-card {
-      padding: 0;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      min-height: 280px;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .listing-card.hidden {
-      display: none;
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    .slider-area {
-      position: relative;
-      height: 100%;
-      width: 280px;
-      background: #FAF8F5;
-      border-right: 1px solid rgba(94,61,32,0.06);
-    }
-
-    .image-slider {
-      width: 100%;
-      height: 100%;
-    }
-
-    .image-slider img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: none;
-      padding: 15px;
-    }
-
-    .image-slider img.active { display: block; }
-
-    .dots {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 5px;
-      background: rgba(255,255,255,0.85);
-      padding: 4px 8px;
-      border-radius: 20px;
-    }
-
-    .dot {
-      width: 5px;
-      height: 5px;
-      background: rgba(0,0,0,0.15);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .dot.active { background: var(--text-soft); }
-
-    .listing-info {
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .listing-info h2 {
-      font-size: 1.25rem;
-      color: var(--text-brown);
-      font-family: 'Fredoka', cursive;
-      font-weight: 500;
-    }
-
-    .price-tag {
-      background: var(--accent-olive);
-      color: white;
-      padding: 3px 12px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .listing-info p {
-      font-size: 0.85rem;
-      color: var(--text-soft);
-      margin-bottom: 12px;
-    }
-
-    /* --- ADDONS / SPECIFICATIONS PANEL --- */
-    .specs-list {
-      background: rgba(48, 41, 24, 0.03);
-      padding: 12px 15px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      border-left: 3px solid var(--accent-cream);
-    }
-
-    .specs-list ul {
-      list-style: none;
-      font-size: 0.8rem;
-      color: var(--text-soft);
-    }
-
-    .specs-list li {
-      margin-bottom: 4px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .btn-group {
-      display: flex;
-      gap: 10px;
-    }
-
-    .button {
-      text-decoration: none;
-      text-align: center;
-      padding: 8px 20px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: 0.2s;
-      display: inline-block;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-main { background: var(--accent-cream); color: var(--text-brown); }
-    .btn-sub { background: #E8E2D9; color: var(--text-soft); }
-    .button:hover { transform: translateY(-2px); filter: brightness(1.03); }
-
-    /* --- FORM TEMPLATE --- */
-    .form-template-box {
-      background: rgba(48, 41, 24, 0.03);
-      padding: 15px;
-      border-radius: 12px;
-      border: 1px solid rgba(94,61,32,0.08);
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      white-space: pre-line;
-      text-align: left;
-    }
-
-    /* --- OPEN/CLOSE TOS MODAL (POP-UP) --- */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(30, 25, 15, 0.6);
-      backdrop-filter: blur(8px);
-      z-index: 2000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      background: var(--card-bg);
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      border-radius: 24px;
-      padding: 35px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-      overflow-y: auto;
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-      border: 1px solid rgba(94,61,32,0.1);
-    }
-
-    .modal-overlay.active .modal-card {
-      transform: scale(1);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(94,61,32,0.1);
-      padding-bottom: 15px;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h2 {
-      font-family: 'Fredoka', cursive;
-      color: var(--text-brown);
-      font-size: 1.6rem;
-    }
-
-    .close-modal {
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--text-soft);
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .tos-section {
-      margin-bottom: 22px;
-    }
-
-    .tos-section h3 {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--accent-olive);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tos-section ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    .tos-section li {
-      font-size: 0.85rem;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-      position: relative;
-      padding-left: 15px;
-    }
-
-    .tos-section li::before {
-      content: "✦";
-      position: absolute;
-      left: 0;
-      color: var(--accent-cream);
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 0.8rem;
-      opacity: 0.5;
-    }
-
-    /* --- RESPONSIVE MOBILE FIX --- */
-    @media (max-width: 650px) {
-      .listing-card { grid-template-columns: 1fr; }
-      .slider-area { width: 100%; height: 280px; border-right: none; border-bottom: 1px solid rgba(94,61,32,0.06); }
-      .rules-grid { grid-template-columns: 1fr; }
-      .rush-box { flex-direction: column; gap: 10px; }
-      .horizontal-rules { flex-direction: column; gap: 8px; align-items: center; }
-      .filter-wrapper { top: 50px; }
-      .modal-card { padding: 20px; }
-    }
-  </style>
 </head>
 
-<body>
+<body class="commissions-page">
 
 <nav>
   <a href="index.html">Home</a>
   <a href="commissions.html" class="active">Commissions</a>
   <a href="shop.html">Shop</a>
+  <a href="gallery.html">Gallery</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
 </nav>
@@ -533,8 +94,9 @@
       <div class="slider-area">
         <div class="image-slider">
           <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Icon+Example" class="active">
+          <img src="https://via.placeholder.com/280x280/FAF8F5/352E1F?text=Example+2" alt="Example 2">
         </div>
-        <div class="dots"><span class="dot active"></span></div>
+        <div class="dots"></div>
       </div>
       <div class="listing-info">
         <div class="header-row">
@@ -851,6 +413,28 @@
     <a href="#" class="button btn-main" style="margin-top: 20px; padding: 10px 40px;">Open Order Google Form</a>
   </div>
 
+  <div class="card payment-section">
+    <h3>Accepted Payments</h3>
+    <div class="payment-grid">
+      <div class="payment-card">
+        <h4>PayPal</h4>
+        <p>Invoice or direct send available for international buyers.</p>
+      </div>
+      <div class="payment-card">
+        <h4>Ko-fi</h4>
+        <p>Fast supporter checkout, perfect for small commissions.</p>
+      </div>
+      <div class="payment-card">
+        <h4>VGen</h4>
+        <p>Use VGen for Indonesian-friendly payments and easy account linking.</p>
+      </div>
+      <div class="payment-card">
+        <h4>Bank Transfer</h4>
+        <p>Local IDR bank transfers accepted through Google Form request.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- === TERMS OF SERVICE POP-UP MODAL === -->
@@ -963,16 +547,56 @@
   // --- IMAGE GALLERY SLIDER ---
   document.querySelectorAll('.listing-card').forEach(card => {
     const images = card.querySelectorAll('.image-slider img');
-    const dots = card.querySelectorAll('.dot');
+    const dotsContainer = card.querySelector('.dots');
+    const sliderArea = card.querySelector('.slider-area');
+    let currentIndex = 0;
 
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        images.forEach(img => img.classList.remove('active'));
-        dots.forEach(d => d.classList.remove('active'));
-        images[index].classList.add('active');
-        dot.classList.add('active');
-      });
+    if (!images.length || !dotsContainer || !sliderArea) return;
+
+    const setActive = index => {
+      currentIndex = Math.max(0, Math.min(index, images.length - 1));
+      images.forEach((img, imgIndex) => img.classList.toggle('active', imgIndex === currentIndex));
+      dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === currentIndex));
+    };
+
+    const prevButton = document.createElement('button');
+    prevButton.className = 'slider-arrow prev';
+    prevButton.type = 'button';
+    prevButton.textContent = '‹';
+    prevButton.addEventListener('click', () => setActive(currentIndex - 1));
+
+    const nextButton = document.createElement('button');
+    nextButton.className = 'slider-arrow next';
+    nextButton.type = 'button';
+    nextButton.textContent = '›';
+    nextButton.addEventListener('click', () => setActive(currentIndex + 1));
+
+    sliderArea.appendChild(prevButton);
+    sliderArea.appendChild(nextButton);
+    sliderArea.tabIndex = 0;
+
+    sliderArea.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setActive(currentIndex - 1);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        setActive(currentIndex + 1);
+      }
     });
+
+    dotsContainer.innerHTML = '';
+
+    const dots = Array.from(images).map((image, index) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.addEventListener('click', () => setActive(index));
+      dotsContainer.appendChild(dot);
+      return dot;
+    });
+
+    setActive(0);
   });
 
   // --- FILTER BAR CATEGORIES ---
