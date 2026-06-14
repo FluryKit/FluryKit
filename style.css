@@ -1017,6 +1017,21 @@ footer { text-align: center; margin-top: 80px; font-size: 0.8rem; opacity: 0.5; 
 .image-slider { width: 100%; height: 100%; }
 .image-slider img { width: 100%; height: 100%; object-fit: contain; display: none; padding: 15px; background: var(--card-bg); border-radius: 18px; }
 .image-slider img.active { display: block; }
+.slider-area video{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#FAF8F5;
+  display:block;
+}
+.slider-area video{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:contain;
+  background:#FAF8F5;
+  display:block;
+  padding:15px;
+}
 .price-tag { background: var(--accent-olive); color: white; padding: 3px 12px; border-radius: 999px; font-size: 0.8rem; }
 .specs-list { background: rgba(48, 41, 24, 0.03); padding: 12px 15px; border-radius: 12px; margin-bottom: 20px; border-left: 3px solid var(--accent-cream); font-size: 0.8rem; }
 .form-template-box { background: rgba(48, 41, 24, 0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(94,61,32,0.08); font-family: monospace; font-size: 0.8rem; color: var(--text-soft); }
