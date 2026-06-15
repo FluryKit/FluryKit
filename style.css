@@ -1361,6 +1361,12 @@ body.commissions-page .specs-list li {
 body.commissions-page .btn-group {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+}
+
+body.commissions-page .btn-group .button {
+  flex: 1;
+  min-width: 100px;
 }
 
 body.commissions-page .button {
