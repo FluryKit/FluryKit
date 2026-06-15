@@ -19,6 +19,10 @@ body {
   padding-bottom: 80px;
 }
 
+.highlight {
+  color: #6f6a3f;
+}
+
 /* --- 2. NAVIGATION --- */
 nav {
   position: sticky; top: 0; z-index: 1000;
@@ -294,7 +298,7 @@ nav a:hover, nav a.active { opacity: 1; }
 
 .timeline { margin-top: 15px; border-left: 2px dashed var(--accent-cream); padding-left: 15px; margin-left: 5px; }
 .timeline-item { position: relative; margin-bottom: 15px; }
-.timeline-item::before { content: '🌱'; position: absolute; left: -25px; top: -2px; background: var(--card-bg); font-size: 0.75rem; }
+.timeline-item::before { content: "✦"; position: absolute; left: -22px; top: 0px; font-size: 0.8rem; color: var(--accent-cream); background: var(--card-bg); padding: 0 2px; }
 .timeline-date { font-weight: 600; font-size: 0.8rem; color: var(--accent-olive); text-transform: uppercase; }
 .timeline-text { font-size: 0.85rem; color: var(--text-brown); }
 
@@ -1455,6 +1459,13 @@ body.commissions-page .close-modal {
   color: var(--text-soft);
   cursor: pointer;
   font-weight: bold;
+}
+
+.tos-img {
+  width: 250px;
+  height: auto;
+  display: block;
+  margin: 0 auto 12px auto;
 }
 
 body.commissions-page .tos-section {
