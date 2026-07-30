@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop | FluryKit</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* Shop Page Cozy Streamlined Layout */
+    .shop-intro-card {
+      background-color: var(--card-mocha);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      border: 1px solid rgba(107, 127, 98, 0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      text-align: left;
+    }
+    .shop-intro-card h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .intro-text {
+      color: var(--text-cream);
+      margin-bottom: 2rem;
+      text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Streamlined Purchasing List Style */
+    .purchase-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .purchase-row {
+      background-color: rgba(42, 36, 33, 0.5);
+      border: 1px solid rgba(107, 127, 98, 0.2);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      transition: background-color 0.3s;
+    }
+    .purchase-row:hover {
+      background-color: rgba(42, 36, 33, 0.8);
+    }
+    .purchase-info h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.3rem;
+    }
+    .purchase-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .indonesian-translation {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--accent-sage);
+      margin-top: 0.4rem;
+    }
+
+    .shop-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background-color: rgba(42, 36, 33, 0.4);
+      padding: 1rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-sage);
+    }
+    
+    /* Filter Bar Styles */
+    .filter-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background-color: var(--card-mocha);
+      color: var(--text-cream);
+      border: 1px solid var(--accent-sage);
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background-color: var(--accent-sage);
+      color: var(--bg-espresso);
+    }
+
+    /* Fixed 3-Column Gallery Grid */
+    .shop-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .item-card {
+      background-color: var(--card-mocha);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(107, 127, 98, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .item-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .item-card.hidden {
+      display: none;
+    }
+    .img-wrapper {
+      width: 100%;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+    }
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .item-card:hover .img-wrapper img {
+      transform: scale(1.05);
+    }
+    .item-info {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+      text-align: left;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .header-row h2 {
+      font-size: 1.25rem;
+      color: var(--text-cream);
+    }
+    .price-tag {
+      background-color: var(--accent-sage);
+      color: var(--bg-espresso);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .item-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Review Zone Section */
+    .review-zone {
+      background-color: var(--card-mocha);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(107, 127, 98, 0.3);
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .review-zone h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .empty-reviews-box {
+      background-color: rgba(42, 36, 33, 0.5);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .empty-reviews-box p {
+      color: var(--text-cream);
+      margin-bottom: 0.5rem;
+    }
+    .shop-small-note {
+      font-size: 0.9rem;
+      color: var(--text-muted) !important;
+    }
+    .feedback-prompt p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .feedback-prompt a {
+      color: var(--accent-sage);
+      text-decoration: underline;
+    }
+    .feedback-prompt a:hover {
+      color: var(--text-cream);
+    }
+
+    /* Action Buttons */
+    .button {
+      display: inline-block;
+      text-align: center;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: 0.3s;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-main {
+      background-color: var(--accent-sage);
+      color: var(--bg-espresso);
+      border: 1px solid var(--accent-sage);
+    }
+    .btn-main:hover {
+      background-color: var(--accent-sage-hover);
+      transform: translateY(-2px);
+    }
+    .btn-sub {
+      background-color: transparent;
+      color: var(--accent-sage);
+      border: 1px solid var(--accent-sage);
+    }
+    .btn-sub:hover {
+      background-color: var(--accent-sage);
+      color: var(--bg-espresso);
+      transform: translateY(-2px);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 16, 14, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 1rem;
+    }
+    .modal-overlay.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-card {
+      background-color: var(--card-mocha);
+      border: 2px solid var(--accent-sage);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: modalPop 0.3s ease;
+    }
+    @keyframes modalPop {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+      color: var(--accent-sage);
+    }
+    .modal-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .modal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .close-modal {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: 'Poppins', sans-serif;
+      transition: color 0.3s;
+    }
+    .close-modal:hover {
+      color: var(--text-cream);
+    }
+
+    /* Future Review Cards Styling */
+    .reviews-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .review-card {
+      background-color: rgba(42, 36, 33, 0.6);
+      border: 1px solid rgba(107, 127, 98, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .reviewer-name {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 500;
+      color: var(--text-cream);
+      font-size: 1.05rem;
+    }
+    .review-stars {
+      color: #E5A93B; /* Soft golden star color */
+      font-size: 0.9rem;
+    }
+    .review-text {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+
+    /* Review Image Thumbnail Style */
+    .review-image-wrapper {
+      margin-top: 1rem;
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(107, 127, 98, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .review-image-wrapper:hover {
+      transform: scale(1.05);
+    }
+    .review-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 850px) {
+      .shop-gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .purchase-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .purchase-row .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="shop-page">
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links"></label>
+  
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">home</a>
+    <a href="commissions.html">commissions</a>
+    <a href="shop.html" class="active">shop</a>
+    <a href="gallery.html">gallery</a>
+    <a href="about.html">about</a>
+    <a href="contact.html">contact</a>
+  </div>
+</nav>
+
+<!-- HEADER BANNER BACKGROUND -->
+<header class="banner"></header>
+
+<!-- FLOATING CENTERED STORE LOGO -->
+<div class="logo-container">
+  <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionFiles/NeoKitLogo.png" alt="NeoKit Shop Official Logo">
+</div>
+
+<main class="container">
+
+  <!-- SHOP MAIN INTRODUCTION CARD -->
+  <div class="shop-intro-card">
+    <h2>✦ Welcome to My Shop! ✦</h2>
+    <p class="intro-text">
+      Here you can find my original art assets and physical merchandise! From stickers to custom accessories, everything is lovingly made or custom-designed by me <i class="fa-solid fa-seedling"></i>
+    </p>
+
+    <!-- STREAMLINED PURCHASE OPTIONS LIST -->
+    <div class="purchase-options-list">
+      
+      <!-- OPTION 1: KO-FI -->
+      <div class="purchase-row">
+        <div class="purchase-info">
+          <h3><i class="fa-solid fa-mug-hot"></i> Ko-fi Shop</h3>
+          <p>Some items are handcrafted right from my desk! For specialized items requiring heavy production gear (like acrylic keychains), I partner up with an external manufacturer. Orders packed by me include a hand-written thank you token!</p>
+        </div>
+        <a href="https://ko-fi.com/flurykit" target="_blank" class="button btn-sub">Visit Store</a>
+      </div>
+
+      <!-- OPTION 2: ACGGOODS -->
+      <div class="purchase-row">
+        <div class="purchase-info">
+          <h3><i class="fa-solid fa-shop"></i> ACGGoods Portal</h3>
+          <p>For my main merchandise print lines, ACGGoods handles all your core checkout details directly! They manage automated manufacturing runs, product parcel assembly, and direct fulfillment straight to your door hassle-free.</p>
+        </div>
+        <a href="https://acggoods.com/store/flurykit?from=share" target="_blank" class="button btn-sub">Browse Portal</a>
+      </div>
+
+      <!-- OPTION 3: LOCAL IDR ORDERS -->
+      <div class="purchase-row">
+        <div class="purchase-info">
+          <h3><i class="fa-solid fa-bag-shopping"></i> Local Orders (ID)</h3>
+          <p>For custom orders within Indonesia, I host processing queues using simple Google Forms. I'll drop you a direct notification later to clear shipping totals!</p>
+          <p class="indonesian-translation">Untuk pelanggan di Indonesia, pemesanan dilakukan melalui Google Form agar lebih mudah terorganisir. Nanti aku hubungi via chat untuk konfirmasi total harga & ongkir yaa :D</p>
+        </div>
+        <a href="https://forms.gle/g22KUaZcAKjz3Yr88" target="_blank" class="button btn-main">Google Form</a>
+      </div>
+
+    </div>
+
+    <!-- MANUFACTURER WARNING NOTICE -->
+    <p class="shop-note">
+      <i class="fa-solid fa-warning"></i> Please note: Items fulfilled by Ko-fi/Local vs ACGGoods are handled by different print manufacturers, so final color values or finishes may vary slightly. Some items remain strictly platform-exclusive!
+    </p>
+  </div>
+
+  <!-- INTERACTIVE CATEGORY FILTER BAR -->
+  <div class="filter-wrapper">
+    <button class="filter-btn active" data-target="all">All Goods</button>
+    <button class="filter-btn" data-target="sticker">Stickers</button>
+    <button class="filter-btn" data-target="print">Art Prints</button>
+    <button class="filter-btn" data-target="digital">Digital Assets</button>
+  </div>
+
+  <!-- MERCHANDISE ITEMS GALLERY GRID -->
+  <!--
+  <div class="shop-gallery-grid" id="shopGallery">
+
+    <!== STICKER PACK ITEM ==>
+    <div class="item-card sticker" 
+         onclick="openShopPopup('Sticker Pack 🌸', 'https://kofi-link.com/sticker', 'https://acg-link.com/sticker', 'https://forms.google.com')">
+      <div class="img-wrapper">
+        <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Sticker+Pack+Preview" alt="Sticker Pack">
+      </div>
+      <div class="item-info">
+        <div class="header-row">
+          <h2>Sticker Pack 🌸</h2>
+          <span class="price-tag">$8 / 120k IDR</span>
+        </div>
+        <p>Cute original art stickers for your laptop, notebook, or journals!</p>
+      </div>
+    </div>
+
+    <!== ART PRINT ITEM ==>
+    <div class="item-card print" 
+         onclick="openShopPopup('Art Print ☕', 'https://kofi-link.com/print', 'https://acg-link.com/print', 'https://forms.google.com')">
+      <div class="img-wrapper">
+        <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Art+Print+Preview" alt="Art Print">
+      </div>
+      <div class="item-info">
+        <div class="header-row">
+          <h2>Art Print ☕</h2>
+          <span class="price-tag">$15 / 225k IDR</span>
+        </div>
+        <p>Premium heavy-matte physical desktop prints of my digital illustrations.</p>
+      </div>
+    </div>
+
+    <!== DIGITAL ITEM ==>
+    <div class="item-card digital" 
+         onclick="openShopPopup('Custom Icons ✨', 'https://kofi-link.com/icons', 'https://acg-link.com/icons', 'https://forms.google.com')">
+      <div class="img-wrapper">
+        <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Digital+Icons+Preview" alt="Custom Icons">
+      </div>
+      <div class="item-info">
+        <div class="header-row">
+          <h2>Custom Icons ✨</h2>
+          <span class="price-tag">$3 / 45k IDR</span>
+        </div>
+        <p>Small, soft-tinted graphical icon profiles ideal for any social app use.</p>
+      </div>
+    </div>
+
+  </div>
+-->
+
+  <!-- REVIEWS & COMMUNITY FEEDBACK TAB -->
+  <div class="review-zone">
+    <h2>✦ Reviews ✦</h2>
+    
+    <!-- 🌟 FUTURE REVIEWS GO HERE (Uncomment and duplicate .review-card when you get them!) -->
+    <!-- 
+    <div class="reviews-container">
+      <div class="review-card">
+        <div>
+          <div class="review-header">
+            <span class="reviewer-name">Friend Name ✨</span>
+            <span class="review-stars">★★★★★</span>
+          </div>
+          <p class="review-text">"The sticker pack is even cuter in person! Shipping was super fast and the packaging was adorable. Thank you so much! ♡"</p>
+
+          <div class="review-image-wrapper" onclick="openLightbox(this.querySelector('img'))">
+            <img src="https://via.placeholder.com/300/FAF8F5/352E1F?text=Review+Photo" alt="Review photo by customer">
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div>
+          <div class="review-header">
+            <span class="reviewer-name">Another Buyer ☕</span>
+            <span class="review-stars">★★★★★</span>
+          </div>
+          <p class="review-text">"Love my new art print! It looks so cozy on my desk setup."</p>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <!-- CURRENT EMPTY STATE (Will show when you have no reviews) -->
+    <div class="empty-reviews-box">
+      <p><b>No reviews logged just yet!</b></p>
+      <p class="shop-small-note">But I absolutely cannot wait to hear what you think of your items! Every single piece of feedback helps me improve my shop processes and genuinely makes my day brighter! ;w;</p>
+    </div>
+
+    <div class="feedback-prompt">
+      <p><i class="fa-solid fa-box"></i> Bought from Ko-fi or via Local forms? Share a picture or leave a review <a href="https://forms.gle/DHwz3KWtnxCPmxZC8">here</a> anytime! Have ideas or suggestions for items you'd want to see? <a href="https://forms.gle/btuQbuDUF1KETADd6" target="_blank">Share your product feedback ideas here!</a></p>
+    </div>
+  </div>
+
+</main>
+
+<!-- === PLATFORM ROUTING MODAL POPUP === -->
+<div id="shopPopup" class="modal-overlay">
+  <div class="modal-card">
+    <h3 id="popupItemTitle">Product Name</h3>
+    <p>Select which storefront ecosystem you would like to purchase this merchandise asset through:</p>
+    
+    <div class="modal-links">
+      <a id="modalKofiLink" href="#" target="_blank" class="button btn-main"><i class="fa-solid fa-mug-hot"></i> Order via Ko-fi Store</a>
+      <a id="modalAcgLink" href="#" target="_blank" class="button btn-main"><i class="fa-solid fa-shop"></i> Order via ACGGoods</a>
+      <a id="modalLocalLink" href="#" target="_blank" class="button btn-sub"><i class="fa-solid fa-bag-shopping"></i> Order via Local Form (ID)</a>
+    </div>
+
+    <button class="close-modal" onclick="closeShopPopup()">Go Back to Shop</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="socials-footer">
+  <h3>find me online</h3>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/flurykits/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@flurykit" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://twitter.com/flurykit" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://bsky.app/profile/flurykit.bsky.social" target="_blank" aria-label="Bluesky"><i class="fa-solid fa-feather"></i></a>
+    <a href="https://cara.app/flurykit" target="_blank" aria-label="Cara"><i class="fa-solid fa-palette"></i></a>
+    <a href="https://flurykit.tumblr.com" target="_blank" aria-label="Tumblr"><i class="fa-brands fa-tumblr"></i></a>
+    <a href="https://youtube.com/@flurykit" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://toyhou.se/flurykit" target="_blank" aria-label="Toyhouse"><i class="fa-solid fa-house"></i></a>
+  </div>
+  <p class="copyright">© <span id="year"></span> FluryKit</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- STORE ITEM DETAILS POPUP ACTION ---
+  const shopPopup = document.getElementById('shopPopup');
+  const popupItemTitle = document.getElementById('popupItemTitle');
+  const modalKofiLink = document.getElementById('modalKofiLink');
+  const modalAcgLink = document.getElementById('modalAcgLink');
+  const modalLocalLink = document.getElementById('modalLocalLink');
+
+  function openShopPopup(name, kofiUrl, acgUrl, localUrl) {
+    popupItemTitle.textContent = name;
+    modalKofiLink.href = kofiUrl;
+    modalAcgLink.href = acgUrl;
+    modalLocalLink.href = localUrl;
+
+    shopPopup.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeShopPopup() {
+    shopPopup.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Auto-dismiss modal if clicking backdrop tint overlay area directly
+  shopPopup.addEventListener('click', (e) => {
+    if (e.target === shopPopup) {
+      closeShopPopup();
+    }
+  });
+
+  // --- LIVE GALLERY CONTENT FILTER INTERACTION ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const shopItems = document.querySelectorAll('.item-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const targetCategory = button.getAttribute('data-target');
+
+      shopItems.forEach(item => {
+        if (targetCategory === 'all' || item.classList.contains(targetCategory)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

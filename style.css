@@ -1,0 +1,1030 @@
+/* --- 1. Theme Variables (Cozy Espresso & Sage) --- */
+:root {
+    --bg-espresso: #2A2421;
+    --card-mocha: #3D342F;
+    --accent-sage: #6B7F62;
+    --accent-sage-hover: #829A78;
+    --text-cream: #EADDCE;
+    --text-muted: #AFA49C;
+    --accent-cream: #F3E8DA;
+    --text-soft: #CBB9A7;
+    --text-brown: #3B2F26;
+    --accent-olive: #6B7F62;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-espresso);
+    color: var(--text-cream);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
+}
+
+h1, h2, h3 {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--accent-sage);
+    font-weight: 500;
+}
+
+/* --- 2. Navigation --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: var(--card-mocha);
+    border-bottom: 2px solid var(--accent-sage);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-logo img {
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-cream);
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: lowercase;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--accent-sage);
+}
+
+.nav-toggle { display: none; font-size: 1.8rem; color: var(--accent-sage); cursor: pointer; }
+.nav-checkbox { display: none; }
+
+/* --- 3. Hero Section --- */
+.banner {
+    height: 300px;
+    background: linear-gradient(rgba(42, 36, 33, 0.3), rgba(42, 36, 33, 0.9)),
+                url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.logo-container {
+    text-align: center;
+    margin-top: -60px;
+    position: relative;
+    z-index: 10;
+}
+
+.logo-container img {
+    width: 200px;
+    max-width: 80%;
+    height: auto;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+}
+
+.status-bar {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+    text-align: center;
+    padding: 0.8rem 2rem;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+/* --- 4. Main Layout Containers --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+    text-align: center;
+}
+
+section {
+    margin-bottom: 5rem;
+    text-align: left;
+}
+
+/* --- 5. Welcome Grid (Side-by-Side) --- */
+.welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.welcome-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-text p {
+    margin-bottom: 1.2rem;
+    color: var(--text-cream);
+}
+
+.welcome-image img {
+    width: 60%;
+    border-radius: 16px;
+    transform: rotate(2deg);
+}
+
+/* Feature Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--card-mocha);
+    color: var(--text-cream);
+    text-decoration: none;
+    border-radius: 12px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.btn img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+    transform: translateY(-3px);
+}
+
+.btn-kofi {
+    background-color: transparent;
+    border: 2px solid var(--accent-sage);
+    color: var(--accent-sage);
+}
+.btn-kofi:hover {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+}
+
+/* --- 6. Timeline Layout --- */
+.timeline-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.timeline {
+    max-width: 600px;
+    margin: 0 auto;
+    border-left: 2px dashed var(--accent-sage);
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.timeline-item {
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '‎ ✦';
+    position: absolute;
+    left: -2.8rem;
+    top: -2px;
+    font-size: 1.2rem;
+    background-color: var(--bg-espresso);
+}
+
+.timeline-date {
+    color: var(--text-cream);
+    font-weight: 600;
+    font-size: 1.1rem;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.timeline-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- 7. Art Showcase --- */
+.showcase-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.art-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.art-piece {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.art-piece:hover {
+    transform: scale(1.02);
+}
+
+/* --- 8. Lightbox (Pop-up Image) --- */
+.lightbox {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    padding-top: 60px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(20, 16, 14, 0.95);
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: var(--text-cream);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-lightbox:hover {
+    color: var(--accent-sage);
+}
+
+/* --- 9. Socials & Footer --- */
+.socials-footer {
+    background-color: var(--card-mocha);
+    padding: 4rem 5% 2rem 5%;
+    text-align: center;
+    border-top: 2px solid var(--accent-sage);
+    margin-top: 4rem;
+}
+
+.socials-footer h3 {
+    margin-bottom: 1.5rem;
+    color: var(--text-cream);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.social-icons a {
+    color: var(--text-cream);
+    font-size: 1.8rem;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--accent-sage);
+    transform: translateY(-5px);
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- 10. Commissions Page Styling --- */
+.banner {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 5%;
+    background: linear-gradient(rgba(42, 36, 33, 0.3), rgba(42, 36, 33, 0.9)),
+                url("https://f2.toyhou.se/file/f2-toyhou-se/images/113552749_LfYjTz1hDfalYqJ.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.banner h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--text-cream);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
+.banner p {
+    color: var(--text-cream);
+    font-size: 1rem;
+    max-width: 640px;
+}
+
+.commissions-page .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 5% 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.commissions-page .card {
+    background: linear-gradient(145deg, rgba(61, 52, 47, 0.96), rgba(47, 39, 35, 0.95));
+    border: 1px solid rgba(107, 127, 98, 0.25);
+    border-radius: 22px;
+    padding: 2rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+}
+
+.commissions-page .section-title {
+    text-align: center;
+    margin-bottom: 1.4rem;
+    font-size: 1.8rem;
+    color: var(--accent-sage);
+}
+
+.commissions-page .status-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+}
+
+.commissions-page .status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(107, 127, 98, 0.18);
+    border: 1px solid rgba(107, 127, 98, 0.32);
+    font-family: 'Fredoka', sans-serif;
+    color: var(--text-cream);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.commissions-page .status-pill.closed {
+    background: rgba(138, 79, 79, 0.2);
+    border-color: rgba(138, 79, 79, 0.35);
+    color: #f8c6b0;
+}
+
+.commissions-page .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.commissions-page .rule-box {
+    background: rgba(42, 36, 33, 0.45);
+    border: 1px solid rgba(107, 127, 98, 0.18);
+    border-radius: 16px;
+    padding: 1rem;
+}
+
+.commissions-page .rule-box h3 {
+    margin-bottom: 0.4rem;
+    font-size: 1.05rem;
+    color: var(--text-cream);
+}
+
+.commissions-page .rule-box p,
+.commissions-page .note-text,
+.commissions-page .listing-info p,
+.commissions-page .listing-info li,
+.commissions-page .payment-card h4,
+.commissions-page .payment-group-label {
+    color: var(--text-soft);
+}
+
+.commissions-page .rush-box {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: 16px;
+    background: rgba(107, 127, 98, 0.12);
+    border: 1px solid rgba(107, 127, 98, 0.2);
+    margin: 1rem 0 0.7rem;
+}
+
+.commissions-page .rush-box div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+    color: var(--text-cream);
+}
+
+.commissions-page .rush-box b {
+    color: var(--accent-sage);
+    font-size: 1.05rem;
+}
+
+.commissions-page .note-text {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.commissions-page .horizontal-rules {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+}
+
+.commissions-page .horizontal-rules span {
+    background: rgba(42, 36, 33, 0.45);
+    border: 1px solid rgba(107, 127, 98, 0.18);
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+.commissions-page .button,
+.commissions-page .btn-main,
+.commissions-page .btn-sub {
+    display: inline-block;
+    text-align: center;
+    padding: 0.7rem 1.15rem;
+    border-radius: 999px;
+    font-family: 'Fredoka', sans-serif;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.commissions-page .btn-main {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+}
+
+.commissions-page .btn-main:hover {
+    background-color: var(--accent-sage-hover);
+    transform: translateY(-2px);
+}
+
+.commissions-page .btn-sub {
+    background-color: transparent;
+    color: var(--accent-sage);
+    border-color: var(--accent-sage);
+}
+
+.commissions-page .btn-sub:hover {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+    transform: translateY(-2px);
+}
+
+.commissions-page .filter-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.commissions-page .filter-btn {
+    background-color: var(--card-mocha);
+    color: var(--text-cream);
+    border: 1px solid rgba(107, 127, 98, 0.3);
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    font-family: 'Fredoka', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+.commissions-page .filter-btn:hover,
+.commissions-page .filter-btn.active {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+    border-color: var(--accent-sage);
+}
+
+.commissions-page .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.75rem;
+}
+
+.commissions-page .listing-card {
+    background: linear-gradient(145deg, rgba(61, 52, 47, 0.96), rgba(47, 39, 35, 0.95));
+    border: 1px solid rgba(107, 127, 98, 0.22);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.commissions-page .listing-card.hidden {
+    display: none;
+}
+
+.commissions-page .listing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.commissions-page .slider-area {
+    position: relative;
+    padding: 1rem 1rem 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.commissions-page .image-slider {
+    position: relative;
+    min-height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(42, 36, 33, 0.35);
+}
+
+/* Hide all slides by default */
+.commissions-page .slide {
+    display: none;
+}
+
+/* Only display the active slide */
+.commissions-page .slide.active {
+    display: block;
+}
+
+/* Size both images and videos uniformly within slides */
+.commissions-page .slide img,
+.commissions-page .slide video {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+}
+
+.commissions-page .img-caption {
+    position: absolute;
+    left: 1.2rem;
+    bottom: 0.9rem;
+    background: rgba(42, 36, 33, 0.75);
+    color: var(--text-cream);
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+}
+
+.commissions-page .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.2rem;
+    height: 2.2rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(42, 36, 33, 0.8);
+    color: var(--text-cream);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.commissions-page .slider-arrow.prev {
+    left: 1.2rem;
+}
+
+.commissions-page .slider-arrow.next {
+    right: 1.2rem;
+}
+
+.commissions-page .dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.65rem 0 0;
+}
+
+.commissions-page .dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: rgba(234, 221, 206, 0.3);
+}
+
+.commissions-page .dot.active {
+    background: var(--accent-sage);
+}
+
+.commissions-page .listing-info {
+    padding: 1.1rem 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+}
+
+.commissions-page .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.commissions-page .header-row h2 {
+    font-size: 1.2rem;
+    color: var(--text-cream);
+    margin: 0;
+}
+
+.commissions-page .price-tag {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.commissions-page .specs-list {
+    background: rgba(42, 36, 33, 0.42);
+    border-left: 3px solid var(--accent-sage);
+    border-radius: 12px;
+    padding: 0.8rem 0.9rem;
+}
+
+.commissions-page .specs-list ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+}
+
+.commissions-page .specs-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: var(--text-muted);
+}
+
+.commissions-page .specs-list li span:last-child {
+    color: var(--text-cream);
+    font-weight: 600;
+}
+
+.commissions-page .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+}
+
+.commissions-page .btn-group .button {
+    flex: 1 1 auto;
+    min-width: 96px;
+}
+
+.commissions-page .payment-section {
+    padding: 1.5rem 2rem;
+}
+
+.commissions-page .payment-group-label {
+    margin: 1rem 0 0.7rem;
+    font-family: 'Fredoka', sans-serif;
+    color: var(--accent-sage);
+}
+
+.commissions-page .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.commissions-page .payment-card {
+    background: rgba(42, 36, 33, 0.45);
+    border: 1px solid rgba(107, 127, 98, 0.18);
+    border-radius: 16px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.commissions-page .payment-card img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+}
+
+.commissions-page .payment-card h4 {
+    font-size: 0.95rem;
+    color: var(--text-cream);
+}
+
+.commissions-page #stamp-user,
+.commissions-page #stamp-key {
+    padding: 0.8rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(107, 127, 98, 0.25);
+    background: rgba(42, 36, 33, 0.55);
+    color: var(--text-cream);
+    font-family: inherit;
+    width: 180px;
+}
+
+.commissions-page #stamp-user::placeholder,
+.commissions-page #stamp-key::placeholder {
+    color: var(--text-soft);
+}
+
+.commissions-page #stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    max-width: 400px;
+    margin: 0 auto 1rem;
+}
+
+.commissions-page .stamp-slot {
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    border: 1px dashed rgba(107, 127, 98, 0.24);
+    background: rgba(42, 36, 33, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.commissions-page .stamp-slot.stamped {
+    background: rgba(107, 127, 98, 0.16);
+    border-style: solid;
+    border-color: rgba(107, 127, 98, 0.35);
+}
+
+.commissions-page .stamp-slot img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+.commissions-page .stamp-rules-container button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(107, 127, 98, 0.22), rgba(61, 52, 47, 0.95));
+    border: 1px solid rgba(107, 127, 98, 0.28);
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    color: var(--text-cream);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.commissions-page .stamp-rules-container button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(107, 127, 98, 0.4);
+}
+
+.commissions-page .stamp-rules-container > div {
+    display: none;
+    background: linear-gradient(145deg, rgba(42, 36, 33, 0.8), rgba(61, 52, 47, 0.92));
+    padding: 1rem 1.1rem;
+    border-radius: 0 0 14px 14px;
+    border: 1px solid rgba(107, 127, 98, 0.18);
+    border-top: none;
+    font-size: 0.9rem;
+    color: var(--text-cream);
+    line-height: 1.6;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.commissions-page .stamp-rules-container > div p,
+.commissions-page .stamp-rules-container > div li,
+.commissions-page .stamp-rules-container > div a {
+    color: var(--text-cream);
+}
+
+.commissions-page .stamp-rules-container > div a {
+    text-decoration: underline;
+}
+
+.commissions-page .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 16, 14, 0.9);
+    z-index: 2000;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.commissions-page .modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.commissions-page .modal-card {
+    width: min(860px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(145deg, rgba(61, 52, 47, 0.98), rgba(47, 39, 35, 0.98));
+    border-radius: 24px;
+    border: 1px solid rgba(107, 127, 98, 0.24);
+    padding: 1.5rem;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+}
+
+.commissions-page .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.commissions-page .close-modal {
+    background: none;
+    border: none;
+    color: var(--text-cream);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.commissions-page .tos-img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+}
+
+.commissions-page .tos-section {
+    margin-bottom: 1rem;
+}
+
+.commissions-page .tos-section h3 {
+    margin-bottom: 0.5rem;
+    color: var(--accent-sage);
+}
+
+.commissions-page .tos-section ul {
+    display: grid;
+    gap: 0.4rem;
+    padding-left: 1.1rem;
+    color: var(--text-soft);
+}
+
+.commissions-page .highlight {
+    color: var(--text-cream);
+}
+
+.commissions-page footer {
+    padding: 2rem 5% 2.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(107, 127, 98, 0.2);
+    margin-top: 2rem;
+}
+
+.commissions-page .nav-toggle {
+    display: none;
+}
+
+.commissions-page .nav-toggle span {
+    display: none;
+}
+
+/* --- Mobile Responsiveness (Adjusted Icon Sizes Here) --- */
+@media (max-width: 850px) {
+    .welcome-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .welcome-image {
+        order: -1; 
+    }
+
+    .welcome-image img {
+        max-width: 80%;
+        margin: 0 auto;
+        display: block;
+        transform: rotate(0deg);
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    /* Shrinks button icon images slightly on mobile */
+    .btn img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Shrinks the social icon font size on mobile */
+    .social-icons a {
+        font-size: 1.4rem;
+    }
+
+    .nav-toggle { display: block; }
+    .nav-toggle::before { font-family: "Font Awesome 6 Free"; content: "\f0c9"; font-weight: 900; }
+    
+    .nav-links {
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        background-color: var(--card-mocha);
+        padding: 1rem 0;
+        text-align: center;
+        border-bottom: 2px solid var(--accent-sage);
+    }
+    .nav-links a { padding: 1rem; }
+    .nav-checkbox:checked ~ .nav-links { display: flex; }
+
+    .commissions-page .card {
+        padding: 1.4rem;
+    }
+
+    .commissions-page .rush-box {
+        grid-template-columns: 1fr;
+    }
+
+    .commissions-page .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .commissions-page .image-slider,
+    .commissions-page .image-slider img,
+    .commissions-page .slider-area video {
+        min-height: 240px;
+        height: 240px;
+    }
+
+    .commissions-page .btn-group {
+        flex-direction: column;
+    }
+
+    .commissions-page #stamp-user,
+    .commissions-page #stamp-key {
+        width: 100%;
+    }
+}

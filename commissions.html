@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Commissions | FluryKit</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Consistent Review Section & Lightbox Styling matching Shop */
+    .review-zone {
+      background-color: var(--card-mocha, #2a2421);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 1px solid rgba(107, 127, 98, 0.3);
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .review-zone h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-cream, #FAF8F5);
+    }
+    .reviews-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .review-card {
+      background-color: rgba(42, 36, 33, 0.6);
+      border: 1px solid rgba(107, 127, 98, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .reviewer-name {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 500;
+      color: var(--text-cream, #FAF8F5);
+      font-size: 1.05rem;
+    }
+    .review-stars {
+      color: #E5A93B;
+      font-size: 0.9rem;
+    }
+    .review-text {
+      color: var(--text-muted, #C5B9AC);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+    .review-image-wrapper {
+      margin-top: 1rem;
+      width: 140px;  /* Increased size from 70px */
+      height: 140px; /* Increased size from 70px */
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(107, 127, 98, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .review-image-wrapper:hover {
+      transform: scale(1.03);
+    }
+    .review-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .empty-reviews-box {
+      background-color: rgba(42, 36, 33, 0.5);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .empty-reviews-box p {
+      color: var(--text-cream, #FAF8F5);
+      margin-bottom: 0.5rem;
+    }
+    .shop-small-note {
+      font-size: 0.9rem;
+      color: var(--text-muted, #C5B9AC) !important;
+    }
+    .feedback-prompt p {
+      color: var(--text-muted, #C5B9AC);
+      font-size: 0.95rem;
+    }
+    .feedback-prompt a {
+      color: var(--accent-sage, #787350);
+      text-decoration: underline;
+    }
+    .feedback-prompt a:hover {
+      color: var(--text-cream, #FAF8F5);
+    }
+
+    /* --- Commissioner Source Badge --- */
+    .commissioner-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .commission-source-tag {
+      display: inline-block;
+      background-color: rgba(107, 127, 98, 0.2);
+      color: var(--accent-sage, #787350);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid rgba(107, 127, 98, 0.3);
+      margin-top: 0.3rem;
+    }
+
+    /* --- Lightbox Styles (Matches Index Page) --- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 16, 14, 0.9);
+      backdrop-filter: blur(4px);
+      text-align: center;
+      padding: 2rem;
+    }
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 85vh;
+      margin: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      border: 2px solid var(--accent-sage, #787350);
+    }
+    .close-lightbox {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: var(--text-cream, #FAF8F5);
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Carousel Wrapper relative positioning for the buttons */
+    .carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    }
+
+    /* Make the container a horizontal scrolling flexbox */
+    .reviews-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+    
+    /* Hide scrollbars for a cleaner look */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    }
+    .reviews-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+    }
+
+    /* Ensure each card takes up the right amount of space and snaps into view */
+    .review-card {
+      flex: 0 0 calc(50% - 0.75rem); /* Forces exactly 2 cards at a time */
+      scroll-snap-align: start; /* Snaps to the beginning of the card to fix scrolling */
+      box-sizing: border-box;
+      
+      /* Retaining your original styling */
+      background-color: rgba(42, 36, 33, 0.6);
+      border: 1px solid rgba(107, 127, 98, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Styling the navigation buttons */
+    .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    }
+
+    .carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .prev-btn {
+    left: -10px; /* Adjust this to move the button further in or out */
+    }
+
+    .next-btn {
+    right: -10px;
+    }
+
+   @media (max-width: 768px) {
+    #reviewCarousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        gap: 16px; /* Adjust gap between reviews if needed */
+    }
+
+    /* Force each review card to take up 100% of the container width */
+    #reviewCarousel > * {
+        flex: 0 0 100%;
+        min-width: 100%;
+        box-sizing: border-box;
+        scroll-snap-align: start;
+    }
+    }
+
+  </style>
+</head>
+
+<body class="commissions-page">
+
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="commissions.html" class="active">Commissions</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="banner">
+  <h1>Commissions</h1>
+  <p>Hellow! Welcome to my commission page! :D 🌿</p>
+</header>
+
+<div class="container">
+
+  <!-- STATUS & TOS LINKS -->
+  <div style="text-align: center;">
+    <div class="status-container">
+      <div class="status-pill closed">Commissions Closed / Waitlist Open</div>
+    </div>
+    <div class="card" style="padding: 15px; border-radius: 18px; margin-top: 10px;">
+       <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 8px;">Please read my Terms of Service before sending a request!</p>
+       <button id="openTosBtn" class="button btn-main">View Full TOS</button>
+    </div>
+  </div>
+
+  <!-- ORDERING STYLES / COMPATIBILITIES -->
+  <div class="card">
+    <h2 class="section-title">✦ Info & Preferences ✦</h2>
+    
+    <div class="rules-grid">
+      <div class="rule-box" style="border-top: 3px solid #787350;">
+        <h3>Comfortable 🌿</h3>
+        <p>Feral, Hybrids, Accessories</p>
+      </div>
+      <div class="rule-box" style="border-top: 3px solid #CCB693;">
+        <h3>Can Try 🌻</h3>
+        <p>Anthro, Reptiles/Dragons, Light Outfits</p>
+      </div>
+      <div class="rule-box" style="border-top: 3px solid #8A4F4F;">
+        <h3>Won't Draw 🥀</h3>
+        <p>Non-chibi Humanoids, Full Mecha, Really Complex Outfits</p>
+      </div>
+    </div>
+
+    <div class="rush-box">
+      <div><small>Priority (any deadline)</small><b>+50%</b></div>
+      <div><small>Same Month</small><b>+75%</b></div>
+      <div><small>Same Week</small><b>+100%</b></div>
+    </div>
+    <p class="note-text">↳ Please respond to updates promptly! Delays caused by late responses are outside my responsibility.</p>
+
+    <div class="horizontal-rules">
+      <span>✦ Sketch sent before finishing</span>
+      <span>✦ Clarity allows direct completion</span>
+      <span>✦ Minor markings/color fixes are free</span>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px;">
+      <a href="https://www.sieve.page/flurykit" class="button btn-sub">View Queue / Waitlist</a>
+    </div>
+
+    <!-- Collapsible Rules Container -->
+    <div class="stamp-rules-container" style="margin: 20px auto 0 auto; max-width: 480px; text-align: left;">
+        <button id="toggle-pricing-btn" style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: rgba(107, 127, 98, 0.15); border: 1px solid rgba(107, 127, 98, 0.3); padding: 12px 18px; border-radius: 14px; color: var(--text-cream); font-family: 'Fredoka', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <span><i class="fa-solid fa-circle-exclamation" style="color: var(--accent-sage);"></i> A Note About Local (IDR) Pricing</span>
+        <span id="pricing-arrow" style="transition: transform 0.3s; color: var(--accent-sage);">▼</span>
+        </button>
+        
+        <div id="pricing-rules-content" style="display: none; background: linear-gradient(145deg, rgba(61, 52, 47, 0.95), rgba(42, 36, 33, 0.95)); padding: 18px 20px; border-radius: 0 0 16px 16px; border: 1px solid rgba(107, 127, 98, 0.25); border-top: none; font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);">
+
+            <p style="font-size: 0.8rem; margin-bottom: 10px; color: var(--text-soft);">
+                You may notice that my IDR prices are lower when converted from USD. This is intentional.
+                <br><br>
+                I know AI-generated images are everywhere nowadays but its been especially difficult for 
+                artists here in Indonesia. Appreciation for real artists is still very very awfully low and even 
+                many official institutions choose AI instead of supporting local artists.
+                <br><br>
+                Thats one of the reasons I decided to offer special IDR pricing. I want to make my 
+                commissions fair and affordable for Indonesians while still respecting the value of my work 
+                and the art market. Id love to make art for my own people too, who still support real artists ^^
+                <br><br>
+                Because of this, the IDR prices are exclusively for commissioners residing in Indonesia. 
+                Please dont take advantage of the local pricing if you're commissioning from outside the country.
+                <br><br>
+                To everyone who commissions me using the USD pricing, thank you so much TwT
+                Your support truly helps me with my daily living expenses, college, my family and my mom's 
+                medical care. It also allows me to continue offering affordable local pricing for 
+                Indonesian commissioners. Your kindness genuinely means more to me than you know ♡
+            </p>
+        </div>
+    </div>
+
+  </div>
+
+  <!-- Loyalty Stamp Card -->
+  <div class="card" style="text-align: center; margin-top: 20px;">
+    <h2 class="section-title">✦ Loyalty Stamp Card ✦</h2>
+    
+    <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 5px;">
+      Earn digital stamps for completed commissions and redeem them for rewards!
+    </p>
+
+    <!-- Login Form Area -->
+    <div id="stamp-login-area">
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 10px;">
+        <input type="text" id="stamp-user" placeholder="Username" style="padding: 8px 12px; border-radius: 999px; border: 1px solid var(--accent-cream); font-family: inherit; font-size: 0.85rem; width: 180px;">
+        <input type="password" id="stamp-key" placeholder="Secret Key" style="padding: 8px 12px; border-radius: 999px; border: 1px solid var(--accent-cream); font-family: inherit; font-size: 0.85rem; width: 180px;">
+      </div>
+      <button id="check-stamps-btn" class="button btn-main">Check My Stamps</button>
+      <p id="stamp-error" style="color: #8A4F4F; font-size: 0.8rem; margin-top: 8px; display: none;"></p>
+    </div>
+
+    <!-- Stamp Card Visual Area -->
+    <div id="stamp-card-area" style="display: none; margin-top: 20px;">
+      <p style="color: var(--accent-olive); font-weight: 600; font-size: 0.9rem; margin-bottom: 15px;">
+        Welcome back, <span id="display-username" style="color: var(--text-brown);"></span>! (<span id="stamp-count-text">0</span>/10 Stamps)
+      </p>
+      
+      <div id="stamp-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 400px; margin: 0 auto 20px auto;">
+      </div>
+      
+      <button id="stamp-logout-btn" class="button btn-sub">Log Out</button>
+    </div>
+    
+    <!-- Collapsible Rules Container -->
+    <div class="stamp-rules-container" style="margin: 20px auto 0 auto; max-width: 480px; text-align: left;">
+        <button id="toggle-rules-btn" style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: rgba(107, 127, 98, 0.15); border: 1px solid rgba(107, 127, 98, 0.3); padding: 12px 18px; border-radius: 14px; color: var(--text-cream); font-family: 'Fredoka', sans-serif; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <span><i class="fa-solid fa-question-circle" style="color: var(--accent-sage);"></i> How to Earn & Redeem Rewards</span>
+        <span id="rules-arrow" style="transition: transform 0.3s; color: var(--accent-sage);">▼</span>
+        </button>
+        
+        <div id="stamp-rules-content" style="display: none; background: linear-gradient(145deg, rgba(61, 52, 47, 0.95), rgba(42, 36, 33, 0.95)); padding: 18px 20px; border-radius: 0 0 16px 16px; border: 1px solid rgba(107, 127, 98, 0.25); border-top: none; font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; box-shadow: inset 0 2px 6px rgba(0,0,0,0.2);">
+            <p style="margin-bottom: 10px; font-weight: 600; color: var(--text-cream); font-family: 'Fredoka', sans-serif;">✦ Earn 1 stamp for every completed commission of $20+ USD!</p>
+                
+            <p style="font-weight: 500; margin-top: 10px; color: #f8c6b0;"><i class="fa-solid fa-feather-pointed"></i> No stamps earned on:</p>
+            <ul style="margin-left: 18px; margin-bottom: 12px; list-style-type: '✦ ';">
+                <li>Orders under $20 USD / using loyalty rewards</li>
+                <li>Adoptables / heavily discounted artwork</li>
+                <li>Freebies or gifted artwork</li>
+            </ul>
+
+            <p style="font-weight: 500; color: var(--accent-sage); margin-top: 10px; font-family: 'Fredoka', sans-serif;"><i class="fa-solid fa-gift"></i> Rewards Available:</p>
+            <ul style="margin-left: 0; padding-left: 0; margin-bottom: 12px; list-style: none;">
+                <li style="padding-left: 5px; margin-bottom: 6px; color: var(--text-cream);">
+                <strong style="color: var(--accent-sage);">5 Stamps:</strong> Free Chibi / Headshot
+                </li>
+                <li style="padding-left: 5px; margin-bottom: 6px; color: var(--text-cream);">
+                <strong style="color: var(--accent-sage);">10 Stamps:</strong> 15% Off any regular commission
+                </li>
+            </ul>
+            <p style="font-size: 0.8rem; font-style: italic; opacity: 0.9; margin-bottom: 12px; color: var(--text-soft);">*Note: 10 stamps can alternatively be traded for 2 free chibis! Cards max out at 10 slots.</p>
+
+            <p style="font-weight: 500; color: var(--text-cream); font-family: 'Fredoka', sans-serif;">✦ How to Claim / Join:</p>
+            <p style="font-size: 0.8rem; margin-bottom: 10px; color: var(--text-soft);">Include your Stamp username in your commission notes before payment! Want a card? Just ask after your first eligible order and I'll make yours ♡</p>
+
+            <p style="font-size: 0.78rem; font-style: italic; border-top: 1px dashed rgba(107, 127, 98, 0.3); padding-top: 10px; margin-top: 10px; color: var(--text-muted);">
+                If you have any questions about the loyalty program, feel free to contact me through my <a href="contact.html" style="color: var(--accent-sage); text-decoration: underline;">Contact page</a>! ♡
+            </p>
+        </div>
+    </div>
+
+  </div>
+
+  <!-- INTERACTIVE SECTION SWITCHER -->
+  <div class="filter-wrapper">
+    <button class="filter-btn active" data-target="all">All</button>
+    <button class="filter-btn" data-target="illustration">Illustrations</button>
+    <button class="filter-btn" data-target="general">General & Pixels</button>
+    <button class="filter-btn" data-target="design">Designs</button>
+    <button class="filter-btn" data-target="pngtuber">PNGTubers/Live2D</button>
+    <button class="filter-btn" data-target="ych">YCH</button>
+  </div>
+
+  <!-- GALLERY LISTINGS CONTAINER -->
+  <div class="gallery">
+
+    <!-- === CATEGORY 1: ILLUSTRATIONS === -->
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Headshot_angelic_hymn_watermark.png" onclick="openLightbox(this)">
+            <div class="img-caption">May 2026 • Flat Color</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Icon/Headshot</h2>
+          <span class="price-tag">$20 / Rp80k</span>
+        </div>
+        <p>Canvas size usually 1000–2500px or larger depending on the piece, or can be requested. Simple white outline can be added if wanted. <a style="color: var(--accent-sage-hover);">Base price is flat color!</a></p>
+        <p><strong>Revisions:</strong> major up to 5 (sketch), minor up to 3 per WIP/final update. Please give clear notes to avoid extra revisions.</p>
+        <p><i class="fa-solid fa-warning"></i> Scene backgrounds are only available for shaded commissions.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background or transparent background</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Shaded</span><span>$30 / Rp100k</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Simple BG</span><span>+$5-20 / +Rp25k-75k</span></li>
+            <li><span>✦ Scene BG</span><span>quote only</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="https://vgen.co/flurykit/service/icon-headshot-commission/dad9dd5e-f115-4f84-984b-e574211abef7" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A2_Queen_Ghoste_WM.png" alt="Headshot" onclick="openLightbox(this)">
+            <div class="img-caption">July 2026 • Shaded</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Bust_Sloan.png" alt="Headshot" onclick="openLightbox(this)">
+            <div class="img-caption">May 2026 • Flat Color</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Bust</h2>
+          <span class="price-tag">$28 / Rp120k</span>
+        </div>
+        <p>Canvas size usually 1000–2500px or larger depending on the piece, or can be requested. Simple white outline can be added if wanted. <a style="color: var(--accent-sage-hover);">Base price is flat color!</a></p>
+        <p><strong>Revisions:</strong> major up to 5 (sketch), minor up to 3 per WIP/final update. Please give clear notes to avoid extra revisions.</p>
+        <p><i class="fa-solid fa-warning"></i> Scene backgrounds are only available for shaded commissions.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background or transparent background</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Shaded</span><span>$42 / Rp150k</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Background</span><span>+$5-20 / +Rp25k-75k</span></li>
+            <li><span>✦ Complex BG</span><span>quote only</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/RuneSiblings.png" onclick="openLightbox(this)">
+            <div class="img-caption">June 2026 • Shaded + Simple BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/FullShadedHalfbody_Ghost_Watermark.png" onclick="openLightbox(this)">
+            <div class="img-caption">June 2026 • Shaded + Scene BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Draggg1.png" onclick="openLightbox(this)">
+            <div class="img-caption">April 2026 • Shaded</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/GiftArtYAY.png" onclick="openLightbox(this)">
+            <div class="img-caption">March 2026 • Shaded</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/MaruuuYEHABiggerSize.png" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026 • Shaded + Simple BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/2Haldbody_Kiwi.png" onclick="openLightbox(this)">
+            <div class="img-caption">Dec 2025 • Flat Color</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Halfbody</h2>
+          <span class="price-tag">$40 / Rp180k</span>
+        </div>
+        <p>Canvas size usually 1000–2500px or larger depending on the piece, or can be requested. Simple white outline can be added if wanted. <a style="color: var(--accent-sage-hover);">Base price is flat color!</a></p>
+        <p><strong>Revisions:</strong> major up to 5 (sketch), minor up to 3 per WIP/final update. Please give clear notes to avoid extra revisions.</p>
+        <p><i class="fa-solid fa-warning"></i> Scene backgrounds are only available for shaded commissions.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background or transparent background</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Shaded</span><span>$60 / Rp200k</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Simple BG</span><span>+$5-20 / +Rp25k-75k</span></li>
+            <li><span>✦ Scene BG</span><span>quote only</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="illustration">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A1_BrokenGhostblade.png" onclick="openLightbox(this)">
+            <div class="img-caption">July 2026 • Shaded + Scene BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/CommissionScene.png" onclick="openLightbox(this)">
+            <div class="img-caption">Feb 2026 • Shaded + Scene BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/MinShadingFullbody_Gwen.png" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026 • Shaded</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/MinimalShadingFullbody_FlippenFox2.png" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026 • Shaded + Scene BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/FlatFullbody_KakaoChan1.png" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026 • Flat Color</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Foxune_Daisy.png" onclick="openLightbox(this)">
+            <div class="img-caption">Dec 2025 • Shaded + SceneBG</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Fullbody</h2>
+          <span class="price-tag">$52 / Rp250k</span>
+        </div>
+        <p>Canvas size usually 1000–2500px or larger depending on the piece, or can be requested. Simple white outline can be added if wanted. <a style="color: var(--accent-sage-hover);">Base price is flat color!</a></p>
+        <p><strong>Revisions:</strong> major up to 5 (sketch), minor up to 3 per WIP/final update. Please give clear notes to avoid extra revisions.</p>
+        <p><i class="fa-solid fa-warning"></i> Scene backgrounds are only available for shaded commissions.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background or transparent background</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Shaded</span><span>$78 / Rp300k</span></li>
+            <li><span>✦ Extra character</span><span>+80%</span></li>
+            <li><span>✦ Simple BG</span><span>+$5-20 / +Rp25k-75k</span></li>
+            <li><span>✦ Scene BG</span><span>quote only</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- === CATEGORY 2: GENERAL & PIXELS === -->
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Ccircle cx='635' cy='390' r='150' fill='%236b7f62'/%3E%3Ccircle cx='500' cy='365' r='80' fill='%23eaddce'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3EChibi Example%3C/text%3E%3C/svg%3E" alt="Chibi">
+            <div class="img-caption">Chibi Art</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Chibi Art</h2>
+          <span class="price-tag">$30 / Rp100k</span>
+        </div>
+        <p>Canvas size will be 800px or larger depending on the piece and you may request size too! can add white outline if u want. All artwork comes fully shaded.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background or transparent background</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Extra character</span><span>+100%</span></li>
+            <li><span>✦ Simple BG</span><span>$5 - $50+</span></li>
+            <li><span>✦ Scene BG</span><span>quote only</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="https://vgen.co/flurykit/service/chibi-fullbody/94522f4f-a557-4919-81cc-c7dbe91ebdbf" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="https://ko-fi.com/c/1f261e8ab6" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%233d342f'/%3E%3Crect x='400' y='250' width='400' height='400' rx='60' fill='%23eaddce'/%3E%3Ccircle cx='600' cy='360' r='95' fill='%236b7f62'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3EWiggle Icon Example%3C/text%3E%3C/svg%3E" alt="Wiggle Icon">
+            <div class="img-caption">Wiggle Icon</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Wiggle Icon</h2>
+          <span class="price-tag">$45 / Rp160k</span>
+        </div>
+        <p>Canvas size is 1000x1000px with 3 frames! All artwork comes fully shaded.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background by default</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Extra character</span><span>+100%</span></li>
+            <li><span>✦ Background</span><span>$5 - $50+</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="https://vgen.co/flurykit/service/wiggle-icon/6fdbb92b-1039-4d18-a9fe-77fa6bfb9280" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Ccircle cx='600' cy='395' r='155' fill='%236b7f62'/%3E%3Ccircle cx='600' cy='375' r='85' fill='%23f3e8da'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23eaddce'%3EGoober Example%3C/text%3E%3C/svg%3E" alt="Goober Art">
+            <div class="img-caption">Goober Art</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Goober Art</h2>
+          <span class="price-tag">$18 / Rp70k</span>
+        </div>
+        <p>Canvas size will be 500px or larger depending on the piece, or can be requested! White outline is included by default. Artwork is delivered in flat color.</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
+            <li><span>✦ Simple background by default with decorative elements</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Extra character</span><span>+100%</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="https://vgen.co/flurykit/service/goober-art/58d0233b-886f-4ed5-b3c9-65f6df4d45a3" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="https://ko-fi.com/c/92a35aa3c7" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%233d342f'/%3E%3Crect x='430' y='240' width='340' height='340' fill='%23eaddce'/%3E%3Crect x='470' y='280' width='260' height='260' fill='%236b7f62'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3E50x50 Pixel Example%3C/text%3E%3C/svg%3E" alt="50x50 Pixel">
+            <div class="img-caption">50x50 Pixel</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> 50x50 Pixel</h2>
+          <span class="price-tag">$30 / Rp100k</span>
+        </div>
+        <p>Canvas size is 50×50px. Complex designs will be simplified. By sending a request, you agree to this ♡</p>
+        <p><i class="fa-solid fa-warning"></i> No sketch approval for this commission</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Original 50×50 file + 200% enlarged version</span></li>
+            <li><span>✦ Transparent background by default</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Extra character</span><span>+100%</span></li>
+            <li><span>✦ Tween animation</span><span>$35 / Rp125k</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="general">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Crect x='500' y='280' width='200' height='200' fill='%236b7f62'/%3E%3Crect x='540' y='320' width='120' height='120' fill='%23eaddce'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3E25x25 Pixel Example%3C/text%3E%3C/svg%3E" alt="25x25 Pixel">
+            <div class="img-caption">25x25 Pixel</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> 25x25 Pixel</h2>
+          <span class="price-tag">$12 / Rp25k</span>
+        </div>
+        <p>Canvas size is 25×25px. Complex designs will be simplified. By sending a request, you agree to this ♡</p>
+        <p><i class="fa-solid fa-warning"></i> No sketch approval for this commission</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ Original 25×25 file + 300% enlarged version</span></li>
+            <li><span>✦ Transparent background by default</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Extra character</span><span>+100%</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- === CATEGORY 3: CHAR DESIGNS === -->
+    <div class="card listing-card" data-category="design">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%233d342f'/%3E%3Ccircle cx='600' cy='390' r='145' fill='%23829a78'/%3E%3Cpath d='M450 590c52-72 104-108 150-108 49 0 101 34 146 108H450z' fill='%23f3e8da'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='40' fill='%23eaddce'%3ECustom Design Example%3C/text%3E%3C/svg%3E" alt="Custom Character Design">
+            <div class="img-caption">Custom Character Design</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Custom Character Design</h2>
+          <span class="price-tag">$45 – $85</span>
+        </div>
+        <p>Canvas size is 1000-2500px or larger depending on the piece.</p>
+        <p><strong>Revisions:</strong> major up to 5 (sketch), minor up to 3 per WIP/final update. Please give clear notes to avoid extra revisions.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Mascot / Goober</span><span>$45</span></li>
+            <li><span>✦ Chibi</span><span>$55</span></li>
+            <li><span>✦ Non-Chibi</span><span>$85</span></li>
+            <li><span>✦ Mini Reference (chibi front+back)</span><span>+$50</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card listing-card" data-category="design">
+      <div class="slider-area" tabindex="0">
+        <div class="image-slider">
+          <div class="slide active">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Cpath d='M305 575c74-162 189-261 295-261 113 0 225 96 302 261H305z' fill='%236b7f62'/%3E%3Ccircle cx='600' cy='360' r='135' fill='%23eaddce'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='40' fill='%23f3e8da'%3EMystery Design Example%3C/text%3E%3C/svg%3E" alt="Mystery Character Design">
+            <div class="img-caption">Mystery Character Design</div>
+          </div>
+        </div>
+        <div class="dots"><span class="dot active"></span></div>
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> Mystery Character Design</h2>
+          <span class="price-tag">$30 – $65</span>
+        </div>
+        <p>Canvas size is 1000–2500px or larger depending on the piece. You may choose 1–2 themes and species!</p>
+        <p><strong>Optional:</strong> accessories (extra cost if complex), gender and personality. If not specified, I will decide what fits best.</p>
+        <p><i class="fa-solid fa-warning"></i> Please order only if you’re comfortable with the mystery concept and no sketch approval for this commission.</p>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Mascot / Goober</span><span>$30</span></li>
+            <li><span>✦ Chibi</span><span>$35</span></li>
+            <li><span>✦ Non-Chibi</span><span>$65</span></li>
+            <li><span>✦ Mini Reference (chibi front+back)</span><span>+$50</span></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- === CATEGORY 4: PNGTUBERS === -->
+    <div class="card listing-card" data-category="pngtuber">
+      <div class="slider-area" tabindex="0">
+
+        <div class="image-slider">
+          <div class="slide active">
+            <video controls autoplay muted loop style="width:100%; height:100%; object-fit:cover;">
+              <source src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/ShowcaseVid_Draigonix.mp4" type="video/mp4">
+            </video>
+            <div class="img-caption">July 2026 • Chibi</div>
+          </div>
+          <div class="slide">
+            <video controls autoplay muted loop style="width:100%; height:100%; object-fit:cover;">
+              <source src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/ShowcaseVid.mp4" type="video/mp4">
+            </video>
+            <div class="img-caption">July 2026 • Non-Chibi</div>
+          </div>
+          <div class="slide">
+            <video controls autoplay muted loop style="width:100%; height:100%; object-fit:cover;">
+              <source src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Blubellis_Showcase.mp4" type="video/mp4">
+            </video>
+            <div class="img-caption">June 2026 • Chibi</div>
+          </div>
+        </div>
+
+        <div class="dots"><span class="dot active"></span></div>
+        
+      </div>
+      <div class="listing-info">
+        <div class="header-row">
+          <h2><i class="fa-solid fa-seedling"></i> PNGTubeRemix [Model/Rig]</h2>
+          <span class="price-tag">$28 – $80</span>
+        </div>
+        <p>Canvas size is 1000px or larger depending on the piece.</p>
+        <p><strong>Revisions:</strong> unlimited sketch revisions (please be reasonable). Minor updates during finishing are unlimited. Please provide clear notes ♡ I will keep you updated, feel free to ask anytime!</p>
+        <p><i class="fa-solid fa-warning"></i> Symmetrical by default, asymmetrical available (+fee)</p>
+        <div class="specs-list">
+          <p><strong>What you get:</strong></p>
+          <ul>
+            <li><span>✦ PSD Model files</span></li>
+            <li><span>✦ PNGTubeRemix file if rigging requested</span></li>
+            <li><span>✦ Showcase Video</span></li>
+          </ul>
+        </div>
+        <div class="specs-list">
+          <ul>
+            <li><span>✦ Mascot / Goober</span><span>$28</span></li>
+            <li><span>✦ Chibi Halfbody</span><span>$40</span></li>
+            <li><span>✦ Chibi Fullbody</span><span>$50</span></li>
+            <li><span>✦ Non-Chibi Bust</span><span>$45</span></li>
+            <li><span>✦ Non-Chibi Halfbody</span><span>$60</span></li>
+            <li><span>✦ Non-Chibi Fullbody</span><span>$80</span></li>
+            <li><span>✦ Rigging / Mouse tracking (Ready to use)</span><span>+50%</span></li>
+            <li><span>✦ Extra Expressions</span><span>+$5 each</span></li>
+            <li><span>✦ Complex Items / Pets</span><span>+$5 - $50 each</span></li>
+          </ul>
+        </div>
+        <p style="font-size:0.75rem; color:var(--text-soft); font-style:italic;">*Rigging only $15 – $50+ depending on PSD separation ♡</p>
+        <div class="btn-group">
+          <a href="https://vgen.co/flurykit/service/-pngtuber-pngtuberemix/0136337e-9c94-4733-baa0-73d8c578219f" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- REVIEWS & COMMUNITY FEEDBACK TAB -->
+    <div class="review-zone">
+        <h2>✦ Reviews ✦</h2>
+
+        <div class="carousel-wrapper">
+            <!-- Previous Button -->
+            <button class="carousel-btn prev-btn" onclick="scrollCarousel(-1)">&#10094;</button>
+
+            <!-- 🌟 FUTURE REVIEWS GO HERE -->
+            <div class="reviews-container" id="reviewCarousel">
+
+                <div class="review-card">
+                    <div>
+                    <div class="review-header">
+                        <span class="reviewer-name">VoidVoyage</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <span class="commission-source-tag"><i class="fa-solid fa-store"></i> from VGen</span>
+                    <p class="review-text" style="margin-top: 0.6rem;">"Awesome work! Great value and very receptive to feedback, patient with changes, pleasure to work with, thank you!"</p>
+
+                    <div class="review-image-wrapper">
+                        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/VoidHalfbodyWiggle_Watermark.gif" alt="ReviewIMG" onclick="openLightbox(this)">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                    <div class="review-header">
+                        <span class="reviewer-name">lobotaumite</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <span class="commission-source-tag"><i class="fa-solid fa-store"></i> from VGen</span>
+                    <p class="review-text" style="margin-top: 0.6rem;">"I'm super satisfied with FluryKit's work! They were very kind, and I would definitely recommend them."</p>
+
+                    <div class="review-image-wrapper">
+                        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/ShowCase_lobotaumite.gif" alt="ReviewIMG" onclick="openLightbox(this)">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                    <div class="review-header">
+                        <span class="reviewer-name">linkin.bark</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <span class="commission-source-tag"><i class="fa-solid fa-store"></i> from VGen</span>
+                    <p class="review-text" style="margin-top: 0.6rem;">"a dear friend of mine who goes above and beyond every time!! it's always such a pleasure and an honor to work with them! 🖤🖤🖤"</p>
+
+                    <div class="review-image-wrapper">
+                        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/MiniLinkin_75x75.gif" alt="ReviewIMG" onclick="openLightbox(this)">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                    <div class="review-header">
+                        <span class="reviewer-name">Toji</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <span class="commission-source-tag"><i class="fa-solid fa-store"></i> from VGen</span>
+                    <p class="review-text" style="margin-top: 0.6rem;">"Super nice artist !! They drew my character amazingly <33 Would 100% recommend ! :D"</p>
+
+                    <div class="review-image-wrapper">
+                        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/ChibiFullbody_TojiWatermark.png" alt="ReviewIMG" onclick="openLightbox(this)">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                    <div class="review-header">
+                        <span class="reviewer-name">Blubellis_</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <span class="commission-source-tag"><i class="fa-solid fa-store"></i> from VGen</span>
+                    <p class="review-text" style="margin-top: 0.6rem;">"Absolutely love working with Flury! This was like a dream come true seeing my lil skvader get brought to life! So excited to use this like everyday!💙"</p>
+
+                    <div class="review-image-wrapper">
+                        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/Blubellis_Showcase.gif" alt="ReviewIMG" onclick="openLightbox(this)">
+                    </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div>
+                    <div class="review-header">
+                        <span class="reviewer-name">Ghostblade</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <span class="commission-source-tag"><i class="fa-solid fa-store"></i> from VGen</span>
+                    <p class="review-text" style="margin-top: 0.6rem;">"They absolutely nailed my idea, it turned out amazing!! I really love it a lot, he is genuinely incredible at bringing your ideas to life!!! She’s always so kind and welcoming to feedback, and I love working with them every time!!!!"</p>
+
+                    <div class="review-image-wrapper">
+                        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/FullShadedHalfbody_Ghost_Watermark.png" alt="ReviewIMG" onclick="openLightbox(this)">
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Next Button -->
+            <button class="carousel-btn next-btn" onclick="scrollCarousel(1)">&#10095;</button>
+        </div>
+        
+        <div class="feedback-prompt">
+        <p>Commissioned me outside of VGen? Feel free to leave a review by emailing me through my 
+            <a href="contact.html">Contact page</a>! I appreciate all honest feedback, it helps me improve ♡</p>
+        </div>
+    </div>
+  
+  <!-- HOW TO ORDER WORKFLOW -->
+  <div class="card" style="text-align: center;">
+    <h2 class="section-title" style="margin-bottom: 8px;">✦ How to Place an Order ✦</h2>
+    <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 20px; text-align: left;">
+      You can place your order by clicking the button on the commission listing/card you want above, 
+      which will take you to your preferred platform. Once payment is confirmed, your commission 
+      will be added to my commission queue. <br><br>
+      <b>For local (IDR) payments</b>, please order through the Google Form option. 
+      Make sure you have one of the payment methods listed below. I'll communicate with you in Indonesian 
+      using casual/informal/slang language to keep things comfortable for both of us! :D
+
+    </p>
+    
+    <div class="rules-grid" style="margin-bottom: 25px;">
+      <div class="rule-box">
+        <h3>VGen</h3>
+        <p style="font-size:0.75rem;">Best for structured commission orders through my main commission system. Recommended if you prefer using VGen’s built-in ordering and payment process.</p>
+      </div>
+      <div class="rule-box">
+        <h3>Ko-fi</h3>
+        <p style="font-size:0.75rem;">Alternative option for commissions if you prefer Ko-fi’s payment system or already use Ko-fi for support. Works the same for commission requests, just through a different platform.</p>
+      </div>
+      <div class="rule-box">
+        <h3>Google Form</h3>
+        <p style="font-size:0.75rem;">Best for clients who don't use VGen or Ko-fi, or prefer direct PayPal invoices or local IDR e-wallet payments. Suitable for fully custom or off-platform requests.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card payment-section">
+    <h3>Accepted Payments</h3>
+
+    <p class="payment-group-label">Local (Indonesia)</p>
+    <div class="payment-grid">
+      <div class="payment-card">
+        <img src="https://images.seeklogo.com/logo-png/39/1/bca-mobile-app-logo-png_seeklogo-399947.png" alt="BCA">
+        <h4>BCA Mobile</h4>
+      </div>
+      <div class="payment-card">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/GoPay" alt="GoPay">
+        <h4>GoPay</h4>
+      </div>
+      <div class="payment-card">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/SPay-Icon.png" alt="ShopeePay">
+        <h4>ShopeePay</h4>
+      </div>
+    </div>
+
+    <p class="payment-group-label">International</p>
+    <div class="payment-grid">
+      <div class="payment-card">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Symbol.svg" alt="PayPal">
+        <h4>PayPal Invoice</h4>
+      </div>
+      <div class="payment-card">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/kofi_symbol.png" alt="Ko-fi">
+        <h4>Ko-fi</h4>
+      </div>
+      <div class="payment-card">
+        <img src="https://help.vgen.co/hc/article_attachments/13004231445911" alt="Vgen">
+        <h4>Vgen</h4>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- === TERMS OF SERVICE POP-UP MODAL === -->
+<div id="tosModal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2><i class="fa-solid fa-scroll"></i> Terms of Service</h2>
+      <button id="closeTosBtn" class="close-modal">&times;</button>
+    </div>
+
+    <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/108102058_lWsGK1ar6EffNnc.png" alt="tos_image" class="tos-img">
+    
+    <div class="tos-section">
+      <h3><i class="fa-solid fa-seedling"></i> Credit & Usage</h3>
+      <ul>
+        <li>Credit is required when using my art whenever possible.</li>
+        <li>Do not claim my designs as your own. Always credit me as the original designer.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3><i class="fa-solid fa-seedling"></i> Turnaround Time</h3>
+      <ul>
+        <li>Commission time depends on my current queue length.</li>
+        <li>Once I have reached your request and started working on it, it usually takes <b class="highlight">1–2 weeks or less</b> to complete.</li>
+        <li>During high demand, it may take up to <b class="highlight">1 month even after your request has been reached.</b></li>
+        <li>In cases of personal issues, emergencies or very complex commissions, it may take longer.</li>
+        <li>I will always keep you updated during the process and you’re welcome to ask for progress updates anytime!! :D</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3><i class="fa-solid fa-seedling"></i> Communication</h3>
+      <ul>
+        <li>Please check your notifications regularly for updates.</li>
+        <li>I will not continue working on a commission without confirmation at required stages, which may affect completion time.</li>
+        <li>If there is no response for <b class="highlight">6 months after multiple contact attempts</b> and the commission has already been paid or started, it will be canceled with no refund.</li>
+        <li>If payment has not been made yet and there is no response for <b class="highlight">2 weeks</b>, the request will be canceled.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3><i class="fa-solid fa-seedling"></i> Refunds & Cancellations</h3>
+      <ul>
+        <li>If payment has not been made yet, you may cancel your request at any time!</li>
+        <li>If I am unable to continue due to serious personal emergencies or situations where I cannot work at all, refunds will be given depending on progress. If no work has been started, a full refund will be given.</li>
+        <li>Once payment is made and the commission is confirmed, the client is responsible for their own financial decision and refunds will not be issued.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3><i class="fa-solid fa-seedling"></i> Changes & Revisions</h3>
+      <ul>
+        <li>Some commissions may not allow major changes, so please read the commission details carefully before ordering.</li>
+        <li>Minor fixes after completion are allowed (such as small color mistakes or missing details).</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h3><i class="fa-solid fa-seedling"></i> Design Rules</h3>
+      <ul>
+        <li>Please do not heavily modify the design. Minor edits are fine as long as the original design is still recognizable and credited.</li>
+        <li>Please do not create designs that are identical or very similar to my original designs.</li>
+        <li>Breedables and offspring are allowed and may naturally share similarities with parent designs.</li>
+        <li>Please do not increase the design’s worth unless additional artwork has been added.</li>
+      </ul>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="closeTosBtnBottom" class="button btn-main" style="padding: 8px 30px;">I Understand!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ICON-ONLY SOCIALS & FOOTER -->
+<footer class="socials-footer">
+  <h3>find me online</h3>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/flurykits/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@flurykit" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://twitter.com/flurykit" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://bsky.app/profile/flurykit.bsky.social" target="_blank" aria-label="Bluesky"><i class="fa-solid fa-feather"></i></a>
+    <a href="https://cara.app/flurykit" target="_blank" aria-label="Cara"><i class="fa-solid fa-palette"></i></a>
+    <a href="https://flurykit.tumblr.com" target="_blank" aria-label="Tumblr"><i class="fa-brands fa-tumblr"></i></a>
+    <a href="https://youtube.com/@flurykit" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://toyhou.se/flurykit" target="_blank" aria-label="Toyhouse"><i class="fa-solid fa-house"></i></a>
+  </div>
+  <p class="copyright">© <span id="year"></span> FluryKit</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- TOS POP-UP CONTROLLER ---
+  const tosModal = document.getElementById('tosModal');
+  const openTosBtn = document.getElementById('openTosBtn');
+  const closeTosBtn = document.getElementById('closeTosBtn');
+  const closeTosBtnBottom = document.getElementById('closeTosBtnBottom');
+
+  openTosBtn.addEventListener('click', () => {
+    tosModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closePopup = () => {
+    tosModal.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  closeTosBtn.addEventListener('click', closePopup);
+  closeTosBtnBottom.addEventListener('click', closePopup);
+
+  tosModal.addEventListener('click', (e) => {
+    if (e.target === tosModal) {
+      closePopup();
+    }
+  });
+
+  // --- IMAGE GALLERY SLIDER ---
+  document.querySelectorAll('.listing-card').forEach(card => {
+    const slides = card.querySelectorAll('.slide');
+    const dotsContainer = card.querySelector('.dots');
+    const sliderArea = card.querySelector('.slider-area');
+    let currentIndex = 0;
+
+    if (!slides.length || !dotsContainer || !sliderArea) return;
+
+    const setActive = index => {
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === currentIndex));
+      dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === currentIndex));
+    };
+
+    const prevButton = document.createElement('button');
+    prevButton.className = 'slider-arrow prev';
+    prevButton.type = 'button';
+    prevButton.textContent = '‹';
+    prevButton.addEventListener('click', () => setActive(currentIndex - 1));
+
+    const nextButton = document.createElement('button');
+    nextButton.className = 'slider-arrow next';
+    nextButton.type = 'button';
+    nextButton.textContent = '›';
+    nextButton.addEventListener('click', () => setActive(currentIndex + 1));
+
+    sliderArea.appendChild(prevButton);
+    sliderArea.appendChild(nextButton);
+
+    sliderArea.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setActive(currentIndex - 1);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        setActive(currentIndex + 1);
+      }
+    });
+
+    dotsContainer.innerHTML = '';
+
+    const dots = Array.from(slides).map((slide, index) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.addEventListener('click', () => setActive(index));
+      dotsContainer.appendChild(dot);
+      return dot;
+    });
+
+    setActive(0);
+  });
+
+  // --- FILTER BAR CATEGORIES ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.listing-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const target = button.getAttribute('data-target');
+
+      items.forEach(item => {
+        const category = item.getAttribute('data-category');
+        
+        if (target === 'all' || category === target) {
+          item.classList.remove('hidden');
+          setTimeout(() => { item.style.opacity = '1'; }, 50);
+        } else {
+          item.style.opacity = '0';
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // --- STAMP SYSTEM CONTROLLER ---
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbBlzHi4hpE3kGbm93n5A7hK4_dTkvaZPt9a2tm42ALtQQteREles-deaBpSxKYSBg/exec"; 
+  const STAMP_IMAGE_URL = "https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png";
+
+  const checkStampsBtn = document.getElementById('check-stamps-btn');
+  const stampLogoutBtn = document.getElementById('stamp-logout-btn');
+  const loginArea = document.getElementById('stamp-login-area');
+  const cardArea = document.getElementById('stamp-card-area');
+  const stampGrid = document.getElementById('stamp-grid');
+  const stampError = document.getElementById('stamp-error');
+
+  if (checkStampsBtn) {
+    checkStampsBtn.addEventListener('click', async () => {
+      const username = document.getElementById('stamp-user').value;
+      const secretKey = document.getElementById('stamp-key').value;
+      
+      if (!username || !secretKey) {
+        showStampError("Please fill out both fields.");
+        return;
+      }
+      
+      checkStampsBtn.innerText = "Checking...";
+      checkStampsBtn.disabled = true;
+      stampError.style.display = "none";
+      
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({ username, secretKey })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          renderStampCard(username, data.stamps);
+        } else {
+          showStampError(data.message);
+        }
+      } catch (err) {
+        showStampError("Network error. Please try again later.");
+        console.error(err);
+      } finally {
+        checkStampsBtn.innerText = "Check My Stamps";
+        checkStampsBtn.disabled = false;
+      }
+    });
+  }
+
+  function renderStampCard(username, count) {
+    document.getElementById('display-username').innerText = username;
+    document.getElementById('stamp-count-text').innerText = count;
+    stampGrid.innerHTML = "";
+    
+    for (let i = 1; i <= 10; i++) {
+      const slot = document.createElement('div');
+      slot.classList.add('stamp-slot');
+      
+      if (i <= count) {
+        slot.classList.add('stamped');
+        const img = document.createElement('img');
+        img.src = STAMP_IMAGE_URL;
+        img.alt = "Stamp";
+        slot.appendChild(img);
+      }
+      
+      stampGrid.appendChild(slot);
+    }
+    
+    loginArea.style.display = "none";
+    cardArea.style.display = "block";
+  }
+
+  function showStampError(msg) {
+    stampError.innerText = msg;
+    stampError.style.display = "block";
+  }
+
+  if (stampLogoutBtn) {
+    stampLogoutBtn.addEventListener('click', () => {
+      document.getElementById('stamp-user').value = "";
+      document.getElementById('stamp-key').value = "";
+      cardArea.style.display = "none";
+      loginArea.style.display = "block";
+    });
+  }
+
+  // --- COLLAPSIBLE DROPDOWN CONTROLLER ---
+  function setupCollapsible(buttonId, contentId, arrowId) {
+    const btn = document.getElementById(buttonId);
+    const content = document.getElementById(contentId);
+    const arrow = document.getElementById(arrowId);
+
+    if (btn && content && arrow) {
+      btn.addEventListener('click', () => {
+        if (content.style.display === 'none' || getComputedStyle(content).display === 'none') {
+          content.style.display = 'block';
+          arrow.style.transform = 'rotate(180deg)';
+          btn.style.borderRadius = '14px 14px 0 0';
+        } else {
+          content.style.display = 'none';
+          arrow.style.transform = 'rotate(0deg)';
+          btn.style.borderRadius = '14px';
+        }
+      });
+    }
+  }
+
+  // Initialize both dropdowns
+  setupCollapsible('toggle-pricing-btn', 'pricing-rules-content', 'pricing-arrow');
+  setupCollapsible('toggle-rules-btn', 'stamp-rules-content', 'rules-arrow');
+
+  function openLightbox(imgElement) {
+      const lightbox = document.getElementById('imageLightbox');
+      const lightboxImg = document.getElementById('lightboxImage');
+      lightbox.style.display = "block";
+      lightboxImg.src = imgElement.src;
+  }
+
+  function closeLightbox() {
+      document.getElementById('imageLightbox').style.display = "none";
+  }
+
+  function scrollCarousel(direction) {
+      const container = document.getElementById('reviewCarousel');
+      const scrollAmount = container.clientWidth;
+      
+      container.scrollBy({
+          left: scrollAmount * direction,
+          behavior: 'smooth'
+      });
+  }
+</script>
+    <!-- LIGHTBOX MODAL -->
+    <div id="imageLightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-lightbox">&times;</span>
+    <img id="lightboxImage" class="lightbox-content" alt="Uncropped review preview">
+    </div>
+</body>
+</html>

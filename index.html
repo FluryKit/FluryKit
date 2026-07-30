@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home | FluryKit</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links"></label>
+  
+  <div class="nav-links" id="nav-links">
+    <a href="index.html" class="active">home</a>
+    <a href="commissions.html">commissions</a>
+    <a href="shop.html">shop</a>
+    <a href="gallery.html">gallery</a>
+    <a href="about.html">about</a>
+    <a href="contact.html">contact</a>
+  </div>
+</nav>
+
+<!-- HERO HEADER -->
+<header class="banner"></header>
+
+<div class="logo-container">
+  <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionFiles/FluryKitLogo.png" alt="FluryKit Official Logo">
+</div>
+
+<main class="container">
+    
+  <!-- NOTICE BAR -->
+  <div class="status-bar">
+    📌 <b>Notice:</b> Commissions are temporarily closed!
+  </div>
+
+  <!-- WELCOME SECTION -->
+  <section class="welcome-grid">
+    <div class="welcome-text">
+      <h2><i class="fa-solid fa-feather-pointed"></i> Welcome</h2>
+      <p>
+        Hi there, welcome to my little dream space! 
+        drawing has been my favorite thing in the world ever since I was tiny
+         and I'm so happy to share my creations with you here!! :D
+      </p>
+      <p>
+        I love drawing all sorts of things, especially fluffy creatures, feral characters, 
+        hybrids, cozy little scenes and cute chibis! This website is a small home for my artwork,
+        where you can look through my creations, learn a little about me and browse my commission 
+        options if you'd like a drawing of your own!!
+      </p>
+      <p>
+        Thank you so much for stopping by and supporting my dreams. 
+        It truly means the world to me and I'm grateful for every visit, 
+        kind word and bit of support along the way ♡
+      </p>
+      
+      <div class="action-buttons">
+        <a href="commissions.html" class="btn">
+          <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png" alt="Icon">
+          commissions
+        </a>
+        <a href="shop.html" class="btn">
+          <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png" alt="Icon">
+          shop
+        </a>
+      </div>
+      <a href="https://ko-fi.com/flurykit" target="_blank" class="btn btn-kofi" style="margin-top: 1rem; justify-content: center;">
+        <i class="fa-solid fa-mug-hot"></i> support my journey on ko-fi
+      </a>
+    </div>
+
+    <div class="welcome-image">
+      <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/123092418_pvDLPhq4aIFqLZf.png" alt="Welcome Artwork">
+    </div>
+  </section>
+
+  <!-- CREATIVE TIMELINE -->
+  <section class="timeline-section">
+    <h2><i class="fa-solid fa-leaf"></i> creative timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">childhood days</div>
+        <div class="timeline-text">grew up with a pencil constantly in my hand, filling notebooks with little creatures, ponies and character ideas :D</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2018 - digital art journey</div>
+        <div class="timeline-text">got my very first tablet and completely fell in love with digital art. ive been drawing digitally ever since!</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2024 - a big step!</div>
+        <div class="timeline-text">officially opened up my public commissions for the first time ever to turn my passion into something real! &lt;3</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ART SHOWCASE -->
+  <section class="showcase-section">
+    <h2>✦ recent illustrations ✦</h2>
+    <div class="art-gallery">
+      <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A1_BrokenGhostblade.png" class="art-piece" alt="Artwork 1" onclick="openLightbox(this)">
+      <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Chibi_Pazu_Watermark.png" class="art-piece" alt="Artwork 2" onclick="openLightbox(this)">
+      <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/121397556_rAbojexwvDeFY6r.png" class="art-piece" alt="Artwork 3" onclick="openLightbox(this)">
+      <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/120921683_RdjU64Uw4SvkEL8.png?1780378963" class="art-piece" alt="Artwork 4" onclick="openLightbox(this)">
+      <img src="https://storage.ko-fi.com/cdn/useruploads/display/87068ea4-357d-42e2-a1d0-2e8a9886e2c2_1000081435.png" class="art-piece" alt="Artwork 5" onclick="openLightbox(this)">
+      <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/121397532_COT1gK2xtdSw433.png" class="art-piece" alt="Artwork 6" onclick="openLightbox(this)">
+    </div>
+  </section>
+
+</main>
+
+<!-- LIGHTBOX MODAL -->
+<div id="imageLightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="close-lightbox">&times;</span>
+  <img id="lightboxImage" class="lightbox-content">
+</div>
+
+<!-- ICON-ONLY SOCIALS & FOOTER -->
+<footer class="socials-footer">
+  <h3>find me online</h3>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/flurykits/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@flurykit" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://twitter.com/flurykit" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://bsky.app/profile/flurykit.bsky.social" target="_blank" aria-label="Bluesky"><i class="fa-solid fa-feather"></i></a>
+    <a href="https://cara.app/flurykit" target="_blank" aria-label="Cara"><i class="fa-solid fa-palette"></i></a>
+    <a href="https://flurykit.tumblr.com" target="_blank" aria-label="Tumblr"><i class="fa-brands fa-tumblr"></i></a>
+    <a href="https://youtube.com/@flurykit" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://toyhou.se/flurykit" target="_blank" aria-label="Toyhouse"><i class="fa-solid fa-house"></i></a>
+  </div>
+  <p class="copyright">© <span id="year"></span> FluryKit</p>
+</footer>
+
+<!-- JAVASCRIPT FOR LIGHTBOX & YEAR -->
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function openLightbox(imgElement) {
+    document.getElementById('imageLightbox').style.display = "block";
+    document.getElementById('lightboxImage').src = imgElement.src;
+  }
+
+  function closeLightbox() {
+    document.getElementById('imageLightbox').style.display = "none";
+  }
+</script>
+
+</body>
+</html>
