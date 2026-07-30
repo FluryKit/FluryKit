@@ -434,6 +434,11 @@ section {
 .commissions-page .rule-box p,
 .commissions-page .note-text,
 .commissions-page .listing-info p,
+.commissions-page .listing-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-soft);
+}
 .commissions-page .listing-info li,
 .commissions-page .payment-card h4,
 .commissions-page .payment-group-label {
@@ -486,6 +491,21 @@ section {
 }
 
 .commissions-page .button,
+
+.commissions-page .btn-main,
+.commissions-page .btn-vgen {
+    background-color: var(--accent-sage);
+    color: var(--bg-espresso);
+    border: 1px solid var(--accent-sage);
+}
+
+.commissions-page .btn-main:hover,
+.commissions-page .btn-vgen:hover {
+    background-color: var(--accent-sage-hover);
+    border-color: var(--accent-sage-hover);
+    transform: translateY(-1px);
+}
+
 .commissions-page .btn-main,
 .commissions-page .btn-sub {
     display: inline-block;
@@ -500,26 +520,19 @@ section {
     border: 1px solid transparent;
 }
 
-.commissions-page .btn-main {
+.commissions-page .btn-sub,
+.commissions-page .btn-secondary {
+    background-color: rgba(35, 30, 27, 0.5);
+    color: var(--text-cream);
+    border: 1px solid rgba(107, 127, 98, 0.35);
+}
+
+.commissions-page .btn-sub:hover,
+.commissions-page .btn-secondary:hover {
     background-color: var(--accent-sage);
     color: var(--bg-espresso);
-}
-
-.commissions-page .btn-main:hover {
-    background-color: var(--accent-sage-hover);
-    transform: translateY(-2px);
-}
-
-.commissions-page .btn-sub {
-    background-color: transparent;
-    color: var(--accent-sage);
     border-color: var(--accent-sage);
-}
-
-.commissions-page .btn-sub:hover {
-    background-color: var(--accent-sage);
-    color: var(--bg-espresso);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 .commissions-page .filter-wrapper {
@@ -695,43 +708,71 @@ section {
 }
 
 .commissions-page .specs-list {
-    background: rgba(42, 36, 33, 0.42);
+    background: rgba(35, 30, 27, 0.4);
     border-left: 3px solid var(--accent-sage);
     border-radius: 12px;
-    padding: 0.8rem 0.9rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
 }
 
 .commissions-page .specs-list ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
     margin: 0;
     padding: 0;
 }
 
 .commissions-page .specs-list li {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.5rem;
+    align-items: baseline;
+    gap: 0.2rem 0.5rem;
+    padding-bottom: 0.3rem;
+}
+
+.commissions-page .specs-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.commissions-page .specs-list li span:first-child {
     color: var(--text-muted);
 }
 
 .commissions-page .specs-list li span:last-child {
     color: var(--text-cream);
     font-weight: 600;
+    text-align: right;
+    word-break: break-word;
+    margin-left: auto;
 }
 
 .commissions-page .btn-group {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 0.25rem;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    align-items: center;
 }
 
-.commissions-page .btn-group .button {
-    flex: 1 1 auto;
-    min-width: 96px;
+.commissions-page .btn-group .button,
+.commissions-page .btn-group a {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;                    /* Compact height */
+    padding: 0 0.8rem;               /* Scaled-down padding */
+    font-size: 0.8rem;               /* Smaller, cleaner font size */
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    border-radius: 999px;            /* Sleek pill shape */
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .commissions-page .payment-section {
@@ -907,8 +948,9 @@ section {
 
 .commissions-page .tos-img {
     width: 100%;
-    max-height: 220px;
-    object-fit: cover;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
     border-radius: 16px;
     margin-bottom: 1rem;
 }

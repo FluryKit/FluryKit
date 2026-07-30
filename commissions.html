@@ -353,7 +353,33 @@
         .pagedoll-dialogue::before {
             right: 23px;
         }
+        .commissions-page .btn-group {
+            flex-direction: row;
+            gap: 0.4rem;
+            width: 100%;
+        }
+
+        .commissions-page .btn-group .button {
+            flex: 1;
+            min-width: 0;
+            font-size: 0.85rem;
+            padding: 0.65rem 0.4rem;
+            text-align: center;
+        }
     }
+
+    @media (max-width: 480px) {
+      .commissions-page .specs-list li {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.1rem;
+      }
+
+      .commissions-page .specs-list li span:last-child {
+          text-align: left;
+          margin-left: 0;
+      }
+  }
 
   </style>
 </head>
@@ -496,7 +522,7 @@
     <!-- Stamp Card Visual Area -->
     <div id="stamp-card-area" style="display: none; margin-top: 20px;">
       <p style="color: var(--accent-olive); font-weight: 600; font-size: 0.9rem; margin-bottom: 15px;">
-        Welcome back, <span id="display-username" style="color: var(--text-brown);"></span>! (<span id="stamp-count-text">0</span>/10 Stamps)
+        Welcome back, <span id="display-username" style="color: var(--text-soft);"></span>! (<span id="stamp-count-text">0</span>/10 Stamps)
       </p>
       
       <div id="stamp-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 400px; margin: 0 auto 20px auto;">
@@ -579,8 +605,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background or transparent background</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background or transparent background</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -624,8 +650,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background or transparent background</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background or transparent background</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -685,8 +711,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background or transparent background</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background or transparent background</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -746,8 +772,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background or transparent background</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background or transparent background</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -772,8 +798,16 @@
       <div class="slider-area" tabindex="0">
         <div class="image-slider">
           <div class="slide active">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Ccircle cx='635' cy='390' r='150' fill='%236b7f62'/%3E%3Ccircle cx='500' cy='365' r='80' fill='%23eaddce'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3EChibi Example%3C/text%3E%3C/svg%3E" alt="Chibi">
-            <div class="img-caption">Chibi Art</div>
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Chibi_Pazu_Watermark.png" onclick="openLightbox(this)">
+            <div class="img-caption">Jul 2026 • Scene BG</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/ChibiFullbody_TojiWatermark.png" onclick="openLightbox(this)">
+            <div class="img-caption">Jun 2026</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/ChibiFullbody_ampersattical.png" onclick="openLightbox(this)">
+            <div class="img-caption">May 2026</div>
           </div>
         </div>
         <div class="dots"><span class="dot active"></span></div>
@@ -787,14 +821,14 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background or transparent background</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background or transparent background</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
           <ul>
             <li><span>✦ Extra character</span><span>+100%</span></li>
-            <li><span>✦ Simple BG</span><span>$5 - $50+</span></li>
+            <li><span>✦ Simple BG</span><span>+$5-20 / +Rp25k-75k</span></li>
             <li><span>✦ Scene BG</span><span>quote only</span></li>
           </ul>
         </div>
@@ -810,8 +844,24 @@
       <div class="slider-area" tabindex="0">
         <div class="image-slider">
           <div class="slide active">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%233d342f'/%3E%3Crect x='400' y='250' width='400' height='400' rx='60' fill='%23eaddce'/%3E%3Ccircle cx='600' cy='360' r='95' fill='%236b7f62'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3EWiggle Icon Example%3C/text%3E%3C/svg%3E" alt="Wiggle Icon">
-            <div class="img-caption">Wiggle Icon</div>
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/WiggleIcon_joemonkey_Watermark.gif" onclick="openLightbox(this)">
+            <div class="img-caption">May 2026</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/WiggleIcon_Alphi.gif" onclick="openLightbox(this)">
+            <div class="img-caption">Feb 2026</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/WiggleIcon_Funkymonse.gif" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/WiggleIcon_yairby.gif" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026</div>
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/WiggleIcon_N0va.gif" onclick="openLightbox(this)">
+            <div class="img-caption">Jan 2026</div>
           </div>
         </div>
         <div class="dots"><span class="dot active"></span></div>
@@ -825,14 +875,14 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background by default</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background by default</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
           <ul>
             <li><span>✦ Extra character</span><span>+100%</span></li>
-            <li><span>✦ Background</span><span>$5 - $50+</span></li>
+            <li><span>✦ Background</span><span>+$5-20 / +Rp25k-75k</span></li>
           </ul>
         </div>
         <div class="btn-group">
@@ -847,8 +897,8 @@
       <div class="slider-area" tabindex="0">
         <div class="image-slider">
           <div class="slide active">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Ccircle cx='600' cy='395' r='155' fill='%236b7f62'/%3E%3Ccircle cx='600' cy='375' r='85' fill='%23f3e8da'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23eaddce'%3EGoober Example%3C/text%3E%3C/svg%3E" alt="Goober Art">
-            <div class="img-caption">Goober Art</div>
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Goober_joemonkey_Watermark.png" onclick="openLightbox(this)">
+            <div class="img-caption">May 2026</div>
           </div>
         </div>
         <div class="dots"><span class="dot active"></span></div>
@@ -862,8 +912,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Watermarked preview + final non-watermarked file</span></li>
-            <li><span>✦ Simple background by default with decorative elements</span></li>
+            <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
+            <li><span>✦ Simple background by default with decorative elements</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -883,8 +933,10 @@
       <div class="slider-area" tabindex="0">
         <div class="image-slider">
           <div class="slide active">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%233d342f'/%3E%3Crect x='430' y='240' width='340' height='340' fill='%23eaddce'/%3E%3Crect x='470' y='280' width='260' height='260' fill='%236b7f62'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3E50x50 Pixel Example%3C/text%3E%3C/svg%3E" alt="50x50 Pixel">
-            <div class="img-caption">50x50 Pixel</div>
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/PixelExamples_100x100.gif" onclick="openLightbox(this)">
+          </div>
+          <div class="slide">
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/PixelExamples2.gif" onclick="openLightbox(this)">
           </div>
         </div>
         <div class="dots"><span class="dot active"></span></div>
@@ -899,8 +951,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Original 50×50 file + 200% enlarged version</span></li>
-            <li><span>✦ Transparent background by default</span></li>
+            <li><span>✦ Original 50×50 file + 200% enlarged version</span><span></span></li>
+            <li><span>✦ Transparent background by default</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -921,8 +973,7 @@
       <div class="slider-area" tabindex="0">
         <div class="image-slider">
           <div class="slide active">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%232a2421'/%3E%3Crect x='500' y='280' width='200' height='200' fill='%236b7f62'/%3E%3Crect x='540' y='320' width='120' height='120' fill='%23eaddce'/%3E%3Ctext x='600' y='735' text-anchor='middle' font-family='Poppins, Arial, sans-serif' font-size='42' fill='%23f3e8da'%3E25x25 Pixel Example%3C/text%3E%3C/svg%3E" alt="25x25 Pixel">
-            <div class="img-caption">25x25 Pixel</div>
+            <img src="https://file.garden/Zi882vZK7yH8-ClP/TinyExamples.gif" onclick="openLightbox(this)">
           </div>
         </div>
         <div class="dots"><span class="dot active"></span></div>
@@ -937,8 +988,8 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ Original 25×25 file + 300% enlarged version</span></li>
-            <li><span>✦ Transparent background by default</span></li>
+            <li><span>✦ Original 25×25 file + 300% enlarged version</span><span></span></li>
+            <li><span>✦ Transparent background by default</span><span></li>span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -1092,9 +1143,9 @@
         <div class="specs-list">
           <p><strong>What you get:</strong></p>
           <ul>
-            <li><span>✦ PSD Model files</span></li>
-            <li><span>✦ PNGTubeRemix file if rigging requested</span></li>
-            <li><span>✦ Showcase Video</span></li>
+            <li><span>✦ PSD Model files</span><span></span></li>
+            <li><span>✦ PNGTubeRemix file if rigging requested</span><span></span></li>
+            <li><span>✦ Showcase Video</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
