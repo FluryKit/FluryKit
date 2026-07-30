@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About | FluryKit</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* COZY, FLOWING STORYBOOK LAYOUT */
+    .about-page-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* DECORATIVE SEPARATOR */
+    .cozy-divider {
+      text-align: center;
+      margin: 3.5rem 0;
+      color: var(--accent-sage);
+      font-size: 1.2rem;
+      letter-spacing: 0.6rem;
+      opacity: 0.7;
+    }
+
+    /* BIO SECTION */
+    .bio-section {
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .bio-section h2 {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--accent-sage);
+      font-size: 1.9rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .bio-section p {
+      color: var(--text-cream);
+      margin-bottom: 1.2rem;
+    }
+
+    /* LANGUAGE TAGS */
+    .lang-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.8rem;
+    }
+
+    .lang-chip {
+      background: rgba(107, 127, 98, 0.15);
+      border: 1px dashed rgba(107, 127, 98, 0.4);
+      color: var(--text-cream);
+      padding: 0.4rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .bio-note {
+      font-size: 0.88rem;
+      color: var(--text-muted, #a0958e);
+      margin-top: 0.8rem;
+      font-style: italic;
+    }
+
+    /* MASCOT STORYBOOK SPOTLIGHT (NO BOXES) */
+    .mascot-section-title {
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2rem;
+      color: var(--accent-sage);
+      margin-bottom: 3rem;
+    }
+
+    .mascot-row {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Alternates layout direction for every second row */
+    .mascot-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .mascot-avatar {
+      flex-shrink: 0;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent-sage);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease;
+    }
+
+    .mascot-avatar:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .mascot-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .mascot-details {
+      flex: 1;
+    }
+
+    .mascot-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .mascot-name {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text-cream);
+      margin: 0;
+    }
+
+    .mascot-badge {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.8rem;
+      border-radius: 50px;
+      background: rgba(107, 127, 98, 0.2);
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      color: var(--accent-sage);
+      font-weight: 500;
+    }
+
+    .mascot-details p {
+      color: var(--text-soft, #ded4cc);
+      line-height: 1.7;
+      font-size: 0.98rem;
+      margin: 0;
+    }
+
+    /* COZY SUPPORT CALLOUT */
+    .cozy-support-zone {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(61, 52, 47, 0.35);
+      border-top: 1px dashed rgba(107, 127, 98, 0.35);
+      border-bottom: 1px dashed rgba(107, 127, 98, 0.35);
+      border-radius: 28px;
+      margin-top: 2rem;
+    }
+
+    .cozy-support-zone p {
+      color: var(--text-cream);
+      max-width: 620px;
+      margin: 0 auto 1.6rem auto;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .btn-kofi {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      background-color: var(--accent-sage);
+      color: var(--bg-espresso, #2a2421);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-kofi:hover {
+      background-color: var(--accent-sage-hover, #8da982);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    /* MOBILE RESPONSIVE FIT */
+    @media (max-width: 680px) {
+      .mascot-row, 
+      .mascot-row.reverse {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.2rem;
+      }
+
+      .mascot-header {
+        justify-content: center;
+      }
+    }
+
+    /* FLOATED IMAGE WITH NATURAL TEXT WRAPPING */
+    .bio-section {
+    overflow: hidden; /* Clears floats so layout elements below don't overlap */
+    }
+
+    .bio-image-floated {
+    float: right;
+    width: 260px;
+    margin-left: 2rem;      /* Space between image and text on the left */
+    margin-bottom: 1rem;    /* Space between image and text that wraps underneath */
+    }
+
+    .bio-image-floated img {
+    width: 100%;
+    height: auto;
+    border: none !important;
+    box-shadow: none !important;
+    display: block;
+    }
+
+    /* Stack neatly on phone screens */
+    @media (max-width: 680px) {
+    .bio-image-floated {
+        float: none;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 1.5rem auto;
+    }
+    }
+
+    /* BEST FRIEND SECTION */
+    .bestie-section {
+    margin: 3.5rem 0;
+    }
+
+    .bestie-row {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    background: rgba(61, 52, 47, 0.35);
+    border: 1px dashed rgba(107, 127, 98, 0.35);
+    padding: 2rem;
+    border-radius: 24px;
+    }
+
+    .bestie-avatar {
+    flex-shrink: 0;
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    }
+
+    .bestie-avatar:hover {
+    transform: scale(1.03) rotate(-2deg);
+    }
+
+    .bestie-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    .bestie-details {
+    flex: 1;
+    }
+
+    .bestie-tag {
+    display: inline-block;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.88rem;
+    color: var(--accent-sage);
+    background: rgba(107, 127, 98, 0.18);
+    border: 1px solid rgba(107, 127, 98, 0.3);
+    padding: 0.3rem 0.9rem;
+    border-radius: 50px;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    }
+
+    .bestie-details p {
+    color: var(--text-cream);
+    line-height: 1.7;
+    font-size: 0.98rem;
+    margin-bottom: 0.8rem;
+    }
+
+    .bestie-details p:last-child {
+    margin-bottom: 0;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 680px) {
+    .bestie-row {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links"></label>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">home</a>
+    <a href="commissions.html">commissions</a>
+    <a href="shop.html">shop</a>
+    <a href="gallery.html">gallery</a>
+    <a href="about.html" class="active">about</a>
+    <a href="contact.html">contact</a>
+  </div>
+</nav>
+
+<!-- HERO HEADER -->
+<header class="banner">
+  <h1>About Me</h1>
+  <p>Get to know the artist behind the foxes!</p>
+</header>
+
+<main class="about-page-container">
+
+  <!-- BIO SECTION (FLOWING TEXT) -->
+  <section class="bio-section">
+
+    <div class="bio-image-floated">
+      <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/119066560_nNfMtPPkGyeBnPl.png" alt="KovyCri">
+    </div>
+    <h2>Hey there, thank you so much for visiting!! ♡</h2>
+        
+    <p>You can call me <strong>Kit</strong> or <strong>Kovy</strong> and I go by any pronouns :D</p>
+        
+    <p>Im an Indonesian digital artist who loves drawing cute and expressive characters, especially cartoony animals!</p>
+
+    <p>Im currently a college student and my dream is to make art my full-time job one day. 
+            Commissions and store support truly mean so much to me!! 
+            They directly help me support my academic studies and my family! 
+            Im incredibly grateful for everyone who chooses to join and support my work ^^</p>
+
+    <p>Im always happy and excited to interact with my followers, especially over on Instagram. 
+            Thank you for being here and supporting my art journey! ♡</p>
+
+    <!-- LANGUAGE TAGS -->
+    <div class="lang-chips">
+    <span class="lang-chip"><i class="fa-solid fa-comment"></i> English</span>
+    <span class="lang-chip"><i class="fa-solid fa-comment"></i> Bahasa Indonesia</span>
+    <span class="lang-chip"><i class="fa-solid fa-comment"></i> Hokkien</span>
+    <span class="lang-chip"><i class="fa-solid fa-seedling"></i> German</span>
+    </div>
+
+  </section>
+
+  <div class="cozy-divider">✦ ✦ ✦</div>
+
+  <!-- MASCOTS SECTION (ALTERNATING MEDIA ROWS) -->
+  <section>
+    <h2 class="mascot-section-title">- Meet my Fursona & Mascots -</h2>
+
+    <!-- KOVY -->
+    <div class="mascot-row">
+      <div class="mascot-avatar">
+        <img src="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/114999273_hy8_29753774.jpg?1772365298" alt="Kovy">
+      </div>
+      <div class="mascot-details">
+        <div class="mascot-header">
+          <h3 class="mascot-name">Kovy</h3>
+          <span class="mascot-badge">Fursona</span>
+        </div>
+        <p>She’s a soft and slightly silly fox who loves making art. She can be sensitive and a little shy but she’s very friendly and always hopes to make new friends along the way! ✦</p>
+      </div>
+    </div>
+
+    <!-- KIT -->
+    <div class="mascot-row reverse">
+      <div class="mascot-avatar">
+        <img src="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/103333107_Z87.png" alt="Kit">
+      </div>
+      <div class="mascot-details">
+        <div class="mascot-header">
+          <h3 class="mascot-name">Kit</h3>
+          <span class="mascot-badge">Brand Mascot</span>
+        </div>
+        <p>He’s a fox with little flame elements on his chest and tail. He might look cold or grumpy at first glance but he’s actually really kind and friendly! He’s basically the fiery little face of my brand!</p>
+      </div>
+    </div>
+
+    <!-- NEO -->
+    <div class="mascot-row">
+      <div class="mascot-avatar">
+        <img src="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/104741118_1qR.gif" alt="Neo">
+      </div>
+      <div class="mascot-details">
+        <div class="mascot-header">
+          <h3 class="mascot-name">Neo</h3>
+          <span class="mascot-badge">Shop Mascot</span>
+        </div>
+        <p>A tiny robot cat with a little green plant growing on their body. Very small, 
+            very playful and always full of curious energy to check out new things!!
+            Every purchase in the shop will make Neo so happy ♡</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cozy-divider">✦ ✦ ✦</div>
+
+  <!-- BEST FRIEND SECTION -->
+  <section class="bestie-section">
+    <h2 class="mascot-section-title">✦ My Bestest Friend ✦</h2>
+    
+    <div class="bestie-row">
+      <div class="bestie-avatar">
+        <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/122922413_sz1AvKczDDAVb5x.png?1783236705" alt="My Best Friend">
+      </div>
+      
+      <div class="bestie-details">
+        <span class="bestie-tag">🫐☕ Blueberry Coffee Duo</span>
+        
+        <p>
+          I couldnt make an about page without giving a huge shoutout to my absolute bestest friend in the whole world! We are completely inseparable, basically like <strong>blueberry coffee</strong>, a sweet, cozy combination that just belongs together! <33
+        </p>
+        
+        <p>
+          From endless late-night chats and quiet moments to sharing all our creative ideas, having her by my side makes every single day so much brighter. Thank you for being my constant comfort, my inspiration and my favorite person ever >:D
+        </p>
+      </div>
+    </div>
+
+    <div class="cozy-divider">✦ ✦ ✦</div>
+  </section>
+
+  <!-- SUPPORT ZONE -->
+  <section class="cozy-support-zone">
+    <p>If you enjoy my work and would like to support my college studies further, you can always leave a small tip on my Ko-fi page! Its never required but always deeply appreciated! :D</p>
+    <a href="https://ko-fi.com/flurykit" target="_blank" class="btn-kofi">
+      <i class="fa-solid fa-mug-hot"></i> Leave a Tip on Ko-fi
+    </a>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="socials-footer">
+  <h3>find me online</h3>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/flurykits/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@flurykit" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://twitter.com/flurykit" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://bsky.app/profile/flurykit.bsky.social" target="_blank" aria-label="Bluesky"><i class="fa-solid fa-feather"></i></a>
+    <a href="https://cara.app/flurykit" target="_blank" aria-label="Cara"><i class="fa-solid fa-palette"></i></a>
+    <a href="https://flurykit.tumblr.com" target="_blank" aria-label="Tumblr"><i class="fa-brands fa-tumblr"></i></a>
+    <a href="https://youtube.com/@flurykit" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://toyhou.se/flurykit" target="_blank" aria-label="Toyhouse"><i class="fa-solid fa-house"></i></a>
+  </div>
+  <p class="copyright">© <span id="year"></span> FluryKit</p>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
