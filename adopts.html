@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adoptables | FluryKit</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* PAGE CONTAINER */
+    .adopts-page-container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 2.5rem 1.2rem 5rem;
+    }
+
+    .section-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.8rem;
+      color: var(--text-cream, #FAF8F5);
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-soft, #ded4cc);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* MULTI-TIER FILTER NAVIGATION */
+    .filter-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .adopt-filter-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      color: var(--accent-sage-hover, #8da982);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-btn {
+      background: rgba(42, 36, 33, 0.7);
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      color: var(--text-cream, #FAF8F5);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-sage, #787350);
+      color: #2a2421;
+      border-color: var(--accent-sage, #787350);
+      transform: translateY(-1px);
+    }
+
+    /* ADOPTS GRID */
+    .adopts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* ADOPT CARD */
+    .adopt-card {
+      background: linear-gradient(145deg, rgba(61, 52, 47, 0.95), rgba(42, 36, 33, 0.95));
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .adopt-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(107, 127, 98, 0.7);
+    }
+
+    .adopt-card.hidden {
+      display: none;
+    }
+
+    /* CARD BADGES */
+    .badge-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .adopt-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .type-badge {
+      background: rgba(30, 25, 23, 0.85);
+      color: #ded4cc;
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+    }
+
+    .badge-open { background: #6b7f62; color: #faf8f5; }
+    .badge-pending { background: #d9a05b; color: #2a2421; }
+    .badge-closed { background: #7a4b4b; color: #faf8f5; }
+
+    .adopt-img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .adopt-img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .adopt-card:hover .adopt-img-wrapper img {
+      transform: scale(1.03);
+    }
+
+    .adopt-info {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .adopt-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.2rem;
+      color: var(--text-cream, #FAF8F5);
+      margin: 0 0 0.3rem 0;
+    }
+
+    .adopt-price-details {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 12px;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.8rem;
+      border: 1px solid rgba(107, 127, 98, 0.2);
+    }
+
+    .price-main {
+      color: var(--accent-sage-hover, #8da982);
+      font-weight: 600;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price-sub {
+      color: var(--text-soft, #ded4cc);
+      font-size: 0.78rem;
+      margin-top: 0.2rem;
+    }
+
+    .bid-timer-bar {
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      color: #d9a05b;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .adopt-desc {
+      color: var(--text-soft, #ded4cc);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .claim-btn {
+      flex: 1;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.65rem 0;
+      background-color: var(--accent-sage, #787350);
+      color: #2a2421;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .claim-btn:hover { background-color: var(--accent-sage-hover, #8da982); }
+    .claim-btn.pending-btn { background-color: #d9a05b; color: #2a2421; }
+    .claim-btn.disabled { background-color: #4a423d; color: #8c827a; cursor: not-allowed; }
+
+    .th-profile-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 0.8rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(107, 127, 98, 0.4);
+      border-radius: 12px;
+      color: var(--text-cream, #FAF8F5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .th-profile-btn:hover {
+      background: var(--accent-sage, #787350);
+      color: #2a2421;
+    }
+
+    /* DESIGN TOS CONTAINER */
+    .tos-container {
+      background: linear-gradient(145deg, rgba(61, 52, 47, 0.8), rgba(42, 36, 33, 0.8));
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-top: 3rem;
+      color: var(--text-soft, #ded4cc);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .tos-title {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--text-cream, #FAF8F5);
+      font-size: 1.4rem;
+      margin-top: 0;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .tos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tos-section h4 {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--accent-sage-hover, #8da982);
+      font-size: 1rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tos-section ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      list-style-type: '✦ ';
+    }
+
+    .tos-section li { margin-bottom: 0.4rem; }
+
+    /* MODAL SYSTEM (MOBILE ENHANCED) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .claim-modal {
+      background: linear-gradient(145deg, #3d342f, #2a2421);
+      border: 1px solid rgba(107, 127, 98, 0.5);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 460px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.8rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+      color: var(--text-cream, #FAF8F5);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--text-soft, #ded4cc);
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .modal-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.3rem;
+      margin-top: 0;
+      margin-bottom: 0.2rem;
+    }
+
+    .modal-subtitle {
+      font-size: 0.85rem;
+      color: var(--accent-sage-hover, #8da982);
+      margin-bottom: 1rem;
+    }
+
+    /* MODAL TABS FOR OTA OFFERS */
+    .modal-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(107, 127, 98, 0.3);
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-soft, #ded4cc);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0.3rem 0.8rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-sage, #787350);
+      color: #2a2421;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* OFFER LIST FOR OTA */
+    .offers-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      max-height: 180px;
+      overflow-y: auto;
+      padding-right: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .offer-item {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(107, 127, 98, 0.2);
+      padding: 0.6rem 0.8rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .offer-user {
+      font-weight: 600;
+      color: var(--accent-sage-hover, #8da982);
+    }
+
+    .offer-detail {
+      color: #FAF8F5;
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      color: var(--text-soft, #ded4cc);
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(107, 127, 98, 0.4);
+      padding: 0.65rem;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent-sage, #787350);
+    }
+
+    .submit-claim-btn {
+      margin-top: 0.4rem;
+      background: var(--accent-sage, #787350);
+      color: #2a2421;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .submit-claim-btn:hover { background: var(--accent-sage-hover, #8da982); }
+
+    /* PAGEDOLL CONTAINER & FLOATING ANIMATION */
+    .pagedoll-container {
+      position: fixed;
+      bottom: 20px;
+      right: 25px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .pagedoll-bubble, 
+    .pagedoll-art {
+      pointer-events: auto;
+    }
+
+    .pagedoll-bubble {
+      background-color: var(--card-mocha, #3D342F);
+      color: var(--text-cream, #FAF8F5);
+      border: 1.5px solid var(--accent-sage, #6B7F62);
+      border-radius: 16px;
+      padding: 0.75rem 1rem;
+      max-width: 210px;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      text-align: center;
+      animation: floatBubble 3.5s ease-in-out infinite;
+    }
+
+    .pagedoll-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -9px;
+      right: 35px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 9px solid var(--accent-sage, #6B7F62);
+    }
+
+    .pagedoll-art {
+      cursor: pointer;
+      width: 105px;
+      transition: transform 0.3s ease;
+      animation: floatDoll 4s ease-in-out infinite;
+    }
+
+    .pagedoll-art:hover {
+      transform: scale(1.08) rotate(3deg);
+    }
+
+    .pagedoll-art img {
+      width: 70%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+    }
+
+    @keyframes floatDoll {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @media (max-width: 600px) {
+      .adopts-grid {
+        grid-template-columns: 1fr;
+      }
+      .claim-modal {
+        padding: 1.4rem;
+      }
+      .pagedoll-container {
+        bottom: 12px;
+        right: 12px;
+      }
+      .pagedoll-art {
+        width: 75px;
+      }
+      .pagedoll-bubble {
+        max-width: 160px;
+        font-size: 0.78rem;
+        padding: 0.5rem 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- LIVE ACTIVITY BADGE -->
+<div class="live-activity-badge">
+  <span class="pulse-dot"></span>
+  <span id="local-time" class="time-text">--:--</span>
+  <span class="badge-divider">•</span>
+  <span class="activity-label">doing right now:</span>
+  <strong id="current-activity">Checking schedule...</strong>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </label>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="shop.html">Shop</a>
+    <a href="adopts.html" class="active">Adopts</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- FLOATING PAGEDOLL WITH DIALOGUE -->
+<div class="pagedoll-container">
+  <div class="pagedoll-bubble" id="pagedollBubble">
+    <span class="pagedoll-text" id="pagedollText">Looking for a new OC companion? Check out the available adoptables</span>
+  </div>
+  <div class="pagedoll-art" onclick="cycleDialogue()" title="Click me!">
+    <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/84308400_a9WbFi629IiBNPX.gif" alt="Adopts Mascot Pagedoll">
+  </div>
+</div>
+
+<!-- HERO HEADER -->
+<header class="banner">
+  <h1>Character Adoptables</h1>
+  <p>Original character designs looking for a home!</p>
+</header>
+
+<main class="adopts-page-container">
+
+  <!-- PAYMENT NOTICE & RETENTION NOTICE -->
+  <p style="text-align: center; color: var(--accent-sage-hover, #8da982); font-size: 0.9rem; margin-bottom: 0.5rem; font-weight: 500;">
+    <i class="fa-brands fa-paypal"></i> <strong>Payment Info:</strong> All monetary payments are strictly processed via <strong>PayPal Invoice only</strong>!
+  </p>
+  <p style="text-align: center; color: var(--text-soft, #ded4cc); font-size: 0.85rem; margin-bottom: 1.5rem; font-style: italic;">
+    ✦ <i class="fa-solid fa-clock-rotate-left"></i> <strong>Note:</strong> Adopted character cards stay in the gallery for <strong>weeks</strong> before being archived to keep things tidy! Click any image for a full preview.
+  </p>
+
+  <!-- FILTER CONTROLS -->
+  <div class="filter-wrapper">
+    <!-- STATUS FILTERS -->
+    <div class="adopt-filter-nav">
+      <span class="filter-label">Status:</span>
+      <button class="filter-btn active" data-filter-type="status" data-filter="all">All</button>
+      <button class="filter-btn" data-filter-type="status" data-filter="open">Open</button>
+      <button class="filter-btn" data-filter-type="status" data-filter="pending">Pending</button>
+      <button class="filter-btn" data-filter-type="status" data-filter="adopted">Adopted</button>
+    </div>
+
+    <!-- FORMAT FILTERS -->
+    <div class="adopt-filter-nav">
+      <span class="filter-label">Type:</span>
+      <button class="filter-btn active" data-filter-type="format" data-filter="all">All Types</button>
+      <button class="filter-btn" data-filter-type="format" data-filter="flat">Flat Sale</button>
+      <button class="filter-btn" data-filter-type="format" data-filter="ota">OTA</button>
+      <button class="filter-btn" data-filter-type="format" data-filter="auction">Auction / Bid</button>
+    </div>
+  </div>
+
+  <!-- ADOPTS GRID -->
+  <div class="adopts-grid">
+
+    <!-- ADOPT 1: OTA (OPEN) -->
+    <div class="adopt-card" id="card-ota-Scoopi" data-status="open" data-format="ota">
+      <div class="badge-container">
+        <span class="adopt-badge badge-open">Open</span>
+        <span class="adopt-badge type-badge">OTA</span>
+      </div>
+      <div class="adopt-img-wrapper" onclick="openLightbox(this.querySelector('img'))">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/Adopts/Adoptable_Watermark.png" alt="Scoopi Adoptable Image Preview">
+      </div>
+      <div class="adopt-info">
+        <h3 class="adopt-title">Scoopi</h3>
+        <div class="adopt-price-details">
+          <div class="price-main">Offer To Adopt</div>
+          <div class="price-sub">Accepting: USD > Art > Trades</div>
+        </div>
+        <p class="adopt-desc">Looking for USD offers mainly but open to custom art or character swaps!</p>
+        <div class="card-actions">
+          <button class="claim-btn" onclick="openClaimModal('Scoopi', 'ota', 'Offer To Adopt', 'card-ota-Scoopi')">✦ Make Offer / View</button>
+          <a href="https://toyhou.se/39366894.ota" target="_blank" class="th-profile-btn" title="View Toyhouse"><i class="fa-solid fa-house"></i></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DESIGN TOS SECTION -->
+  <div class="tos-container">
+    <h3 class="tos-title">✦ Adoptable & Design Terms of Service ✦</h3>
+    <div class="tos-grid">
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-copyright"></i> Credit & Ownership</h4>
+        <ul>
+          <li>Credit is required when using my art whenever possible.</li>
+          <li>Do not claim my designs as your own. Always credit me as the original designer.</li>
+          <li>An active <strong>Toyhouse account is required</strong> for character file transfers.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-paintbrush"></i> Design Usage & Edits</h4>
+        <ul>
+          <li>Please do not heavily modify the design. Minor edits are fine as long as the original design is still recognizable and credited.</li>
+          <li>Please do not create designs that are identical or very similar to my original designs.</li>
+          <li>Breedables and offspring are allowed and may naturally share similarities with parent designs.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-coins"></i> Value & Reselling</h4>
+        <ul>
+          <li>You may trade, gift, or resell the design.</li>
+          <li>Please do not increase the design's worth unless additional paid artwork has been added.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-clock"></i> Claims, Invoices & Backing Out Rules</h4>
+        <ul>
+          <li>All USD transactions are strictly sent via <strong>PayPal Invoice only</strong>.</li>
+          <li>Invoices must be paid within <strong>24–48 hours</strong> after receiving the PayPal invoice.</li>
+          <li>If a design is <strong>Pending</strong>, back-up claims are welcomed! If the main buyer backs out, I will reach out to the next person in line.</li>
+          <li>Backing out or withdrawing a bid/offer without a valid reason will result in a <strong>6-month soft ban</strong> from claiming designs.</li>
+          <li>Accumulating <strong>5 back-outs total</strong> or engaging in deliberate trolling will result in a <strong>permanent blacklist</strong> from purchasing my adoptables.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-gavel"></i> Auctions & Offers (OTA)</h4>
+        <ul>
+          <li><strong>Sniper Rule:</strong> Auctions end 24 hours after the last bid placed. Each new bid extends the timer by 24 hours.</li>
+          <li>Offers for OTAs/Auctions are logged publicly so other buyers can view active offers before making theirs.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-box-archive"></i> Gallery Retention</h4>
+        <ul>
+          <li>Adopted designs remain in the gallery for <strong>weeks</strong> before being archived to keep the gallery clean.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- CLAIM / OFFER / BID MODAL -->
+<div class="modal-overlay" id="claimModal">
+  <div class="claim-modal">
+    <button class="modal-close" onclick="closeClaimModal()"><i class="fa-solid fa-xmark"></i></button>
+    <h3 class="modal-title" id="modalAdoptTitle">Adopt Design</h3>
+    <p class="modal-subtitle" id="modalAdoptPrice">--</p>
+
+    <!-- MODAL TABS FOR OTA VIEWS -->
+    <div class="modal-tabs" id="modalTabs" style="display: none;">
+      <button class="tab-btn active" onclick="switchModalTab('form')">Make Offer / Bid</button>
+      <button class="tab-btn" onclick="switchModalTab('offers')">View Current Offers</button>
+    </div>
+
+    <!-- TAB 1: OFFERS LIST (FOR OTA) -->
+    <div class="tab-content" id="tabOffers">
+      <div class="offers-list" id="offersContainer">
+        <!-- Public offers rendered dynamically from PublicData tab -->
+      </div>
+    </div>
+
+    <!-- TAB 2: FORM SUBMISSION -->
+    <div class="tab-content active" id="tabForm">
+      <form class="modal-form" id="claimForm" onsubmit="handleClaimSubmit(event)">
+        <input type="hidden" name="design_claimed" id="formDesignName">
+        <input type="hidden" name="claim_type" id="formClaimType">
+
+        <div class="form-group">
+          <label for="thUser"><i class="fa-solid fa-house"></i> Toyhouse Username *</label>
+          <input type="text" id="thUser" name="toyhouse_username" placeholder="e.g. FluryKit" required>
+        </div>
+
+        <div class="form-group">
+          <label for="paypalEmail"><i class="fa-solid fa-envelope"></i> PayPal Email (For Invoice) *</label>
+          <input type="email" id="paypalEmail" name="paypal_email" placeholder="e.g. yourname@email.com" required>
+        </div>
+
+        <!-- DYNAMIC INPUT BASED ON TYPE -->
+        <div class="form-group" id="dynamicInputGroup">
+          <label id="dynamicLabel" for="dynamicInput">Claim Amount / Offer *</label>
+          <input type="text" id="dynamicInput" name="offer_or_bid_details" placeholder="e.g. $20 USD or Art offer" required>
+        </div>
+
+        <button type="submit" class="submit-claim-btn" id="submitBtn">Send Request ✦</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- FULL IMAGE LIGHTBOX MODAL -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="close-lightbox">&times;</span>
+  <img class="lightbox-content" id="lightbox-img" alt="Full size character preview">
+</div>
+
+<!-- FOOTER -->
+<footer class="socials-footer">
+  <h3>find me online</h3>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/flurykits/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@flurykit" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://twitter.com/flurykit" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://bsky.app/profile/flurykit.bsky.social" target="_blank"><i class="fa-solid fa-feather"></i></a>
+    <a href="https://toyhou.se/flurykit" target="_blank"><i class="fa-solid fa-house"></i></a>
+  </div>
+  <p class="copyright">© <span id="year"></span> FluryKit</p>
+</footer>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOvX1I8Jx4uRlnoYGq52OMnOTJa4wntdsOtR_RUo-Pbjzk70Sd2N9zC3q_9TL6ucs/exec";
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- LIGHTBOX IMAGE POPUP SYSTEM ---
+  function openLightbox(imgElement) {
+    if (!imgElement) return;
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    lightboxImg.src = imgElement.src;
+    lightbox.style.display = "block";
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById("lightbox");
+    lightbox.style.display = "none";
+    document.body.style.overflow = "";
+  }
+
+  // --- MULTI-FILTER LOGIC ---
+  let activeStatus = 'all';
+  let activeFormat = 'all';
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const adoptCards = document.querySelectorAll('.adopt-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.getAttribute('data-filter-type');
+      const val = btn.getAttribute('data-filter');
+
+      document.querySelectorAll(`.filter-btn[data-filter-type="${type}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (type === 'status') activeStatus = val;
+      if (type === 'format') activeFormat = val;
+
+      adoptCards.forEach(card => {
+        const cardStatus = card.getAttribute('data-status');
+        const cardFormat = card.getAttribute('data-format');
+
+        const matchStatus = (activeStatus === 'all' || cardStatus === activeStatus);
+        const matchFormat = (activeFormat === 'all' || cardFormat === activeFormat);
+
+        if (matchStatus && matchFormat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // --- FETCH LIVE DATA FROM GOOGLE SHEET ON PAGE LOAD ---
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!SCRIPT_URL) return;
+
+    fetch(SCRIPT_URL)
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(item => {
+          const card = document.getElementById(item.cardId);
+          if (!card) return;
+
+          // Update Status & Badges
+          if (item.status) {
+            card.setAttribute('data-status', item.status);
+            const statusBadge = card.querySelector('.badge-container .adopt-badge:first-child');
+            const claimBtn = card.querySelector('.claim-btn');
+
+            if (item.status === 'open') {
+              statusBadge.className = 'adopt-badge badge-open';
+              statusBadge.textContent = 'Open';
+              claimBtn.className = 'claim-btn';
+              claimBtn.disabled = false;
+              claimBtn.textContent = (card.getAttribute('data-format') === 'ota') ? '✦ Make Offer / View' : '✦ Claim Design';
+            } else if (item.status === 'pending') {
+              statusBadge.className = 'adopt-badge badge-pending';
+              statusBadge.textContent = 'Pending';
+              claimBtn.className = 'claim-btn pending-btn';
+              claimBtn.disabled = false;
+              claimBtn.textContent = '✦ Request Back-up Claim';
+            } else if (item.status === 'adopted' || item.status === 'closed') {
+              statusBadge.className = 'adopt-badge badge-closed';
+              statusBadge.textContent = 'Adopted';
+              claimBtn.className = 'claim-btn disabled';
+              claimBtn.disabled = true;
+              claimBtn.textContent = 'Sold Out';
+            }
+          }
+
+          // Update Current Bid / Price
+          if (item.currentBid && item.currentBid !== 'N/A') {
+            const priceMain = card.querySelector('.price-main');
+            if (priceMain) priceMain.innerHTML = item.currentBid;
+          }
+
+          // Store Offers for Modal Display
+          if (item.topOffers) {
+            card.dataset.offers = item.topOffers;
+          }
+
+          // Update Auction End Time Timestamp
+          if (item.auctionEndTime) {
+            card.setAttribute('data-end-time', item.auctionEndTime);
+          }
+        });
+
+        startAuctionTimers();
+      })
+      .catch(err => console.error("Error fetching live sheet data:", err));
+  });
+  
+  // --- AUCTION COUNTDOWN TIMER LOGIC ---
+  function startAuctionTimers() {
+    setInterval(() => {
+      document.querySelectorAll('.adopt-card[data-format="auction"]').forEach(card => {
+        const endTimeStr = card.getAttribute('data-end-time');
+        const timerElem = card.querySelector('.card-timer');
+        if (!endTimeStr || !timerElem) return;
+
+        const endTime = new Date(endTimeStr).getTime();
+        const now = new Date().getTime();
+        const diff = endTime - now;
+
+        if (diff <= 0) {
+          timerElem.textContent = "Auction Ended";
+          timerElem.style.color = "#7a4b4b";
+        } else {
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+          timerElem.textContent = `Ends in: ${hours}h ${mins}m ${secs}s (24h post last-bid rule)`;
+        }
+      });
+    }, 1000);
+  }
+
+  // --- MODAL SYSTEM LOGIC ---
+  const modal = document.getElementById('claimModal');
+
+  function openClaimModal(title, format, priceText, cardId) {
+    modal.setAttribute('data-active-card-id', cardId);
+    const card = document.getElementById(cardId);
+    const status = card ? card.getAttribute('data-status') : 'open';
+
+    document.getElementById('modalAdoptTitle').textContent = title;
+    document.getElementById('modalAdoptPrice').textContent = priceText;
+    document.getElementById('formDesignName').value = title;
+    document.getElementById('formClaimType').value = format;
+
+    const modalTabs = document.getElementById('modalTabs');
+    const dynamicLabel = document.getElementById('dynamicLabel');
+    const dynamicInput = document.getElementById('dynamicInput');
+    const offersContainer = document.getElementById('offersContainer');
+
+    // Display stored public offers in Tab
+    const storedOffers = card && card.dataset.offers ? card.dataset.offers.split(';') : [];
+    if (storedOffers.length > 0 && storedOffers[0].trim() !== '') {
+      offersContainer.innerHTML = storedOffers.map(off => `
+        <div class="offer-item">
+          <span class="offer-detail">${off.trim()}</span>
+        </div>
+      `).join('');
+    } else {
+      offersContainer.innerHTML = `<div class="offer-item"><span class="offer-detail">No offers recorded yet. Be the first!</span></div>`;
+    }
+
+    // Configure input fields depending on Claim/Format Type
+    if (format === 'flat') {
+      modalTabs.style.display = 'none';
+      if (status === 'pending') {
+        dynamicLabel.textContent = "Back-up Claim Note";
+        dynamicInput.value = "Back-up Claim Request for " + priceText;
+      } else {
+        dynamicLabel.textContent = "Confirmation";
+        dynamicInput.value = "Flat Sale Claim - " + priceText;
+      }
+      dynamicInput.readOnly = true;
+    } else if (format === 'ota') {
+      modalTabs.style.display = 'flex';
+      dynamicLabel.textContent = "Your Offer (USD / Art / Character)";
+      dynamicInput.value = "";
+      dynamicInput.placeholder = "e.g. $20 USD + 1 Bust Art";
+      dynamicInput.readOnly = false;
+    } else if (format === 'auction') {
+      modalTabs.style.display = 'none';
+      dynamicLabel.textContent = "Your Bid Amount ($ USD)";
+      dynamicInput.value = "";
+      dynamicInput.placeholder = "e.g. $27.00 USD (Must meet Min Increment)";
+      dynamicInput.readOnly = false;
+    }
+
+    switchModalTab('form');
+    modal.classList.add('active');
+  }
+
+  function switchModalTab(tabName) {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById('tabForm').classList.remove('active');
+    document.getElementById('tabOffers').classList.remove('active');
+
+    if (tabName === 'form') {
+      document.getElementById('tabForm').classList.add('active');
+      tabBtns[0].classList.add('active');
+    } else {
+      document.getElementById('tabOffers').classList.add('active');
+      tabBtns[1].classList.add('active');
+    }
+  }
+
+  function closeClaimModal() {
+    modal.classList.remove('active');
+  }
+
+  // --- SUBMIT FORM TO GOOGLE SHEET ---
+  function handleClaimSubmit(e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+
+    const form = document.getElementById('claimForm');
+    const formData = new FormData(form);
+    
+    // Pass the active card's ID directly so Apps Script can match it guaranteed
+    const activeCardId = modal.getAttribute('data-active-card-id') || '';
+    formData.append('card_id', activeCardId);
+
+    const searchParams = new URLSearchParams(formData);
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: searchParams.toString()
+    })
+    .then(() => {
+      alert(`Thank you! Your request for ${document.getElementById('formDesignName').value} has been submitted ♡`);
+      form.reset();
+      submitBtn.textContent = "Send Request ✦";
+      submitBtn.disabled = false;
+      closeClaimModal();
+      window.location.reload();
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Your request was submitted successfully!');
+      form.reset();
+      submitBtn.textContent = "Send Request ✦";
+      submitBtn.disabled = false;
+      closeClaimModal();
+    });
+  }
+
+  // --- LOCAL TIME & SCHEDULE TRACKER ---
+  const SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRk_N3ZRVHdJrXdBMhVJPR812dU0KhY15puw76qjgWlIfc1tjETJzCmARlhPNvry9BW19Cn9GJeIW1G/pub?gid=0&single=true&output=csv';
+
+  async function updateLiveActivity() {
+    const activityElement = document.getElementById('current-activity');
+    if (!activityElement) return;
+
+    try {
+      const response = await fetch(SCHEDULE_CSV_URL);
+      const csvData = await response.text();
+      
+      const now = new Date();
+      const jakartaTimeStr = now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+      const jakartaDate = new Date(jakartaTimeStr);
+      
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const currentDay = days[jakartaDate.getDay()];
+      const currentMinutes = jakartaDate.getHours() * 60 + jakartaDate.getMinutes();
+
+      const rows = csvData.split('\n').map(row => row.split(','));
+      let matchedActivity = "Random activities";
+
+      for (let i = 1; i < rows.length; i++) {
+        if (rows[i].length < 4) continue;
+        
+        const day = rows[i][0].trim();
+        const start = rows[i][1].trim();
+        const end = rows[i][2].trim();
+        const activity = rows[i][3].trim().replace(/^"|"$/g, '');
+
+        if (day.toLowerCase() === currentDay.toLowerCase() || day.toLowerCase() === 'all') {
+          const [startH, startM] = start.split(':').map(Number);
+          const [endH, endM] = end.split(':').map(Number);
+          
+          const startTotal = startH * 60 + (startM || 0);
+          const endTotal = endH * 60 + (endM || 0);
+
+          if (currentMinutes >= startTotal && currentMinutes < endTotal) {
+            matchedActivity = activity;
+            break;
+          }
+        }
+      }
+
+      activityElement.textContent = matchedActivity;
+    } catch (err) {
+      console.error("Error fetching schedule:", err);
+    }
+  }
+
+  updateLiveActivity();
+  setInterval(updateLiveActivity, 5000);
+
+  function updateLocalTime() {
+    const timeElement = document.getElementById('local-time');
+    if (!timeElement) return;
+
+    const now = new Date();
+    timeElement.textContent = now.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  }
+
+  updateLocalTime();
+  setInterval(updateLocalTime, 1000);
+
+  // --- PAGEDOLL DIALOGUE CYCLING ---
+  const dialogues = [
+    "Looking for a new OC companion? Check out the available adoptables below! ♡",
+    "Don't forget to double-check the Design TOS down below before making an offer! ✦",
+    "All monetary payments are strictly processed through PayPal Invoice! ♡",
+    "Thank you so much for stopping by and supporting my art! ✨"
+  ];
+  let dialogueIdx = 0;
+
+  function cycleDialogue() {
+    const textElem = document.getElementById('pagedollText');
+    dialogueIdx = (dialogueIdx + 1) % dialogues.length;
+    textElem.style.opacity = 0;
+    setTimeout(() => {
+      textElem.textContent = dialogues[dialogueIdx];
+      textElem.style.opacity = 1;
+    }, 200);
+  }
+</script>
+
+</body>
+</html>
