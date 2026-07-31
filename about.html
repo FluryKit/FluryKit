@@ -191,6 +191,16 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
 
+    .text-blueberry {
+      color: #7CB9C9;
+      font-weight: 600;
+    }
+
+    .text-coffee {
+      color: #D4B28C;
+      font-weight: 600;
+    }
+
     /* MOBILE RESPONSIVE FIT */
     @media (max-width: 680px) {
       .mascot-row, 
@@ -207,14 +217,14 @@
 
     /* FLOATED IMAGE WITH NATURAL TEXT WRAPPING */
     .bio-section {
-    overflow: hidden; /* Clears floats so layout elements below don't overlap */
+    overflow: hidden;
     }
 
     .bio-image-floated {
     float: right;
     width: 260px;
-    margin-left: 2rem;      /* Space between image and text on the left */
-    margin-bottom: 1rem;    /* Space between image and text that wraps underneath */
+    margin-left: 2rem;
+    margin-bottom: 1rem;
     }
 
     .bio-image-floated img {
@@ -227,83 +237,71 @@
 
     /* Stack neatly on phone screens */
     @media (max-width: 680px) {
-    .bio-image-floated {
-        float: none;
-        width: 100%;
-        max-width: 200px;
-        margin: 0 auto 1.5rem auto;
-    }
+      .bio-image-floated {
+          float: none;
+          width: 100%;
+          max-width: 200px;
+          margin: 0 auto 1.5rem auto;
+      }
     }
 
     /* BEST FRIEND SECTION */
     .bestie-section {
+    overflow: hidden;
     margin: 3.5rem 0;
     }
 
-    .bestie-row {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    background: rgba(61, 52, 47, 0.35);
-    border: 1px dashed rgba(107, 127, 98, 0.35);
-    padding: 2rem;
-    border-radius: 24px;
+    .bestie-section p {
+      text-align: justify;
+      line-height: 1.8;
     }
 
-    .bestie-avatar {
-    flex-shrink: 0;
-    width: 160px;
-    height: 160px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+    .bestie-image-floated {
+        float: left;
+        width: 180px;
+        margin-right: 2rem;
+        margin-bottom: 1rem;
     }
 
-    .bestie-avatar:hover {
-    transform: scale(1.03) rotate(-2deg);
-    }
-
-    .bestie-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-
-    .bestie-details {
-    flex: 1;
+    .bestie-image-floated img {
+        width: 100%;
+        height: auto;
+        display: block;
     }
 
     .bestie-tag {
-    display: inline-block;
-    font-family: 'Fredoka', sans-serif;
-    font-size: 0.88rem;
-    color: var(--accent-sage);
-    background: rgba(107, 127, 98, 0.18);
-    border: 1px solid rgba(107, 127, 98, 0.3);
-    padding: 0.3rem 0.9rem;
-    border-radius: 50px;
-    margin-bottom: 0.8rem;
-    font-weight: 500;
-    }
-
-    .bestie-details p {
-    color: var(--text-cream);
-    line-height: 1.7;
-    font-size: 0.98rem;
-    margin-bottom: 0.8rem;
-    }
-
-    .bestie-details p:last-child {
-    margin-bottom: 0;
+      display: inline-block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text-cream);
+      background: rgba(107, 127, 98, 0.25);
+      border: 1px solid rgba(107, 127, 98, 0.45);
+      padding: 0.35rem 0.95rem;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
     }
 
     /* Mobile adjustments */
     @media (max-width: 680px) {
-    .bestie-row {
-        flex-direction: column;
+      .bestie-image-floated {
+          float: none;
+          width: 100%;
+          max-width: 180px;
+          margin: 0 auto 1.5rem;
+      }
+
+      .bestie-section {
+        text-align: left;
+      }
+
+      .bestie-details {
         text-align: center;
-        padding: 1.5rem;
-        gap: 1.5rem;
-    }
+      }
+
+      .bestie-section p {
+        text-align: justify;
+      }
     }
   </style>
 </head>
@@ -423,7 +421,7 @@
     <h2 class="mascot-section-title">✦ My Bestest Friend ✦</h2>
     
     <div class="bestie-row">
-      <div class="bestie-avatar">
+      <div class="bestie-image-floated">
         <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/122922413_sz1AvKczDDAVb5x.png?1783236705" alt="My Best Friend">
       </div>
       
@@ -431,11 +429,13 @@
         <span class="bestie-tag">🫐☕ Blueberry Coffee Duo</span>
         
         <p>
-          I couldnt make an about page without giving a huge shoutout to my absolute bestest friend in the whole world! We are completely inseparable, basically like <strong>blueberry coffee</strong>, a sweet, cozy combination that just belongs together! <33
-        </p>
-        
-        <p>
-          From endless late-night chats and quiet moments to sharing all our creative ideas, having her by my side makes every single day so much brighter. Thank you for being my constant comfort, my inspiration and my favorite person ever >:D
+          I couldnt make an about me page without giving a huge shoutout to my absolute bestest friend 
+          in the whole world, <a style="color: var(--accent-sage-hover);">Fowhehszu</a>! We are completely inseparable, basically like 
+          <strong><span class="text-blueberry">blueberry</span> <span class="text-coffee">coffee</span></strong>, 
+          a sweet, cozy combination that just belongs together! ♡ From endless late-night chats 
+          and quiet moments to sharing all our creative ideas, having her by my side makes every 
+          single day so much brighter. Thank you for being my constant comfort, my inspiration and my 
+          favorite person ever >:D
         </p>
       </div>
     </div>
