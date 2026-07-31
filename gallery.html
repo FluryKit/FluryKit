@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery | FluryKit</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://f2.toyhou.se/file/f2-toyhou-se/images/113371445_Zc1kRRW0VYxsOpJ.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* --- GALLERY PAGE SPECIFIC STYLES --- */
+    .gallery-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    /* TAG FILTER BAR */
+    .gallery-filter-wrapper {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      background: rgba(42, 36, 33, 0.6);
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      color: var(--text-cream, #FAF8F5);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.92rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: var(--accent-sage, #787350);
+      color: var(--bg-espresso, #2a2421);
+      border-color: var(--accent-sage, #787350);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* GALLERY GRID */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* GALLERY CARD ITEM */
+    .gallery-card {
+      background-color: var(--card-mocha, #2a2421);
+      border: 1px solid rgba(107, 127, 98, 0.25);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .gallery-card.hidden {
+      display: none !important;
+      opacity: 0;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      border-color: rgba(107, 127, 98, 0.5);
+    }
+
+    /* IMAGE CONTAINER & OVERLAY */
+    .gallery-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-card:hover .gallery-img-wrapper img {
+      transform: scale(1.06);
+    }
+
+    .img-zoom-hint {
+      position: absolute;
+      inset: 0;
+      background: rgba(42, 36, 33, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-cream, #FAF8F5);
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    .gallery-img-wrapper:hover .img-zoom-hint {
+      opacity: 1;
+    }
+
+    /* CARD DETAILS & MULTI-TAG BADGES */
+    .gallery-card-info {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      flex-grow: 1;
+    }
+
+    .gallery-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gallery-card-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-cream, #FAF8F5);
+      margin: 0;
+    }
+
+    .gallery-card-date {
+      font-size: 0.8rem;
+      color: var(--text-muted, #a0958e);
+    }
+
+    /* TAG CHIPS INSIDE CARDS */
+    .card-tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+    }
+
+    .tag-badge {
+      font-size: 0.73rem;
+      font-family: 'Fredoka', sans-serif;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      background: rgba(107, 127, 98, 0.2);
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      color: var(--accent-sage, #8da982);
+    }
+
+    /* --- LIGHTBOX POPUP --- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 16, 14, 0.92);
+      backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 2rem;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 14px;
+      border: 2px solid var(--accent-sage, #787350);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
+    }
+
+    .lightbox-caption {
+      margin-top: 1rem;
+      color: var(--text-cream, #FAF8F5);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      color: var(--text-cream, #FAF8F5);
+      font-size: 38px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-lightbox:hover {
+      color: var(--accent-sage, #8da982);
+    }
+
+    /* MOBILE RESPONSIVE FIT */
+    @media (max-width: 600px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-btn {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
+    <img src="https://file.garden/Zi882vZK7yH8-ClP/LogoWhite.png" alt="FluryKit logo">
+  </a>
+  <input type="checkbox" id="nav-toggle" class="nav-checkbox" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav-toggle" aria-controls="nav-links">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Home</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="shop.html">Shop</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<header class="banner">
+  <h1>Art Gallery</h1>
+  <p>A collection of my artwork, commissions and personal projects! ✦</p>
+</header>
+
+<main class="gallery-container">
+
+  <!-- MULTI-TAG FILTER BUTTONS -->
+  <div class="gallery-filter-wrapper">
+    <button class="filter-btn active" data-filter="all">All Art</button>
+    <button class="filter-btn" data-filter="fullbody">Fullbody</button>
+    <button class="filter-btn" data-filter="halfbody">Halfbody / Bust</button>
+    <button class="filter-btn" data-filter="chibi">Chibi</button>
+    <button class="filter-btn" data-filter="scene">Scene / BG</button>
+    <button class="filter-btn" data-filter="pixel">Pixel</button>
+    <button class="filter-btn" data-filter="design">Design</button>
+  </div>
+    <center><h2>WIP</h2></center>
+  <!-- GALLERY GRID CONTAINER -->
+  <div class="gallery-grid">
+
+    <!-- EXAMPLE ITEM 1: Fullbody + Scene (Has 2 navigation tags!) -->
+    <div class="gallery-card" data-tags="fullbody scene">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A1_BrokenGhostblade.png" alt="Ghostblade Commission">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Ghostblade</h3>
+          <span class="gallery-card-date">Jul 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Fullbody</span>
+          <span class="tag-badge">Scene BG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE ITEM 2: Chibi + Scene (Has 2 navigation tags!) -->
+    <div class="gallery-card" data-tags="chibi scene">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Chibi_Pazu_Watermark.png" alt="Pazu Chibi Scene">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Pazu Cozy Moment</h3>
+          <span class="gallery-card-date">Jul 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Chibi</span>
+          <span class="tag-badge">Scene BG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE ITEM 3: Halfbody + Scene -->
+    <div class="gallery-card" data-tags="halfbody scene">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/FullShadedHalfbody_Ghost_Watermark.png" alt="Ghost Halfbody Scene">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Ghost Halfbody</h3>
+          <span class="gallery-card-date">Jun 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Halfbody</span>
+          <span class="tag-badge">Scene BG</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE ITEM 4: Chibi -->
+    <div class="gallery-card" data-tags="chibi">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/ChibiFullbody_TojiWatermark.png" alt="Toji Chibi">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Toji</h3>
+          <span class="gallery-card-date">Jun 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Chibi</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE ITEM 5: Pixel -->
+    <div class="gallery-card" data-tags="pixel">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/PixelExamples_100x100.gif" alt="Pixel Animated Sprite">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Pixel Fox Bounce</h3>
+          <span class="gallery-card-date">May 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Pixel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE ITEM 6: Design + Fullbody -->
+    <div class="gallery-card" data-tags="design fullbody">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/MysteryDesign_Draigonix.png" alt="Custom Design Draigonix">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Dragonix Custom</h3>
+          <span class="gallery-card-date">Mar 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Design</span>
+          <span class="tag-badge">Fullbody</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+  <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
+  <img class="lightbox-content" id="lightbox-img" src="" alt="Full view">
+  <div id="lightbox-caption" class="lightbox-caption"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="socials-footer">
+  <h3>find me online</h3>
+  <div class="social-icons">
+    <a href="https://www.instagram.com/flurykits/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@flurykit" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://twitter.com/flurykit" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+    <a href="https://bsky.app/profile/flurykit.bsky.social" target="_blank" aria-label="Bluesky"><i class="fa-solid fa-feather"></i></a>
+    <a href="https://cara.app/flurykit" target="_blank" aria-label="Cara"><i class="fa-solid fa-palette"></i></a>
+    <a href="https://flurykit.tumblr.com" target="_blank" aria-label="Tumblr"><i class="fa-brands fa-tumblr"></i></a>
+    <a href="https://youtube.com/@flurykit" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://toyhou.se/flurykit" target="_blank" aria-label="Toyhouse"><i class="fa-solid fa-house"></i></a>
+  </div>
+  <p class="copyright">© <span id="year"></span> FluryKit</p>
+</footer>
+
+<script>
+  // Dynamic Year Footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- MULTI-TAG FILTERING SYSTEM ---
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryCards = document.querySelectorAll('.gallery-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update Active Button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      galleryCards.forEach(card => {
+        // Read space-separated tags: e.g. "fullbody scene" -> ["fullbody", "scene"]
+        const tags = card.getAttribute('data-tags').split(' ');
+
+        if (filter === 'all' || tags.includes(filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // --- LIGHTBOX CONTROLLER ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+
+  function openLightbox(wrapper) {
+    const img = wrapper.querySelector('img');
+    const cardInfo = wrapper.parentElement.querySelector('.gallery-card-title');
+
+    lightboxImg.src = img.src;
+    lightboxCaption.textContent = cardInfo ? cardInfo.textContent : '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(e) {
+    // Only close if user clicks background, close button, or lightbox itself
+    if (e.target === lightbox || e.target.classList.contains('close-lightbox')) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+</script>
+
+</body>
+</html>
