@@ -487,6 +487,15 @@
 
 <body class="shop-page">
 
+<!-- LIVE ACTIVITY BADGE -->
+<div class="live-activity-badge">
+  <span class="pulse-dot"></span>
+  <span id="local-time" class="time-text">--:--</span>
+  <span class="badge-divider">•</span>
+  <span class="activity-label">doing right now:</span>
+  <strong id="current-activity">Checking schedule...</strong>
+</div>
+
 <!-- NAVIGATION -->
 <nav>
   <a href="index.html" class="nav-logo" aria-label="FluryKit Home">
@@ -763,6 +772,80 @@
       });
     });
   });
+
+  // --- LIVE SCHEDULE TRACKER ---
+  const SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRk_N3ZRVHdJrXdBMhVJPR812dU0KhY15puw76qjgWlIfc1tjETJzCmARlhPNvry9BW19Cn9GJeIW1G/pub?gid=0&single=true&output=csv';
+
+  async function updateLiveActivity() {
+    const activityElement = document.getElementById('current-activity');
+    if (!activityElement) return;
+
+    try {
+      const response = await fetch(SCHEDULE_CSV_URL);
+      const csvData = await response.text();
+      
+      // Get current day & total time in minutes for WIB (Asia/Jakarta)
+      const now = new Date();
+      const jakartaTimeStr = now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
+      const jakartaDate = new Date(jakartaTimeStr);
+      
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const currentDay = days[jakartaDate.getDay()];
+      const currentMinutes = jakartaDate.getHours() * 60 + jakartaDate.getMinutes();
+
+      // Parse CSV rows
+      const rows = csvData.split('\n').map(row => row.split(','));
+      let matchedActivity = "Random activities"; // Default fallback if nothing is scheduled
+
+      // Loop through rows (skipping column header row 0)
+      for (let i = 1; i < rows.length; i++) {
+        if (rows[i].length < 4) continue;
+        
+        const day = rows[i][0].trim();
+        const start = rows[i][1].trim();
+        const end = rows[i][2].trim();
+        const activity = rows[i][3].trim().replace(/^"|"$/g, ''); // Clean extra quotes
+
+        // Match current day or "All"
+        if (day.toLowerCase() === currentDay.toLowerCase() || day.toLowerCase() === 'all') {
+          const [startH, startM] = start.split(':').map(Number);
+          const [endH, endM] = end.split(':').map(Number);
+          
+          const startTotal = startH * 60 + (startM || 0);
+          const endTotal = endH * 60 + (endM || 0);
+
+          if (currentMinutes >= startTotal && currentMinutes < endTotal) {
+            matchedActivity = activity;
+            break;
+          }
+        }
+      }
+
+      activityElement.textContent = matchedActivity;
+    } catch (err) {
+      console.error("Error fetching schedule:", err);
+    }
+  }
+
+  // Check schedule on load and re-check every 5 seconds
+  updateLiveActivity();
+  setInterval(updateLiveActivity, 5000);
+
+  function updateLocalTime() {
+  const timeElement = document.getElementById('local-time');
+  if (!timeElement) return;
+
+    const now = new Date();
+    timeElement.textContent = now.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  }
+
+  // Start clock instantly and loop
+  updateLocalTime();
+  setInterval(updateLocalTime, 1000);
 </script>
 
 </body>
