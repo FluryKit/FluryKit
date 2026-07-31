@@ -368,6 +368,54 @@
         }
     }
 
+    /* --- Payment Section Mobile & Desktop Styling --- */
+    .payment-section {
+      text-align: center;
+    }
+
+    .payment-group-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      margin: 1.2rem 0 0.8rem;
+      color: var(--accent-sage);
+      text-align: left;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.2rem;
+      width: 100%;
+    }
+
+    .payment-card {
+      background: rgba(42, 36, 33, 0.5);
+      border: 1px solid rgba(107, 127, 98, 0.25);
+      border-radius: 14px;
+      padding: 0.8rem 0.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .payment-card img {
+      height: 32px;
+      width: auto;
+      max-width: 80%;
+      object-fit: contain;
+    }
+
+    .payment-card h4 {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-cream);
+      margin: 0;
+      text-align: center;
+    }
+
     @media (max-width: 480px) {
       .commissions-page .specs-list li {
           flex-direction: column;
@@ -378,6 +426,29 @@
       .commissions-page .specs-list li span:last-child {
           text-align: left;
           margin-left: 0;
+      }
+
+      .payment-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.35rem;
+      }
+
+      .payment-card {
+        padding: 0.5rem 0.2rem;
+        border-radius: 10px;
+        min-height: 62px;
+      }
+
+      .payment-card img {
+        height: 22px;
+      }
+
+      .payment-card h4 {
+        font-size: 0.65rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
       }
   }
 
@@ -457,15 +528,15 @@
       <div><small>Same Week</small><b>+100%</b></div>
     </div>
     <p class="note-text">↳ Please respond to updates promptly! Delays caused by late responses are outside my responsibility.</p>
-
+    <!--
     <div class="horizontal-rules">
       <span>✦ Sketch sent before finishing</span>
       <span>✦ Clarity allows direct completion</span>
       <span>✦ Minor markings/color fixes are free</span>
     </div>
-
+     -->
     <div style="text-align: center; margin-top: 25px;">
-      <a href="https://www.sieve.page/flurykit" class="button btn-sub">View Queue / Waitlist</a>
+      <a href="https://www.sieve.page/flurykit" class="button btn-sub">View Queue / Slots</a>
     </div>
 
     <!-- Collapsible Rules Container -->
@@ -606,7 +677,9 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background or transparent background</span><span></span></li>
+            <li><span>✦ Solid color background by default. 
+              Transparent/no background or a simple pattern/abstract 
+              available upon request.</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -618,8 +691,10 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="https://vgen.co/flurykit/service/icon-headshot-commission/dad9dd5e-f115-4f84-984b-e574211abef7" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/-furry-feral-art-commissions/62ff11d1-cf12-41ff-b9fa-031486477768" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -651,20 +726,24 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background or transparent background</span><span></span></li>
+            <li><span>✦ Solid color background by default. 
+              Transparent/no background or a simple pattern/abstract 
+              available upon request.</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
           <ul>
             <li><span>✦ Shaded</span><span>$42 / Rp150k</span></li>
             <li><span>✦ Extra character</span><span>+80%</span></li>
-            <li><span>✦ Background</span><span>+$5-20 / +Rp25k-75k</span></li>
+            <li><span>✦ Simple BG</span><span>+$5-20 / +Rp25k-75k</span></li>
             <li><span>✦ Complex BG</span><span>quote only</span></li>
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/-furry-feral-art-commissions/62ff11d1-cf12-41ff-b9fa-031486477768" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -712,7 +791,9 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background or transparent background</span><span></span></li>
+            <li><span>✦ Solid color background by default. 
+              Transparent/no background or a simple pattern/abstract 
+              available upon request.</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -724,8 +805,10 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/-furry-feral-art-commissions/62ff11d1-cf12-41ff-b9fa-031486477768" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -773,7 +856,9 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background or transparent background</span><span></span></li>
+            <li><span>✦ Solid color background by default. 
+              Transparent/no background or a simple pattern/abstract 
+              available upon request.</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -785,8 +870,10 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/-furry-feral-art-commissions/62ff11d1-cf12-41ff-b9fa-031486477768" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -822,7 +909,9 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background or transparent background</span><span></span></li>
+            <li><span>✦ Solid color background by default. 
+              Transparent/no background or a simple pattern/abstract 
+              available upon request.</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -876,7 +965,8 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background by default</span><span></span></li>
+            <li><span>✦ Checker background by default. Solid color background 
+              available upon request.</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -887,7 +977,7 @@
         </div>
         <div class="btn-group">
           <a href="https://vgen.co/flurykit/service/wiggle-icon/6fdbb92b-1039-4d18-a9fe-77fa6bfb9280" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://ko-fi.com/c/3c27a85008" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -913,7 +1003,8 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Watermarked preview + final non-watermarked file</span><span></span></li>
-            <li><span>✦ Simple background by default with decorative elements</span><span></span></li>
+            <li><span>✦ Solid color background by default with decorative elements.
+              Transparent/no BG available upon request. </span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -962,8 +1053,8 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/50x50-pixel/ebde612e-e49a-4ad0-89e3-680eb412640e" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="https://ko-fi.com/c/daa756662f" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -981,7 +1072,7 @@
       <div class="listing-info">
         <div class="header-row">
           <h2><i class="fa-solid fa-seedling"></i> 25x25 Pixel</h2>
-          <span class="price-tag">$12 / Rp25k</span>
+          <span class="price-tag">$12 / Rp50k</span>
         </div>
         <p>Canvas size is 25×25px. Complex designs will be simplified. By sending a request, you agree to this ♡</p>
         <p><i class="fa-solid fa-warning"></i> No sketch approval for this commission</p>
@@ -989,7 +1080,7 @@
           <p><strong>What you get:</strong></p>
           <ul>
             <li><span>✦ Original 25×25 file + 300% enlarged version</span><span></span></li>
-            <li><span>✦ Transparent background by default</span><span></li>span></li>
+            <li><span>✦ Transparent background by default</span><span></span></li>
           </ul>
         </div>
         <div class="specs-list">
@@ -998,8 +1089,8 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/25x25-tiny-sprite/f1d2ab6a-7603-4804-b645-7eef45d034c6" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a href="https://ko-fi.com/c/bb78db153e" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -1023,7 +1114,7 @@
       <div class="listing-info">
         <div class="header-row">
           <h2><i class="fa-solid fa-seedling"></i> Custom Character Design</h2>
-          <span class="price-tag">$50/ Rp250k</span>
+          <span class="price-tag">$50-145/ Rp250k-800k</span>
         </div>
         <p>Canvas size is around 1000–2500px or larger depending on the design.</p>
         <p><a style="color: var(--accent-sage-hover);">The prices listed are starting prices</a> and may increase depending on your design request, 
@@ -1044,8 +1135,10 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/custom-design/9a9a467f-ab95-4a82-a018-d4e943745795" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -1080,7 +1173,7 @@
       <div class="listing-info">
         <div class="header-row">
           <h2><i class="fa-solid fa-seedling"></i> Mystery Character Design</h2>
-          <span class="price-tag">$35 / Rp180k</span>
+          <span class="price-tag">$35-125 / Rp180k-700k</span>
         </div>
         <p>Canvas size is around 1000–2500px or larger depending on the design.</p>
         <p><a style="color: var(--accent-sage-hover);">Choose up to 1–2 themes and your preferred species.</a> You may also include optional details such 
@@ -1097,8 +1190,10 @@
           </ul>
         </div>
         <div class="btn-group">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a href="https://vgen.co/flurykit/service/mystery-design/4510736e-d160-4660-ab4d-8e841f30844d" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -1135,7 +1230,7 @@
       <div class="listing-info">
         <div class="header-row">
           <h2><i class="fa-solid fa-seedling"></i> PNGTubeRemix [Model/Rig]</h2>
-          <span class="price-tag">$28 – $80</span>
+          <span class="price-tag">$35-135+ / Rp150k-1M+</span>
         </div>
         <p>Canvas size is 1000px or larger depending on the piece.</p>
         <p><strong>Revisions:</strong> unlimited sketch revisions (please be reasonable). Minor updates during finishing are unlimited. Please provide clear notes ♡ I will keep you updated, feel free to ask anytime!</p>
@@ -1150,21 +1245,24 @@
         </div>
         <div class="specs-list">
           <ul>
-            <li><span>✦ Mascot / Goober</span><span>$28</span></li>
-            <li><span>✦ Chibi Halfbody</span><span>$40</span></li>
-            <li><span>✦ Chibi Fullbody</span><span>$50</span></li>
-            <li><span>✦ Non-Chibi Bust</span><span>$45</span></li>
-            <li><span>✦ Non-Chibi Halfbody</span><span>$60</span></li>
-            <li><span>✦ Non-Chibi Fullbody</span><span>$80</span></li>
-            <li><span>✦ Rigging / Mouse tracking (Ready to use)</span><span>+50%</span></li>
-            <li><span>✦ Extra Expressions</span><span>+$5 each</span></li>
-            <li><span>✦ Complex Items / Pets</span><span>+$5 - $50 each</span></li>
+            <li><span>✦ Mascot / Goober</span><span>$35 / Rp150k</span></li>
+            <li><span>✦ Chibi Halfbody</span><span>$45 / Rp250k</span></li>
+            <li><span>✦ Chibi Fullbody</span><span>$60 / Rp350k</span></li>
+            <li><span>✦ Non-Chibi Bust</span><span>$55 / Rp350k</span></li>
+            <li><span>✦ Non-Chibi Halfbody</span><span>$70 / Rp500k</span></li>
+            <li><span>✦ Non-Chibi Fullbody</span><span>$90 / Rp700k</span></li>
+            <li><span>✦ Rigging / Mouse tracking</span><span>+50%</span></li>
+            <li><span>✦ Extra Expressions</span><span>+$5 / +Rp25k each</span></li>
+            <li><span>✦ Items / Pets</span><span>+$5-50 / +Rp25k-300k each</span></li>
+            <li><span>✦ Rigging only</span><span>$50-60+ / Rp100k-350k+</span></li>
           </ul>
         </div>
-        <p style="font-size:0.75rem; color:var(--text-soft); font-style:italic;">*Rigging only $15 – $50+ depending on PSD separation ♡</p>
+        <!--<p style="font-size:0.75rem; color:var(--text-soft); font-style:italic;">*Rigging only $15 – $50+ depending on PSD separation ♡</p>-->
         <div class="btn-group">
           <a href="https://vgen.co/flurykit/service/-pngtuber-pngtuberemix/0136337e-9c94-4733-baa0-73d8c578219f" target="_blank" rel="noopener noreferrer" class="button btn-main">VGen</a>
-          <a href="#" target="_blank" rel="noopener noreferrer" class="button btn-sub">Ko-fi</a>
+          <a class="button btn-sub disabled" aria-disabled="true" tabindex="-1">
+            Ko-fi <span class="status-tag"></span>
+          </a>
           <a href="https://forms.gle/Fp5pUvPxYnYWoRXT6" target="_blank" rel="noopener noreferrer" class="button btn-sub">G-Form</a>
         </div>
       </div>
@@ -1281,7 +1379,9 @@
         
         <div class="feedback-prompt">
         <p>Commissioned me outside of VGen? Feel free to leave a review by emailing me through my 
-            <a href="contact.html">Contact page</a>! I appreciate all honest feedback, it helps me improve ♡</p>
+            <a href="contact.html">Contact page</a>! I appreciate all honest feedback!! it helps me improve ♡ 
+            Please include your username (or anonymous), the platform you ordered through, your commission type 
+            (e.g., Chibi, Halfbody Illustration, etc) and your watermarked commission result :D</p>
         </div>
     </div>
   
@@ -1315,7 +1415,7 @@
   </div>
 
   <div class="card payment-section">
-    <h3>✦ Accepted Payments</h3>
+    <h3>✦ Accepted Payments ✦</h3>
 
     <p class="payment-group-label">Local (Indonesia)</p>
     <div class="payment-grid">
@@ -1337,7 +1437,7 @@
     <div class="payment-grid">
       <div class="payment-card">
         <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Symbol.svg" alt="PayPal">
-        <h4>PayPal Invoice</h4>
+        <h4>PayPal</h4>
       </div>
       <div class="payment-card">
         <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/kofi_symbol.png" alt="Ko-fi">

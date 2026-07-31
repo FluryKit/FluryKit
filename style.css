@@ -382,7 +382,7 @@ section {
 .commissions-page .section-title {
     text-align: center;
     margin-bottom: 1.4rem;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--accent-sage);
 }
 
@@ -490,7 +490,26 @@ section {
     color: var(--text-soft);
 }
 
-.commissions-page .button,
+/* Disabled state for buttons */
+.commissions-page .button.disabled,
+.commissions-page .btn-sub.disabled {
+    pointer-events: none;                  /* Prevents clicks and hover triggers */
+    opacity: 0.5;                          /* Visually dims the button */
+    cursor: not-allowed;
+    background-color: rgba(35, 30, 27, 0.3);
+    border-color: rgba(107, 127, 98, 0.15);
+    color: var(--text-muted);
+    transform: none !important;
+}
+
+/* Ensure hover state never turns green when disabled */
+.commissions-page .button.disabled:hover,
+.commissions-page .btn-sub.disabled:hover {
+    background-color: rgba(35, 30, 27, 0.3) !important;
+    border-color: rgba(107, 127, 98, 0.15) !important;
+    color: var(--text-muted) !important;
+    transform: none !important;
+}
 
 .commissions-page .btn-main,
 .commissions-page .btn-vgen {
@@ -784,7 +803,7 @@ section {
     font-family: 'Fredoka', sans-serif;
     color: var(--accent-sage);
 }
-
+/*
 .commissions-page .payment-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -811,7 +830,7 @@ section {
     font-size: 0.95rem;
     color: var(--text-cream);
 }
-
+*/
 .commissions-page #stamp-user,
 .commissions-page #stamp-key {
     padding: 0.8rem 1rem;
