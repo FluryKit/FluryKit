@@ -371,6 +371,104 @@
       object-fit: cover;
     }
 
+    /* --- PAGEDOLL CONTAINER & FLOATING ANIMATION --- */
+.pagedoll-container {
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none; /* Prevents empty space around doll from blocking clicks on the page */
+}
+
+/* Enable pointer events specifically on the bubble and image */
+  .pagedoll-bubble, 
+  .pagedoll-art {
+    pointer-events: auto;
+  }
+
+  /* SPEECH BUBBLE STYLING */
+  .pagedoll-bubble {
+    background-color: var(--card-mocha);
+    color: var(--text-cream);
+    border: 1.5px solid var(--accent-sage);
+    border-radius: 16px;
+    padding: 0.75rem 1rem;
+    max-width: 210px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    animation: floatBubble 3.5s ease-in-out infinite;
+  }
+
+  .pagedoll-text {
+    transition: opacity 0.2s ease;
+  }
+
+  /* SPEECH BUBBLE TAIL (POINTER) */
+  .pagedoll-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    right: 35px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 9px solid var(--accent-sage);
+  }
+
+  /* PAGEDOLL ART STYLING */
+  .pagedoll-art {
+    cursor: pointer;
+    width: 105px; /* Adjust size based on your artwork */
+    transition: transform 0.3s ease;
+    animation: floatDoll 4s ease-in-out infinite;
+  }
+
+  .pagedoll-art:hover {
+    transform: scale(1.08) rotate(3deg);
+  }
+
+  .pagedoll-art img {
+    width: 70%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+  }
+
+  /* FLOATING ANIMATIONS */
+  @keyframes floatDoll {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+  }
+
+  @keyframes floatBubble {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  /* MOBILE ADAPTATION */
+  @media (max-width: 600px) {
+    .pagedoll-container {
+      bottom: 12px;
+      right: 12px;
+    }
+    .pagedoll-art {
+      width: 75px; /* Scaled down for mobile screens */
+    }
+    .pagedoll-bubble {
+      max-width: 160px;
+      font-size: 0.78rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
     /* Mobile Responsive Adjustments */
     @media (max-width: 850px) {
       .shop-gallery-grid {
@@ -407,6 +505,16 @@
     <a href="contact.html">contact</a>
   </div>
 </nav>
+
+<!-- FLOATING PAGEDOLL WITH DIALOGUE -->
+<div class="pagedoll-container">
+  <div class="pagedoll-bubble" id="pagedollBubble">
+    <span class="pagedoll-text" id="pagedollText">Welcome, friend! ...Oh! Im still getting the shop ready! Please check back soon! ♡</span>
+  </div>
+  <div class="pagedoll-art" onclick="cycleDialogue()" title="Click me!">
+    <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/100845220_2jQ765NzSLjsdV9.gif" alt="Shop Mascot Pagedoll">
+  </div>
+</div>
 
 <!-- HEADER BANNER BACKGROUND -->
 <header class="banner"></header>
