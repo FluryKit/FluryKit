@@ -275,9 +275,12 @@
   <div class="gallery-filter-wrapper">
     <button class="filter-btn active" data-filter="all">All Art</button>
     <button class="filter-btn" data-filter="fullbody">Fullbody</button>
-    <button class="filter-btn" data-filter="halfbody">Halfbody / Bust</button>
+    <button class="filter-btn" data-filter="halfbody">Halfbody</button>
+    <button class="filter-btn" data-filter="bust">Bust</button>
+    <button class="filter-btn" data-filter="icon">Icon/Headshot</button>
+    <button class="filter-btn" data-filter="ref">Reference Sheet</button>
     <button class="filter-btn" data-filter="chibi">Chibi</button>
-    <button class="filter-btn" data-filter="scene">Scene / BG</button>
+    <button class="filter-btn" data-filter="scene">Scene</button>
     <button class="filter-btn" data-filter="pixel">Pixel</button>
     <button class="filter-btn" data-filter="design">Design</button>
   </div>
@@ -285,15 +288,31 @@
   <!-- GALLERY GRID CONTAINER -->
   <div class="gallery-grid">
 
-    <!-- EXAMPLE ITEM 1: Fullbody + Scene (Has 2 navigation tags!) -->
     <div class="gallery-card" data-tags="fullbody scene">
       <div class="gallery-img-wrapper" onclick="openLightbox(this)">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A1_BrokenGhostblade.png" alt="Ghostblade Commission">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A3_mcnarfles_WM.png" alt="Artfight Attack">
         <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
       </div>
       <div class="gallery-card-info">
         <div class="gallery-card-header">
-          <h3 class="gallery-card-title">Ghostblade</h3>
+          <h3 class="gallery-card-title">Artfight attack</h3>
+          <span class="gallery-card-date">Aug 2026</span>
+        </div>
+        <div class="card-tags-list">
+          <span class="tag-badge">Fullbody</span>
+          <span class="tag-badge">Scene BG</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-card" data-tags="fullbody scene">
+      <div class="gallery-img-wrapper" onclick="openLightbox(this)">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/A1_BrokenGhostblade.png" alt="Artfight Attack">
+        <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-card-info">
+        <div class="gallery-card-header">
+          <h3 class="gallery-card-title">Artfight attack</h3>
           <span class="gallery-card-date">Jul 2026</span>
         </div>
         <div class="card-tags-list">
@@ -306,12 +325,12 @@
     <!-- EXAMPLE ITEM 2: Chibi + Scene (Has 2 navigation tags!) -->
     <div class="gallery-card" data-tags="chibi scene">
       <div class="gallery-img-wrapper" onclick="openLightbox(this)">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Chibi_Pazu_Watermark.png" alt="Pazu Chibi Scene">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Chibi_Pazu_Watermark.png" alt="Commission">
         <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
       </div>
       <div class="gallery-card-info">
         <div class="gallery-card-header">
-          <h3 class="gallery-card-title">Pazu Cozy Moment</h3>
+          <h3 class="gallery-card-title">Chibi commission</h3>
           <span class="gallery-card-date">Jul 2026</span>
         </div>
         <div class="card-tags-list">
@@ -324,12 +343,12 @@
     <!-- EXAMPLE ITEM 3: Halfbody + Scene -->
     <div class="gallery-card" data-tags="halfbody scene">
       <div class="gallery-img-wrapper" onclick="openLightbox(this)">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/FullShadedHalfbody_Ghost_Watermark.png" alt="Ghost Halfbody Scene">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/FullShadedHalfbody_Ghost_Watermark.png" alt="Commission">
         <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
       </div>
       <div class="gallery-card-info">
         <div class="gallery-card-header">
-          <h3 class="gallery-card-title">Ghost Halfbody</h3>
+          <h3 class="gallery-card-title">Halfbody commission</h3>
           <span class="gallery-card-date">Jun 2026</span>
         </div>
         <div class="card-tags-list">
@@ -342,12 +361,12 @@
     <!-- EXAMPLE ITEM 4: Chibi -->
     <div class="gallery-card" data-tags="chibi">
       <div class="gallery-img-wrapper" onclick="openLightbox(this)">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/ChibiFullbody_TojiWatermark.png" alt="Toji Chibi">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/Reviews/ChibiFullbody_TojiWatermark.png" alt="Commission">
         <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
       </div>
       <div class="gallery-card-info">
         <div class="gallery-card-header">
-          <h3 class="gallery-card-title">Toji</h3>
+          <h3 class="gallery-card-title">Chibi commission</h3>
           <span class="gallery-card-date">Jun 2026</span>
         </div>
         <div class="card-tags-list">
@@ -359,13 +378,13 @@
     <!-- EXAMPLE ITEM 5: Pixel -->
     <div class="gallery-card" data-tags="pixel">
       <div class="gallery-img-wrapper" onclick="openLightbox(this)">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/PixelExamples_100x100.gif" alt="Pixel Animated Sprite">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/PixelExamples_100x100.gif" alt="Commission">
         <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
       </div>
       <div class="gallery-card-info">
         <div class="gallery-card-header">
-          <h3 class="gallery-card-title">Pixel Fox Bounce</h3>
-          <span class="gallery-card-date">May 2026</span>
+          <h3 class="gallery-card-title">50x50 Pixel</h3>
+          <span class="gallery-card-date">2025</span>
         </div>
         <div class="card-tags-list">
           <span class="tag-badge">Pixel</span>
@@ -374,19 +393,20 @@
     </div>
 
     <!-- EXAMPLE ITEM 6: Design + Fullbody -->
-    <div class="gallery-card" data-tags="design fullbody">
+    <div class="gallery-card" data-tags="design fullbody ref">
       <div class="gallery-img-wrapper" onclick="openLightbox(this)">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/MysteryDesign_Draigonix.png" alt="Custom Design Draigonix">
+        <img src="https://file.garden/Zi882vZK7yH8-ClP/CommissionExamples/MysteryDesign_Draigonix.png" alt="Commission">
         <div class="img-zoom-hint"><i class="fa-solid fa-expand"></i></div>
       </div>
       <div class="gallery-card-info">
         <div class="gallery-card-header">
-          <h3 class="gallery-card-title">Dragonix Custom</h3>
+          <h3 class="gallery-card-title">Design commission</h3>
           <span class="gallery-card-date">Mar 2026</span>
         </div>
         <div class="card-tags-list">
           <span class="tag-badge">Design</span>
           <span class="tag-badge">Fullbody</span>
+          <span class="tag-badge">REF</span>
         </div>
       </div>
     </div>
