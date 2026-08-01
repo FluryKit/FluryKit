@@ -110,9 +110,7 @@
       border-color: rgba(107, 127, 98, 0.7);
     }
 
-    .adopt-card.hidden {
-      display: none;
-    }
+    .adopt-card.hidden { display: none; }
 
     /* CARD BADGES */
     .badge-container {
@@ -168,9 +166,7 @@
       transition: transform 0.3s ease;
     }
 
-    .adopt-card:hover .adopt-img-wrapper img {
-      transform: scale(1.03);
-    }
+    .adopt-card:hover .adopt-img-wrapper img { transform: scale(1.03); }
 
     .adopt-info {
       padding: 1.2rem;
@@ -201,23 +197,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .price-sub {
-      color: var(--text-soft, #ded4cc);
-      font-size: 0.78rem;
-      margin-top: 0.2rem;
-    }
-
-    .bid-timer-bar {
-      margin-top: 0.4rem;
-      padding-top: 0.4rem;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-      font-size: 0.75rem;
-      color: #d9a05b;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
     }
 
     .adopt-desc {
@@ -318,7 +297,7 @@
 
     .tos-section li { margin-bottom: 0.4rem; }
 
-    /* MODAL SYSTEM (MOBILE ENHANCED) */
+    /* MODAL SYSTEM */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -374,7 +353,6 @@
       margin-bottom: 1rem;
     }
 
-    /* MODAL TABS FOR OTA OFFERS */
     .modal-tabs {
       display: flex;
       gap: 0.5rem;
@@ -403,7 +381,6 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* OFFER LIST FOR OTA */
     .offers-list {
       display: flex;
       flex-direction: column;
@@ -425,14 +402,7 @@
       align-items: center;
     }
 
-    .offer-user {
-      font-weight: 600;
-      color: var(--accent-sage-hover, #8da982);
-    }
-
-    .offer-detail {
-      color: #FAF8F5;
-    }
+    .offer-detail { color: #FAF8F5; }
 
     .modal-form {
       display: flex;
@@ -453,7 +423,7 @@
       font-family: 'Fredoka', sans-serif;
     }
 
-    .form-group input, .form-group textarea, .form-group select {
+    .form-group input, .form-group textarea {
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(107, 127, 98, 0.4);
       padding: 0.65rem;
@@ -464,9 +434,7 @@
       outline: none;
     }
 
-    .form-group input:focus, .form-group textarea:focus {
-      border-color: var(--accent-sage, #787350);
-    }
+    .form-group input:focus { border-color: var(--accent-sage, #787350); }
 
     .submit-claim-btn {
       margin-top: 0.4rem;
@@ -496,10 +464,7 @@
       pointer-events: none;
     }
 
-    .pagedoll-bubble, 
-    .pagedoll-art {
-      pointer-events: auto;
-    }
+    .pagedoll-bubble, .pagedoll-art { pointer-events: auto; }
 
     .pagedoll-bubble {
       background-color: var(--card-mocha, #3D342F);
@@ -536,9 +501,7 @@
       animation: floatDoll 4s ease-in-out infinite;
     }
 
-    .pagedoll-art:hover {
-      transform: scale(1.08) rotate(3deg);
-    }
+    .pagedoll-art:hover { transform: scale(1.08) rotate(3deg); }
 
     .pagedoll-art img {
       width: 70%;
@@ -547,8 +510,16 @@
       filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
     }
 
-    .pagedoll-text {
-      transition: opacity 0.2s ease;
+    .pagedoll-text { transition: opacity 0.2s ease; }
+
+    .created-date-tag {
+      font-size: 0.75rem;
+      color: var(--text-soft, #ded4cc);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.2rem;
+      opacity: 0.85;
     }
 
     @keyframes floatDoll {
@@ -561,68 +532,19 @@
       50% { transform: translateY(-4px); }
     }
 
-    /* ENHANCED MOBILE RESPONSIVENESS (< 600px) */
     @media (max-width: 600px) {
-      .adopts-page-container {
-        padding: 1.5rem 0.8rem 4rem;
-      }
-
-      /* Filter tweaks */
-      .filter-wrapper {
-        gap: 0.6rem;
-      }
-
-      .filter-btn {
-        padding: 0.35rem 0.75rem;
-        font-size: 0.8rem;
-      }
-
-      /* Single column Grid */
-      .adopts-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-
-      /* TOS section responsiveness */
-      .tos-container {
-        padding: 1.2rem;
-        margin-top: 2rem;
-      }
-
-      .tos-title {
-        font-size: 1.2rem;
-      }
-
-      .tos-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      /* Modal fixes */
-      .claim-modal {
-        padding: 1.2rem;
-        max-width: 95%;
-      }
-
-      .modal-title {
-        font-size: 1.15rem;
-      }
-
-      /* Compact Pagedoll to prevent covering content */
-      .pagedoll-container {
-        bottom: 10px;
-        right: 10px;
-      }
-
-      .pagedoll-art {
-        width: 65px;
-      }
-
-      .pagedoll-bubble {
-        max-width: 150px;
-        font-size: 0.75rem;
-        padding: 0.4rem 0.6rem;
-      }
+      .adopts-page-container { padding: 1.5rem 0.8rem 4rem; }
+      .filter-wrapper { gap: 0.6rem; }
+      .filter-btn { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+      .adopts-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .tos-container { padding: 1.2rem; margin-top: 2rem; }
+      .tos-title { font-size: 1.2rem; }
+      .tos-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .claim-modal { padding: 1.2rem; max-width: 95%; }
+      .modal-title { font-size: 1.15rem; }
+      .pagedoll-container { bottom: 10px; right: 10px; }
+      .pagedoll-art { width: 65px; }
+      .pagedoll-bubble { max-width: 150px; font-size: 0.75rem; padding: 0.4rem 0.6rem; }
     }
   </style>
 </head>
@@ -686,7 +608,6 @@
 
   <!-- FILTER CONTROLS -->
   <div class="filter-wrapper">
-    <!-- STATUS FILTERS -->
     <div class="adopt-filter-nav">
       <span class="filter-label">Status:</span>
       <button class="filter-btn active" data-filter-type="status" data-filter="all">All</button>
@@ -695,7 +616,6 @@
       <button class="filter-btn" data-filter-type="status" data-filter="adopted">Adopted</button>
     </div>
 
-    <!-- FORMAT FILTERS -->
     <div class="adopt-filter-nav">
       <span class="filter-label">Type:</span>
       <button class="filter-btn active" data-filter-type="format" data-filter="all">All Types</button>
@@ -705,35 +625,19 @@
     </div>
   </div>
 
-  <!-- ADOPTS GRID -->
-  <div class="adopts-grid">
+  <!-- ACTIVE ADOPTS GRID -->
+  <div class="adopts-grid" id="active-grid"></div>
 
-    <!-- ADOPT 1: OTA (OPEN) -->
-    <div class="adopt-card" id="card-ota-Scoopi" data-status="open" data-format="ota">
-      <div class="badge-container">
-        <span class="adopt-badge badge-open">Open</span>
-        <span class="adopt-badge type-badge">OTA</span>
-      </div>
-      <div class="adopt-img-wrapper" onclick="openLightbox(this.querySelector('img'))">
-        <img src="https://file.garden/Zi882vZK7yH8-ClP/Adopts/Adoptable_Watermark.png" alt="Scoopi Adoptable Image Preview">
-      </div>
-      <div class="adopt-info">
-        <h3 class="adopt-title">Scoopi</h3>
-        <span style="font-size: 0.75rem; color: var(--text-soft, #ded4cc); font-style: italic; display: block; margin-bottom: 0.5rem;">
-        ✦ Name is aesthetic/placeholder — free to rename upon adoption
-        </span>
-        <div class="adopt-price-details">
-          <div class="price-main">Offer To Adopt</div>
-          <div class="price-sub">Accepting: USD > Art > Trades</div>
-        </div>
-        <p class="adopt-desc">Looking for USD offers mainly but open to custom art or character swaps!</p>
-        <div class="card-actions">
-          <button class="claim-btn" onclick="openClaimModal('Scoopi', 'ota', 'Offer To Adopt', 'card-ota-Scoopi')">✦ Make Offer / View</button>
-          <a href="https://toyhou.se/39366894.ota" target="_blank" class="th-profile-btn" title="View Toyhouse"><i class="fa-solid fa-house"></i></a>
-        </div>
-      </div>
-    </div>
-
+  <!-- ADOPTED HALL OF FAME / MEMORY LOG -->
+  <div class="archive-section" style="margin-top: 3rem; text-align: center;">
+    <h2 class="section-title">✦ Adopted Hall of Fame ✦</h2>
+    <p class="section-subtitle">Designs that have found their original home!</p>
+    
+    <button id="toggle-hof-btn" class="filter-btn" style="margin: 0 auto 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;" onclick="toggleHallOfFame()">
+      <i class="fa-solid fa-eye" id="hof-icon"></i> <span id="hof-btn-text">View Hall of Fame</span>
+    </button>
+    
+    <div class="adopts-grid" id="archived-grid" style="display: none;"></div>
   </div>
 
   <!-- DESIGN TOS SECTION -->
@@ -812,11 +716,9 @@
       <button class="tab-btn" onclick="switchModalTab('offers')">View Current Offers</button>
     </div>
 
-    <!-- TAB 1: OFFERS LIST (FOR OTA) -->
+    <!-- TAB 1: OFFERS LIST -->
     <div class="tab-content" id="tabOffers">
-      <div class="offers-list" id="offersContainer">
-        <!-- Public offers rendered dynamically from PublicData tab -->
-      </div>
+      <div class="offers-list" id="offersContainer"></div>
     </div>
 
     <!-- TAB 2: FORM SUBMISSION -->
@@ -835,7 +737,6 @@
           <input type="email" id="paypalEmail" name="paypal_email" placeholder="e.g. yourname@email.com" required>
         </div>
 
-        <!-- DYNAMIC INPUT BASED ON TYPE -->
         <div class="form-group" id="dynamicInputGroup">
           <label id="dynamicLabel" for="dynamicInput">Claim Amount / Offer *</label>
           <input type="text" id="dynamicInput" name="offer_or_bid_details" placeholder="e.g. $20 USD or Art offer" required>
@@ -872,7 +773,7 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // --- LIGHTBOX IMAGE POPUP SYSTEM ---
+  // LIGHTBOX IMAGE POPUP
   function openLightbox(imgElement) {
     if (!imgElement) return;
     const lightbox = document.getElementById("lightbox");
@@ -888,14 +789,27 @@
     document.body.style.overflow = "";
   }
 
-  // --- MULTI-FILTER LOGIC ---
+  // MULTI-FILTER LOGIC
   let activeStatus = 'all';
   let activeFormat = 'all';
 
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const adoptCards = document.querySelectorAll('.adopt-card');
+  function applyFilters() {
+    document.querySelectorAll('.adopt-card').forEach(card => {
+      const cardStatus = card.getAttribute('data-status');
+      const cardFormat = card.getAttribute('data-format');
 
-  filterBtns.forEach(btn => {
+      const matchStatus = (activeStatus === 'all' || cardStatus === activeStatus);
+      const matchFormat = (activeFormat === 'all' || cardFormat === activeFormat);
+
+      if (matchStatus && matchFormat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const type = btn.getAttribute('data-filter-type');
       const val = btn.getAttribute('data-filter');
@@ -906,108 +820,116 @@
       if (type === 'status') activeStatus = val;
       if (type === 'format') activeFormat = val;
 
-      adoptCards.forEach(card => {
-        const cardStatus = card.getAttribute('data-status');
-        const cardFormat = card.getAttribute('data-format');
-
-        const matchStatus = (activeStatus === 'all' || cardStatus === activeStatus);
-        const matchFormat = (activeFormat === 'all' || cardFormat === activeFormat);
-
-        if (matchStatus && matchFormat) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+      applyFilters();
     });
   });
 
-  // --- FETCH LIVE DATA FROM GOOGLE SHEET ON PAGE LOAD ---
+  // DYNAMIC FETCH & CARD BUILD
   window.addEventListener('DOMContentLoaded', () => {
-    if (!SCRIPT_URL) return;
+    if (!SCRIPT_URL || SCRIPT_URL === "YOUR_SCRIPT_URL_HERE") return;
 
     fetch(SCRIPT_URL)
       .then(res => res.json())
       .then(data => {
+        const activeGrid = document.getElementById('active-grid');
+        const archiveGrid = document.getElementById('archived-grid');
+
+        activeGrid.innerHTML = '';
+        archiveGrid.innerHTML = '';
+
         data.forEach(item => {
-          const card = document.getElementById(item.cardId);
-          if (!card) return;
+          // ARCHIVED CARDS
+          if (item.status === 'adopted' || item.status === 'closed') {
+            const archiveCardHTML = `
+              <div class="adopt-card archive-card" id="${item.cardId}" data-status="adopted" data-format="${item.format || 'flat'}">
+                <div class="badge-container">
+                  <span class="adopt-badge badge-closed">Adopted</span>
+                  <span class="adopt-badge type-badge">${(item.format || 'Adopt').toUpperCase()}</span>
+                </div>
+                
+                <div class="adopt-img-wrapper" onclick="openLightbox(this.querySelector('img'))">
+                  <img src="${item.image}" alt="${item.designName}">
+                </div>
 
-          // Update Status & Badges
-          if (item.status) {
-            card.setAttribute('data-status', item.status);
-            const statusBadge = card.querySelector('.badge-container .adopt-badge:first-child');
-            const claimBtn = card.querySelector('.claim-btn');
+                <div class="adopt-info">
+                  <h3 class="adopt-title">${item.designName}</h3>
+                  
+                  <span class="created-date-tag">
+                    <i class="fa-regular fa-calendar"></i> Born: ${item.createdDate || 'N/A'}
+                  </span>
+                  <span class="created-date-tag" style="margin-bottom: 0.6rem;">
+                    <i class="fa-solid fa-heart"></i> Adopted: ${item.adoptDate || 'N/A'}
+                  </span>
 
-            if (item.status === 'open') {
-              statusBadge.className = 'adopt-badge badge-open';
-              statusBadge.textContent = 'Open';
-              claimBtn.className = 'claim-btn';
-              claimBtn.disabled = false;
-              claimBtn.textContent = (card.getAttribute('data-format') === 'ota') ? '✦ Make Offer / View' : '✦ Claim Design';
-            } else if (item.status === 'pending') {
-              statusBadge.className = 'adopt-badge badge-pending';
-              statusBadge.textContent = 'Pending';
-              claimBtn.className = 'claim-btn pending-btn';
-              claimBtn.disabled = false;
-              claimBtn.textContent = '✦ Request Back-up Claim';
-            } else if (item.status === 'adopted' || item.status === 'closed') {
-              statusBadge.className = 'adopt-badge badge-closed';
-              statusBadge.textContent = 'Adopted';
-              claimBtn.className = 'claim-btn disabled';
-              claimBtn.disabled = true;
-              claimBtn.textContent = 'Sold Out';
-            }
-          }
+                  <p class="adopt-desc" style="margin-bottom: 0.8rem;">
+                    ✦ <strong>First Owner:</strong> 
+                    <span style="color: var(--accent-sage-hover, #8da982);">@${item.firstOwner || 'Anonymous'}</span>
+                  </p>
 
-          // Update Current Bid / Price
-          if (item.currentBid && item.currentBid !== 'N/A') {
-            const priceMain = card.querySelector('.price-main');
-            if (priceMain) priceMain.innerHTML = item.currentBid;
-          }
+                  <div class="card-actions">
+                    <a href="${item.thLink || '#'}" target="_blank" class="claim-btn" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:0.4rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(107, 127, 98, 0.4); color: var(--text-cream, #FAF8F5);">
+                      <i class="fa-solid fa-house"></i> View Toyhouse ✦
+                    </a>
+                  </div>
+                </div>
+              </div>
+            `;
+            if (archiveGrid) archiveGrid.insertAdjacentHTML('beforeend', archiveCardHTML);
 
-          // Store Offers for Modal Display
-          if (item.topOffers) {
-            card.dataset.offers = item.topOffers;
-          }
+          // ACTIVE CARDS
+          } else {
+            const isAuction = item.format === 'auction';
+            const activeCardHTML = `
+              <div class="adopt-card" id="${item.cardId}" 
+                   data-status="${item.status}" 
+                   data-format="${item.format}" 
+                   data-offers="${item.topOffers || ''}">
+                <div class="badge-container">
+                  <span class="adopt-badge ${item.status === 'open' ? 'badge-open' : 'badge-pending'}">${item.status.toUpperCase()}</span>
+                  <span class="adopt-badge type-badge">${item.format.toUpperCase()}</span>
+                </div>
+                
+                <div class="adopt-img-wrapper" onclick="openLightbox(this.querySelector('img'))">
+                  <img src="${item.image}" alt="${item.designName}">
+                </div>
 
-          // Update Auction End Time Timestamp
-          if (item.auctionEndTime) {
-            card.setAttribute('data-end-time', item.auctionEndTime);
+                <div class="adopt-info">
+                  <h3 class="adopt-title">${item.designName}</h3>
+
+                  <span class="created-date-tag">
+                    <i class="fa-regular fa-calendar"></i> Created: ${item.createdDate || 'N/A'}
+                  </span>
+                  
+                  <span style="font-size: 0.75rem; color: var(--text-soft, #ded4cc); font-style: italic; display: block; margin-bottom: 0.5rem; margin-top:0.2rem;">
+                    ✦ Name is aesthetic/placeholder — free to rename upon adoption
+                  </span>
+
+                  <div class="adopt-price-details">
+                    <div class="price-main">${item.currentBid || 'Offer To Adopt'}</div>
+                  </div>
+
+                  <p class="adopt-desc">${item.format === 'ota' ? 'Accepting: USD > Art > Trades' : 'Claim or bid on this design!'}</p>
+
+                  <div class="card-actions">
+                    <button class="claim-btn ${item.status === 'pending' ? 'pending-btn' : ''}" 
+                            onclick="openClaimModal('${item.designName}', '${item.format}', '${item.currentBid}', '${item.cardId}')">
+                      ${item.status === 'pending' ? '✦ Request Back-up Claim' : (isAuction ? '✦ Place Bid' : '✦ Make Offer / View')}
+                    </button>
+                    <a href="${item.thLink || '#'}" target="_blank" class="th-profile-btn" title="View Toyhouse"><i class="fa-solid fa-house"></i></a>
+                  </div>
+                </div>
+              </div>
+            `;
+            if (activeGrid) activeGrid.insertAdjacentHTML('beforeend', activeCardHTML);
           }
         });
 
-        startAuctionTimers();
+        applyFilters();
       })
       .catch(err => console.error("Error fetching live sheet data:", err));
   });
-  
-  // --- AUCTION COUNTDOWN TIMER LOGIC ---
-  function startAuctionTimers() {
-    setInterval(() => {
-      document.querySelectorAll('.adopt-card[data-format="auction"]').forEach(card => {
-        const endTimeStr = card.getAttribute('data-end-time');
-        const timerElem = card.querySelector('.card-timer');
-        if (!endTimeStr || !timerElem) return;
 
-        const endTime = new Date(endTimeStr).getTime();
-        const now = new Date().getTime();
-        const diff = endTime - now;
-
-        if (diff <= 0) {
-          timerElem.textContent = "Auction Ended";
-          timerElem.style.color = "#7a4b4b";
-        } else {
-          const hours = Math.floor(diff / (1000 * 60 * 60));
-          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-          const secs = Math.floor((diff % (1000 * 60)) / 1000);
-          timerElem.textContent = `Ends in: ${hours}h ${mins}m ${secs}s (24h post last-bid rule)`;
-        }
-      });
-    }, 1000);
-  }
-
-  // --- MODAL SYSTEM LOGIC ---
+  // MODAL SYSTEM LOGIC
   const modal = document.getElementById('claimModal');
 
   function openClaimModal(title, format, priceText, cardId) {
@@ -1025,7 +947,6 @@
     const dynamicInput = document.getElementById('dynamicInput');
     const offersContainer = document.getElementById('offersContainer');
 
-    // Display stored public offers in Tab
     const storedOffers = card && card.dataset.offers ? card.dataset.offers.split(';') : [];
     if (storedOffers.length > 0 && storedOffers[0].trim() !== '') {
       offersContainer.innerHTML = storedOffers.map(off => `
@@ -1037,7 +958,6 @@
       offersContainer.innerHTML = `<div class="offer-item"><span class="offer-detail">No offers recorded yet. Be the first!</span></div>`;
     }
 
-    // Configure input fields depending on Claim/Format Type
     if (format === 'flat') {
       modalTabs.style.display = 'none';
       if (status === 'pending') {
@@ -1058,7 +978,7 @@
       modalTabs.style.display = 'none';
       dynamicLabel.textContent = "Your Bid Amount ($ USD)";
       dynamicInput.value = "";
-      dynamicInput.placeholder = "e.g. $27.00 USD (Must meet Min Increment)";
+      dynamicInput.placeholder = "e.g. $27.00 USD";
       dynamicInput.readOnly = false;
     }
 
@@ -1082,11 +1002,9 @@
     }
   }
 
-  function closeClaimModal() {
-    modal.classList.remove('active');
-  }
+  function closeClaimModal() { modal.classList.remove('active'); }
 
-  // --- SUBMIT FORM TO GOOGLE SHEET ---
+  // SUBMIT FORM TO SPREADSHEET
   function handleClaimSubmit(e) {
     e.preventDefault();
     const submitBtn = document.getElementById('submitBtn');
@@ -1096,7 +1014,6 @@
     const form = document.getElementById('claimForm');
     const formData = new FormData(form);
     
-    // Pass the active card's ID directly so Apps Script can match it guaranteed
     const activeCardId = modal.getAttribute('data-active-card-id') || '';
     formData.append('card_id', activeCardId);
 
@@ -1104,9 +1021,7 @@
 
     fetch(SCRIPT_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: searchParams.toString()
     })
     .then(() => {
@@ -1127,7 +1042,7 @@
     });
   }
 
-  // --- LOCAL TIME & SCHEDULE TRACKER ---
+  // LOCAL TIME & SCHEDULE TRACKER
   const SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRk_N3ZRVHdJrXdBMhVJPR812dU0KhY15puw76qjgWlIfc1tjETJzCmARlhPNvry9BW19Cn9GJeIW1G/pub?gid=0&single=true&output=csv';
 
   async function updateLiveActivity() {
@@ -1185,17 +1100,13 @@
     if (!timeElement) return;
 
     const now = new Date();
-    timeElement.textContent = now.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
+    timeElement.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
   }
 
   updateLocalTime();
   setInterval(updateLocalTime, 1000);
 
-  // --- PAGEDOLL DIALOGUE CYCLING ---
+  // PAGEDOLL DIALOGUE CYCLING
   const dialogues = [
     "Looking for a new OC companion? They're waiting.",
     "Read the Design TOS before making an offer.",
@@ -1216,6 +1127,22 @@
       textElem.textContent = dialogues[dialogueIdx];
       textElem.style.opacity = 1;
     }, 200);
+  }
+
+  function toggleHallOfFame() {
+    const archiveGrid = document.getElementById('archived-grid');
+    const btnText = document.getElementById('hof-btn-text');
+    const btnIcon = document.getElementById('hof-icon');
+
+    if (archiveGrid.style.display === 'none') {
+      archiveGrid.style.display = 'grid';
+      btnText.textContent = 'Hide Hall of Fame';
+      btnIcon.className = 'fa-solid fa-eye-slash';
+    } else {
+      archiveGrid.style.display = 'none';
+      btnText.textContent = 'View Hall of Fame';
+      btnIcon.className = 'fa-solid fa-eye';
+    }
   }
 </script>
 
