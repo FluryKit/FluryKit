@@ -847,6 +847,29 @@
   // Start clock instantly and loop
   updateLocalTime();
   setInterval(updateLocalTime, 1000);
+
+  // --- PAGEDOLL DIALOGUE CYCLING ---
+  const dialogues = [
+    "Welcome, friend! Im still getting the shop ready. Please check back soon! ♡",
+    "Take a look around while you're here! I hope you find something you like :D",
+    "Did you know my body screen is waterproof? Sadly, my head isnt so I avoid getting soaked.",
+    "I wonder what kind of art you'll make today...",
+    "Dont forget to stay hydrated!",
+    "Hehe~ Thanks for stopping by! ♡",
+    "Beep... Systems running smoothly! ✦",
+    "Ouch! >_<"
+  ];
+  let dialogueIdx = 0;
+
+  function cycleDialogue() {
+    const textElem = document.getElementById('pagedollText');
+    dialogueIdx = (dialogueIdx + 1) % dialogues.length;
+    textElem.style.opacity = 0;
+    setTimeout(() => {
+      textElem.textContent = dialogues[dialogueIdx];
+      textElem.style.opacity = 1;
+    }, 200);
+  }
 </script>
 
 </body>

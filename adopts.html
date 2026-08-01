@@ -42,6 +42,7 @@
       gap: 0.8rem;
       align-items: center;
       margin-bottom: 2rem;
+      width: 100%;
     }
 
     .adopt-filter-nav {
@@ -50,6 +51,7 @@
       align-items: center;
       gap: 0.5rem;
       flex-wrap: wrap;
+      width: 100%;
     }
 
     .filter-label {
@@ -545,6 +547,10 @@
       filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
     }
 
+    .pagedoll-text {
+      transition: opacity 0.2s ease;
+    }
+
     @keyframes floatDoll {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-7px); }
@@ -555,24 +561,67 @@
       50% { transform: translateY(-4px); }
     }
 
+    /* ENHANCED MOBILE RESPONSIVENESS (< 600px) */
     @media (max-width: 600px) {
+      .adopts-page-container {
+        padding: 1.5rem 0.8rem 4rem;
+      }
+
+      /* Filter tweaks */
+      .filter-wrapper {
+        gap: 0.6rem;
+      }
+
+      .filter-btn {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      /* Single column Grid */
       .adopts-grid {
         grid-template-columns: 1fr;
+        gap: 1.2rem;
       }
+
+      /* TOS section responsiveness */
+      .tos-container {
+        padding: 1.2rem;
+        margin-top: 2rem;
+      }
+
+      .tos-title {
+        font-size: 1.2rem;
+      }
+
+      .tos-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      /* Modal fixes */
       .claim-modal {
-        padding: 1.4rem;
+        padding: 1.2rem;
+        max-width: 95%;
       }
+
+      .modal-title {
+        font-size: 1.15rem;
+      }
+
+      /* Compact Pagedoll to prevent covering content */
       .pagedoll-container {
-        bottom: 12px;
-        right: 12px;
+        bottom: 10px;
+        right: 10px;
       }
+
       .pagedoll-art {
-        width: 75px;
+        width: 65px;
       }
+
       .pagedoll-bubble {
-        max-width: 160px;
-        font-size: 0.78rem;
-        padding: 0.5rem 0.75rem;
+        max-width: 150px;
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
       }
     }
   </style>
@@ -612,7 +661,7 @@
 <!-- FLOATING PAGEDOLL WITH DIALOGUE -->
 <div class="pagedoll-container">
   <div class="pagedoll-bubble" id="pagedollBubble">
-    <span class="pagedoll-text" id="pagedollText">Looking for a new OC companion? Check out the available adoptables</span>
+    <span class="pagedoll-text" id="pagedollText">Looking for a new OC companion? They're waiting.</span>
   </div>
   <div class="pagedoll-art" onclick="cycleDialogue()" title="Click me!">
     <img src="https://f2.toyhou.se/file/f2-toyhou-se/images/84308400_a9WbFi629IiBNPX.gif" alt="Adopts Mascot Pagedoll">
@@ -1148,10 +1197,14 @@
 
   // --- PAGEDOLL DIALOGUE CYCLING ---
   const dialogues = [
-    "Looking for a new OC companion? Check out the available adoptables below! ♡",
-    "Don't forget to double-check the Design TOS down below before making an offer! ✦",
-    "All monetary payments are strictly processed through PayPal Invoice! ♡",
-    "Thank you so much for stopping by and supporting my art! ✨"
+    "Looking for a new OC companion? They're waiting.",
+    "Read the Design TOS before making an offer.",
+    "All monetary payments are handled through PayPal Invoice.",
+    "‎‎‎ . . . . . ‎‎‎",
+    "Kovy spent a long time on these...",
+    "Some designs take longer to find the right home.",
+    "...Take care of them.",
+    "...Thanks for stopping by."
   ];
   let dialogueIdx = 0;
 
