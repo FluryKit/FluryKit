@@ -34,6 +34,7 @@
     .bio-section {
       line-height: 1.8;
       font-size: 1.05rem;
+      overflow: hidden;
     }
 
     .bio-section h2 {
@@ -48,7 +49,7 @@
       margin-bottom: 1.2rem;
     }
 
-    /* LANGUAGE TAGS */
+    /* LANGUAGE CHIPS */
     .lang-chips {
       display: flex;
       flex-wrap: wrap;
@@ -66,14 +67,134 @@
       font-weight: 500;
     }
 
-    .bio-note {
-      font-size: 0.88rem;
-      color: var(--text-muted, #a0958e);
-      margin-top: 0.8rem;
-      font-style: italic;
+    /* FLOATED IMAGE WITH NATURAL TEXT WRAPPING */
+    .bio-image-floated {
+      float: right;
+      width: 260px;
+      margin-left: 2rem;
+      margin-bottom: 1rem;
     }
 
-    /* MASCOT STORYBOOK SPOTLIGHT (NO BOXES) */
+    .bio-image-floated img {
+      width: 100%;
+      height: auto;
+      border: none !important;
+      box-shadow: none !important;
+      display: block;
+    }
+
+    /* FAVORITES MINI GRID & MUSIC PLAYER */
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .fav-item {
+      background: rgba(61, 52, 47, 0.25);
+      border: 1px solid rgba(107, 127, 98, 0.25);
+      padding: 0.75rem 1rem;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      color: var(--text-cream);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .fav-item i {
+      color: var(--accent-sage);
+      font-size: 1.1rem;
+    }
+
+    /* COZY LOFI MUSIC PLAYER CARD */
+    .lofi-player-card {
+      grid-column: 1 / -1;
+      background: rgba(61, 52, 47, 0.4);
+      border: 1px solid rgba(107, 127, 98, 0.35);
+      border-radius: 20px;
+      padding: 0.85rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .lofi-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* SPINNING VINYL ANIMATION */
+    .vinyl-disc {
+      width: 42px;
+      height: 42px;
+      background: #1a1716;
+      border-radius: 50%;
+      border: 2px solid var(--accent-sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .vinyl-disc::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: var(--accent-sage);
+      border-radius: 50%;
+    }
+
+    .vinyl-disc.spinning {
+      animation: spinRecord 3s linear infinite;
+    }
+
+    @keyframes spinRecord {
+      100% { transform: rotate(360deg); }
+    }
+
+    .music-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .music-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-cream);
+    }
+
+    .music-status {
+      font-size: 0.78rem;
+      color: var(--text-muted, #a0958e);
+    }
+
+    .play-btn {
+      background: var(--accent-sage);
+      color: var(--bg-espresso, #2a2421);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.08);
+      background: var(--accent-sage-hover, #8da982);
+    }
+
+    /* MASCOT STORYBOOK SPOTLIGHT */
     .mascot-section-title {
       text-align: center;
       font-family: 'Fredoka', sans-serif;
@@ -89,7 +210,6 @@
       margin-bottom: 3.5rem;
     }
 
-    /* Alternates layout direction for every second row */
     .mascot-row.reverse {
       flex-direction: row-reverse;
     }
@@ -105,8 +225,15 @@
       transition: transform 0.3s ease;
     }
 
+    @keyframes mascotWiggle {
+      0% { transform: scale(1.05) rotate(0deg); }
+      25% { transform: scale(1.05) rotate(-4deg); }
+      75% { transform: scale(1.05) rotate(4deg); }
+      100% { transform: scale(1.05) rotate(0deg); }
+    }
+
     .mascot-avatar:hover {
-      transform: scale(1.05) rotate(2deg);
+      animation: mascotWiggle 0.4s ease-in-out forwards;
     }
 
     .mascot-avatar img {
@@ -124,6 +251,7 @@
       align-items: center;
       gap: 0.8rem;
       margin-bottom: 0.6rem;
+      flex-wrap: wrap;
     }
 
     .mascot-name {
@@ -143,6 +271,20 @@
       font-weight: 500;
     }
 
+    .mascot-sub-badges {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .mini-trait {
+      font-size: 0.75rem;
+      color: var(--text-muted, #a0958e);
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0.15rem 0.6rem;
+      border-radius: 12px;
+    }
+
     .mascot-details p {
       color: var(--text-soft, #ded4cc);
       line-height: 1.7;
@@ -150,7 +292,44 @@
       margin: 0;
     }
 
-    /* COZY SUPPORT CALLOUT */
+    /* BEST FRIEND SECTION */
+    .bestie-section {
+      overflow: hidden;
+      margin: 3.5rem 0;
+    }
+
+    .bestie-section p {
+      text-align: justify;
+      line-height: 1.8;
+    }
+
+    .bestie-image-floated {
+      float: left;
+      width: 180px;
+      margin-right: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .bestie-image-floated img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .bestie-tag {
+      display: inline-block;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text-cream);
+      background: rgba(107, 127, 98, 0.25);
+      border: 1px solid rgba(107, 127, 98, 0.45);
+      padding: 0.35rem 0.95rem;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* COZY SUPPORT ZONE */
     .cozy-support-zone {
       text-align: center;
       padding: 3rem 2rem;
@@ -203,6 +382,13 @@
 
     /* MOBILE RESPONSIVE FIT */
     @media (max-width: 680px) {
+      .bio-image-floated {
+        float: none;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto 1.5rem auto;
+      }
+
       .mascot-row, 
       .mascot-row.reverse {
         flex-direction: column;
@@ -213,82 +399,12 @@
       .mascot-header {
         justify-content: center;
       }
-    }
 
-    /* FLOATED IMAGE WITH NATURAL TEXT WRAPPING */
-    .bio-section {
-    overflow: hidden;
-    }
-
-    .bio-image-floated {
-    float: right;
-    width: 260px;
-    margin-left: 2rem;
-    margin-bottom: 1rem;
-    }
-
-    .bio-image-floated img {
-    width: 100%;
-    height: auto;
-    border: none !important;
-    box-shadow: none !important;
-    display: block;
-    }
-
-    /* Stack neatly on phone screens */
-    @media (max-width: 680px) {
-      .bio-image-floated {
-          float: none;
-          width: 100%;
-          max-width: 200px;
-          margin: 0 auto 1.5rem auto;
-      }
-    }
-
-    /* BEST FRIEND SECTION */
-    .bestie-section {
-    overflow: hidden;
-    margin: 3.5rem 0;
-    }
-
-    .bestie-section p {
-      text-align: justify;
-      line-height: 1.8;
-    }
-
-    .bestie-image-floated {
-        float: left;
-        width: 180px;
-        margin-right: 2rem;
-        margin-bottom: 1rem;
-    }
-
-    .bestie-image-floated img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .bestie-tag {
-      display: inline-block;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.88rem;
-      color: var(--text-cream);
-      background: rgba(107, 127, 98, 0.25);
-      border: 1px solid rgba(107, 127, 98, 0.45);
-      padding: 0.35rem 0.95rem;
-      border-radius: 50px;
-      margin-bottom: 0.8rem;
-      font-weight: 500;
-    }
-
-    /* Mobile adjustments */
-    @media (max-width: 680px) {
       .bestie-image-floated {
-          float: none;
-          width: 100%;
-          max-width: 180px;
-          margin: 0 auto 1.5rem;
+        float: none;
+        width: 100%;
+        max-width: 180px;
+        margin: 0 auto 1.5rem;
       }
 
       .bestie-section {
@@ -363,19 +479,43 @@
     <p>Im always happy and excited to interact with my followers, especially over on Instagram. 
             Thank you for being here and supporting my art journey! ♡</p>
 
-    <!-- LANGUAGE TAGS -->
+    <!-- LANGUAGE CHIPS -->
     <div class="lang-chips">
-    <span class="lang-chip"><i class="fa-solid fa-comment"></i> English</span>
-    <span class="lang-chip"><i class="fa-solid fa-comment"></i> Bahasa Indonesia</span>
-    <span class="lang-chip"><i class="fa-solid fa-comment"></i> Hokkien</span>
-    <span class="lang-chip"><i class="fa-solid fa-seedling"></i> German</span>
+      <span class="lang-chip"><i class="fa-solid fa-comment"></i> English</span>
+      <span class="lang-chip"><i class="fa-solid fa-comment"></i> Bahasa Indonesia</span>
+      <span class="lang-chip"><i class="fa-solid fa-comment"></i> Hokkien</span>
+      <span class="lang-chip"><i class="fa-solid fa-seedling"></i> German</span>
+    </div>
+
+    <!-- FAVORITES GRID & LOFI PLAYER -->
+    <div class="favorites-grid">
+      <div class="fav-item"><i class="fa-solid fa-gamepad"></i> Cozy Games & Minecraft</div>
+      <div class="fav-item"><i class="fa-solid fa-palette"></i> Clip Studio Paint</div>
+      <div class="fav-item"><i class="fa-solid fa-mug-hot"></i> Coffee & Bread Lover</div>
+      <div class="fav-item"><i class="fa-solid fa-crow"></i> Fox & Crow</div>
+
+      <!-- INTERACTIVE LOFI PLAYER CARD -->
+      <div class="lofi-player-card">
+        <div class="lofi-info">
+          <div class="vinyl-disc" id="vinyl-record"></div>
+          <div class="music-text">
+            <span class="music-title">Cozy Art Beats</span>
+            <span class="music-status" id="music-status">Click play for music ♪</span>
+          </div>
+        </div>
+        <button class="play-btn" id="audio-toggle" aria-label="Play cozy lofi music">
+          <i class="fa-solid fa-play" id="play-icon"></i>
+        </button>
+        <!-- AUDIO ELEMENT (Uses royalty-free cozy lofi track) -->
+        <audio id="lofi-audio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"></audio>
+      </div>
     </div>
 
   </section>
 
   <div class="cozy-divider">✦ ✦ ✦</div>
 
-  <!-- MASCOTS SECTION (ALTERNATING MEDIA ROWS) -->
+  <!-- MASCOTS SECTION -->
   <section>
     <h2 class="mascot-section-title">- Meet my Fursona & Mascots -</h2>
 
@@ -388,6 +528,10 @@
         <div class="mascot-header">
           <h3 class="mascot-name">Kovy</h3>
           <span class="mascot-badge">Fursona</span>
+        </div>
+        <div class="mascot-sub-badges">
+          <span class="mini-trait">Gentle Fox</span>
+          <span class="mini-trait">Artist</span>
         </div>
         <p>She’s a soft and slightly silly fox who loves making art. She can be sensitive and a little shy but she’s very friendly and always hopes to make new friends along the way! ✦</p>
       </div>
@@ -403,6 +547,10 @@
           <h3 class="mascot-name">Kit</h3>
           <span class="mascot-badge">Brand Mascot</span>
         </div>
+        <div class="mascot-sub-badges">
+          <span class="mini-trait">Fiery & Warm</span>
+          <span class="mini-trait">Flame Fox</span>
+        </div>
         <p>He’s a fox with little flame elements on his chest and tail. He might look cold or grumpy at first glance but he’s actually really kind and friendly! He’s basically the fiery little face of my brand!</p>
       </div>
     </div>
@@ -416,6 +564,10 @@
         <div class="mascot-header">
           <h3 class="mascot-name">Neo</h3>
           <span class="mascot-badge">Shop Mascot</span>
+        </div>
+        <div class="mascot-sub-badges">
+          <span class="mini-trait">Robo-Cat</span>
+          <span class="mini-trait">Shop Helper</span>
         </div>
         <p>A tiny robot cat with a little green plant growing on their body. Very small, 
             very playful and always full of curious energy to check out new things!!
@@ -456,6 +608,7 @@
   <!-- SUPPORT ZONE -->
   <section class="cozy-support-zone">
     <p>If you enjoy my work and would like to support my college studies further, you can always leave a small tip on my Ko-fi page! Its never required but always deeply appreciated! :D</p>
+
     <a href="https://ko-fi.com/flurykit" target="_blank" class="btn-kofi">
       <i class="fa-solid fa-mug-hot"></i> Leave a Tip on Ko-fi
     </a>
@@ -482,6 +635,42 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  // --- LOFI MUSIC PLAYER INTERACTION ---
+  const audio = document.getElementById('lofi-audio');
+  const toggleBtn = document.getElementById('audio-toggle');
+  const playIcon = document.getElementById('play-icon');
+  const vinyl = document.getElementById('vinyl-record');
+  const statusText = document.getElementById('music-status');
+
+  toggleBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playIcon.className = "fa-solid fa-pause";
+        vinyl.classList.add('spinning');
+        statusText.textContent = "Playing cozy beats...";
+      }).catch(err => {
+        console.log("Autoplay issue or audio blocked:", err);
+      });
+    } else {
+      audio.pause();
+      playIcon.className = "fa-solid fa-play";
+      vinyl.classList.remove('spinning');
+      statusText.textContent = "Click play for music ♪";
+    }
+  });
+
+  // Optional: Auto-start music on first user click anywhere on page (browser policy compliance)
+  document.body.addEventListener('click', function autoPlayOnce() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playIcon.className = "fa-solid fa-pause";
+        vinyl.classList.add('spinning');
+        statusText.textContent = "Playing cozy beats...";
+      }).catch(() => {});
+    }
+    document.body.removeEventListener('click', autoPlayOnce);
+  }, { once: true });
+
   // --- LIVE SCHEDULE TRACKER ---
   const SCHEDULE_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRk_N3ZRVHdJrXdBMhVJPR812dU0KhY15puw76qjgWlIfc1tjETJzCmARlhPNvry9BW19Cn9GJeIW1G/pub?gid=0&single=true&output=csv';
 
@@ -493,7 +682,6 @@
       const response = await fetch(SCHEDULE_CSV_URL);
       const csvData = await response.text();
       
-      // Get current day & total time in minutes for WIB (Asia/Jakarta)
       const now = new Date();
       const jakartaTimeStr = now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" });
       const jakartaDate = new Date(jakartaTimeStr);
@@ -502,20 +690,17 @@
       const currentDay = days[jakartaDate.getDay()];
       const currentMinutes = jakartaDate.getHours() * 60 + jakartaDate.getMinutes();
 
-      // Parse CSV rows
       const rows = csvData.split('\n').map(row => row.split(','));
-      let matchedActivity = "Random activities"; // Default fallback if nothing is scheduled
+      let matchedActivity = "Random activities"; 
 
-      // Loop through rows (skipping column header row 0)
       for (let i = 1; i < rows.length; i++) {
         if (rows[i].length < 4) continue;
         
         const day = rows[i][0].trim();
         const start = rows[i][1].trim();
         const end = rows[i][2].trim();
-        const activity = rows[i][3].trim().replace(/^"|"$/g, ''); // Clean extra quotes
+        const activity = rows[i][3].trim().replace(/^"|"$/g, '');
 
-        // Match current day or "All"
         if (day.toLowerCase() === currentDay.toLowerCase() || day.toLowerCase() === 'all') {
           const [startH, startM] = start.split(':').map(Number);
           const [endH, endM] = end.split(':').map(Number);
@@ -536,13 +721,12 @@
     }
   }
 
-  // Check schedule on load and re-check every 5 seconds
   updateLiveActivity();
   setInterval(updateLiveActivity, 5000);
 
   function updateLocalTime() {
-  const timeElement = document.getElementById('local-time');
-  if (!timeElement) return;
+    const timeElement = document.getElementById('local-time');
+    if (!timeElement) return;
 
     const now = new Date();
     timeElement.textContent = now.toLocaleTimeString([], {
@@ -552,7 +736,6 @@
     });
   }
 
-  // Start clock instantly and loop
   updateLocalTime();
   setInterval(updateLocalTime, 1000);
 </script>

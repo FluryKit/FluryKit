@@ -940,7 +940,6 @@ section {
 .commissions-page .stamp-slot.stamped {
     background: rgba(107, 127, 98, 0.16);
     border-style: solid;
-    border-color: rgba(107, 127, 98, 0.35);
 }
 
 .commissions-page .stamp-slot img {
