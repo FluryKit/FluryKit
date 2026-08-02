@@ -517,6 +517,33 @@
     padding: 20px 15px;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.25);
   }
+
+  /* Base Pill Styling */
+  .status-pill {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .status-pill.open {
+    background-color: rgba(107, 127, 98, 0.25);
+    border: 1px solid var(--accent-sage);
+    color: var(--accent-sage-hover);
+  }
+
+  .status-pill.waitlist {
+    background-color: rgba(204, 182, 147, 0.2);
+    border: 1px solid #CCB693;
+    color: #EADDCE;
+  }
+
+  .status-pill.closed {
+    background-color: rgba(138, 79, 79, 0.25);
+    border: 1px solid rgba(138, 79, 79, 0.5);
+    color: #F8C6B0;
+  }
   </style>
 </head>
 
@@ -569,9 +596,11 @@
 
   <!-- STATUS & TOS LINKS -->
   <div style="text-align: center;">
+
     <div class="status-container">
-      <div class="status-pill closed">✦ Commissions Closed ✦</div>
+      <div id="commission-status-pill" class="status-pill closed">✦ Checking Status... ✦</div>
     </div>
+
     <div class="card" style="padding: 15px; border-radius: 18px; margin-top: 10px;">
        <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 8px;">Please read my Terms of Service before sending a request!</p>
        <button id="openTosBtn" class="button btn-main">View Full TOS</button>
@@ -1940,6 +1969,41 @@
   // Start clock instantly and loop
   updateLocalTime();
   setInterval(updateLocalTime, 1000);
+
+  // Fetch and update status from Column F (Row 2 -> index rows[1][5])
+    async function updateCommissionStatus() {
+      const statusPill = document.getElementById('commission-status-pill');
+      if (!statusPill) return;
+
+      try {
+        const response = await fetch(SCHEDULE_CSV_URL);
+        const csvData = await response.text();
+        
+        // Parse CSV rows
+        const rows = csvData.split('\n').map(row => row.split(','));
+        
+        if (rows.length > 1 && rows[1].length > 5) {
+          // Clean up whitespace and quotes, convert to lowercase
+          const rawStatus = rows[1][5].trim().replace(/^"|"$/g, '').toLowerCase();
+
+          if (rawStatus.includes('open') && !rawStatus.includes('waitlist')) {
+            statusPill.textContent = '✦ Commissions Open ✦';
+            statusPill.className = 'status-pill open';
+          } else if (rawStatus.includes('waitlist')) {
+            statusPill.textContent = '✦ Waitlist Open ✦';
+            statusPill.className = 'status-pill waitlist';
+          } else {
+            statusPill.textContent = '✦ Commissions Closed ✦';
+            statusPill.className = 'status-pill closed';
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching status from sheet:", err);
+      }
+    }
+
+    // Run on load
+    updateCommissionStatus();
 </script>
     <!-- LIGHTBOX MODAL -->
     <div id="imageLightbox" class="lightbox" onclick="closeLightbox()">
