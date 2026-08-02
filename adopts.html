@@ -875,7 +875,7 @@
                 </div>
               </div>
             `;
-            if (archiveGrid) archiveGrid.insertAdjacentHTML('beforeend', archiveCardHTML);
+            if (archiveGrid) archiveGrid.insertAdjacentHTML('afterbegin', archiveCardHTML);
 
           // ACTIVE CARDS
           } else {
@@ -921,7 +921,7 @@
                 </div>
               </div>
             `;
-            if (activeGrid) activeGrid.insertAdjacentHTML('beforeend', activeCardHTML);
+            if (activeGrid) activeGrid.insertAdjacentHTML('afterbegin', activeCardHTML);
           }
         });
 
