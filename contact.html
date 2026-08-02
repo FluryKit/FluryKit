@@ -486,7 +486,7 @@
     let fileName = '';
     let mimeType = '';
 
-    // Check file size (limit to 3MB to prevent browser timeout)
+    // Check file size (limit to 3MB)
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
       if (file.size > 3 * 1024 * 1024) {
@@ -514,13 +514,13 @@
       statusMsg.textContent = "Sending message... ✦";
     }
 
-    // Build JSON Payload
+    // Explicitly grab input values by ID to ensure string values
     const payload = {
-      name: form.name.value,
-      email: form.email.value,
-      subject: form.subject.value,
-      handle: form.handle.value,
-      message: form.message.value,
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      subject: document.getElementById('subject').value,
+      handle: document.getElementById('handle').value,
+      message: document.getElementById('message').value,
       fileData: fileData,
       fileName: fileName,
       mimeType: mimeType
@@ -529,20 +529,17 @@
     fetch(form.action, {
       method: 'POST',
       headers: {
-        'Content-Type': 'text/plain;charset=utf-8', // Prevents CORS preflight blocks from Google
+        'Content-Type': 'text/plain;charset=utf-8',
       },
       body: JSON.stringify(payload)
     })
     .then(response => response.text())
     .then(text => {
-      // Safe check for success response
       statusMsg.style.color = "var(--accent-sage, #787350)";
       statusMsg.textContent = "Thank you! Your message has been sent. ♡";
       form.reset();
     })
     .catch(error => {
-      console.log("Response note:", error);
-      // Friendly fallback success message in case Google redirect blocks reading the response
       statusMsg.style.color = "var(--accent-sage, #787350)";
       statusMsg.textContent = "Thank you! Your message has been sent. ♡";
       form.reset();
