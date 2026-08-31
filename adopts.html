@@ -598,13 +598,30 @@
 
 <main class="adopts-page-container">
 
-  <!-- PAYMENT NOTICE & RETENTION NOTICE -->
-  <p style="text-align: center; color: var(--accent-sage-hover, #8da982); font-size: 0.9rem; margin-bottom: 0.5rem; font-weight: 500;">
-    <i class="fa-brands fa-paypal"></i> <strong>Payment Info:</strong> All monetary payments are strictly processed via <strong>PayPal Invoice only</strong>!
-  </p>
-  <p style="text-align: center; color: var(--text-soft, #ded4cc); font-size: 0.85rem; margin-bottom: 1.5rem; font-style: italic;">
-    ✦</i> <strong>Note:</strong> Click any image for a full preview. Reload the page if nothing appears!
-  </p>
+  <!-- PAYMENT & VGEN INSTANT CLAIM NOTICE BAR -->
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; text-align: center; margin-bottom: 1.5rem;">
+    
+    <!-- ORIGINAL PAYPAL NOTICE -->
+    <p style="color: var(--accent-sage-hover, #8da982); font-size: 0.9rem; margin: 0; font-weight: 500;">
+      <i class="fa-brands fa-paypal"></i> <strong>Payment Info:</strong> All monetary payments are strictly processed via <strong>PayPal Invoice only</strong>!
+    </p>
+
+    <!-- CENTERED VGEN PILL BADGE -->
+    <div style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: rgba(42, 36, 33, 0.6); border: 1px solid rgba(107, 127, 98, 0.35); border-radius: 20px; padding: 0.35rem 1rem; font-size: 0.8rem; color: var(--text-soft, #ded4cc);">
+      <span style="color: var(--accent-sage-hover, #8da982);"><i class="fa-solid fa-bolt"></i> Instant Claim available on <strong>VGen</strong></span>
+      <span style="opacity: 0.4;">•</span>
+      <span style="font-style: italic; opacity: 0.85;">(~20% platform fee than listed AB)</span>
+      <a href="https://vgen.co/flurykit/shop" target="_blank" style="color: var(--text-cream, #FAF8F5); text-decoration: none; font-weight: 600; font-family: 'Fredoka', sans-serif; margin-left: 0.2rem; transition: color 0.2s;" onmouseover="this.style.color='#8da982'" onmouseout="this.style.color='#FAF8F5'">
+        Shop ↗
+      </a>
+    </div>
+
+    <!-- ORIGINAL PREVIEW NOTE -->
+    <p style="color: var(--text-soft, #ded4cc); font-size: 0.85rem; margin: 0; font-style: italic;">
+      ✦ <strong>Note:</strong> Click any image for a full preview. Reload the page if nothing appears!
+    </p>
+
+  </div>
 
   <!-- FILTER CONTROLS -->
   <div class="filter-wrapper">
@@ -646,56 +663,81 @@
     <div class="tos-grid">
 
       <div class="tos-section">
-        <h4><i class="fa-solid fa-copyright"></i> Credit & Ownership</h4>
+        <h4><i class="fa-solid fa-heart"></i> Ownership & Freedom</h4>
         <ul>
-          <li>Credit is required when using my art whenever possible.</li>
-          <li>Do not claim my designs as your own. Always credit me as the original designer.</li>
-          <li>An active <strong>Toyhouse account is required</strong> for character file transfers.</li>
+          <li>Once adopted, the character is yours! Feel free to make them your own and have fun with them.</li>
+          <li>You may change their <strong>name, gender, personality, story, species details</strong>, and other personal traits.</li>
+          <li>Minor redesigns are welcome, including different hairstyles, slight color changes, new markings, accessories, outfits, and similar changes.</li>
+          <li>Breedables/offspring are allowed and may naturally share similarities with their parent(s).</li>
         </ul>
       </div>
 
       <div class="tos-section">
-        <h4><i class="fa-solid fa-paintbrush"></i> Design Usage & Edits</h4>
+        <h4><i class="fa-solid fa-paintbrush"></i> Redesigns & Usage</h4>
         <ul>
-          <li>Minor edits are fine as long as the original design remains recognizable and credited.</li>
-          <li>Please do not create designs that are identical or heavily inspired by my original work.</li>
-          <li>Breedables/offspring are allowed and may share similarities with parent designs.</li>
-          <li><strong>Character Names:</strong> Concept names provided are aesthetic placeholders, buyers are free to rename them upon adoption.</li>
+          <li>You are welcome to redesign and reinterpret the character as long as the original design remains reasonably recognizable.</li>
+          <li>Major redesigns are okay, but please avoid changing the character so extensively that they become completely unrecognizable from the design you originally adopted.</li>
+          <li>You may create new artwork, references, alternate outfits, versions, and interpretations of your character.</li>
+          <li>Please do not use my original designs or artwork to create an identical or heavily copied design.</li>
         </ul>
       </div>
 
       <div class="tos-section">
-        <h4><i class="fa-solid fa-coins"></i> Value & Reselling</h4>
+        <h4><i class="fa-solid fa-copyright"></i> Credit</h4>
         <ul>
-          <li>You may trade, gift or resell the design.</li>
-          <li>Please do not increase the design's resale value unless additional artwork has been added.</li>
+          <li>You own the character after adoption, while I retain credit as the original artist/designer of the original design.</li>
+          <li>Please credit me as the original designer when displaying or sharing the character's original design or design history.</li>
+          <li>You do not need to credit me for every new artwork or personal interpretation you create of the character.</li>
         </ul>
       </div>
 
       <div class="tos-section">
-        <h4><i class="fa-solid fa-palette"></i> Art & Trade Offer Rules</h4>
+        <h4><i class="fa-solid fa-house"></i> Toyhouse</h4>
         <ul>
-          <li><strong>Art Deadlines:</strong> Art payments have a <strong>2-week deadline</strong> if no progress/WIP updates are given.</li>
-          <li>If you provide regular updates or let me know you're busy, the deadline extends up to <strong>1 month max</strong>. Beyond this, the adopt will re-open or go to a backup claim.</li>
-          <li><strong>Character Trades:</strong> Please only offer characters you are <strong>100% sure</strong> about trading. Linking folders/characters and backing out after selection causes delays and awkward situations.</li>
+          <li>I <strong>highly prefer</strong> buyers to have a Toyhouse account! I love seeing my designs grow and become part of their owners' collections.</li>
+          <li>If you have Toyhouse, please provide your <strong>username</strong> when claiming or purchasing so I can properly transfer the character to you.</li>
+          <li>Some designs may also be uploaded to VGen for automatic claiming. These may have a <strong>slightly higher price</strong> for the convenience of an instant claim.</li>
+          <li>If you purchase a design through VGen and have Toyhouse, you can ask me to transfer the character to your Toyhouse account afterward.</li>
+          <li>If you'd like the character profile from my <strong>Vsona</strong>, just let me know your Vgen username and I'll transfer the character to you!</li>
         </ul>
       </div>
 
       <div class="tos-section">
-        <h4><i class="fa-solid fa-clock"></i> Claims, Invoices & Backing Out Rules</h4>
+        <h4><i class="fa-solid fa-coins"></i> Trading & Reselling</h4>
         <ul>
-          <li>All USD transactions are processed strictly via <strong>PayPal Invoice only</strong>.</li>
-          <li>Invoices must be paid within <strong>24–48 hours</strong> after being sent.</li>
-          <li><strong>Commitment Policy:</strong> Please be sure before claiming, bidding or offering! Any backing away, offer withdrawal or failure to respond will count as a <strong>back-out</strong>.</li>
-          <li>Backing out results in a <strong>a month soft ban</strong>. Accumulating <strong>5 back-outs total</strong> or ghosting will result in a <strong>permanent blacklist</strong>.</li>
+          <li>You may <strong>trade, gift, or resell</strong> the character.</li>
+          <li>You may resell the character for the same amount you originally paid.</li>
+          <li>If additional artwork or value has been added, you may resell the character for a higher price.</li>
+          <li>Please do not artificially increase the character's value without adding additional value to the design.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-clock"></i> Claims, Offers & Payments</h4>
+        <ul>
+          <li>Please make sure you are genuinely interested before claiming, bidding, or making an offer.</li>
+          <li>All USD transactions are processed through <strong>PayPal Invoice</strong>.</li>
+          <li>Invoices should be paid within <strong>24–48 hours</strong> after being sent.</li>
+          <li>If something comes up and you can no longer proceed, please let me know as soon as possible. <strong>Communication is always preferred over disappearing!</strong></li>
+          <li>Repeatedly backing out, ghosting, or withdrawing offers after selection may result in being restricted from future claims or offers.</li>
+        </ul>
+      </div>
+
+      <div class="tos-section">
+        <h4><i class="fa-solid fa-palette"></i> Art & Trade Offers</h4>
+        <ul>
+          <li><strong>Art Payments:</strong> If no progress or WIP updates are provided, art payments have a <strong>2-week deadline</strong>.</li>
+          <li>If you provide regular updates or let me know that you're busy, the deadline can be extended up to <strong>1 month maximum</strong>.</li>
+          <li>If there is no progress or communication beyond this period, the adopt may be re-opened or offered to a backup claim.</li>
+          <li><strong>Character Trades:</strong> Please only offer characters you are genuinely comfortable trading. This helps avoid delays and awkward situations if an offer is selected.</li>
         </ul>
       </div>
 
       <div class="tos-section">
         <h4><i class="fa-solid fa-gavel"></i> Auctions & OTA Offers</h4>
         <ul>
-          <li><strong>Sniper Rule:</strong> Auctions end 24 hours after the last bid placed. Each new bid extends the timer by 24 hours.</li>
-          <li>Offers for OTAs/Auctions are logged publicly so other buyers can view active offers.</li>
+          <li><strong>Sniper Rule:</strong> Auctions end 24 hours after the last bid. Each new bid extends the timer by another 24 hours.</li>
+          <li>Offers for OTAs and auctions may be logged publicly so other interested buyers can view the current offers.</li>
         </ul>
       </div>
 
@@ -729,7 +771,7 @@
         <input type="hidden" name="claim_type" id="formClaimType">
 
         <div class="form-group">
-          <label for="thUser"><i class="fa-solid fa-house"></i> Toyhouse Username *</label>
+          <label for="thUser"><i class="fa-solid fa-house"></i> Toyhouse/Vgen Username or Email *</label>
           <input type="text" id="thUser" name="toyhouse_username" placeholder="e.g. FluryKit" required>
         </div>
 
